@@ -9,7 +9,7 @@ import java.util.Scanner;
 public class QuizApp {
 
     public static void main(String[] args) {
-        Editor.start();
+        MainMenu.start();
     }
 
 
