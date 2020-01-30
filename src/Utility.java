@@ -3,28 +3,28 @@ import java.util.Scanner;
 
 public class Utility {
 //     public static void main(String[] args) {
-//        getIntInput();
+//        getIntInput(1,3);
 //    }
 
-    public static int getIntInput() {
+    public static int getIntInput(int min, int max) {
         int x = 0;
         System.out.print("Waehle einen Menu Punkt: ");
         while (x == 0) {
-            x = checkIntInput();
+            x = checkIntInput(min, max);
         }
         return x;
     }
 
-    private static int checkIntInput() {
+    private static int checkIntInput(int min, int max) {
         Scanner scanner = new Scanner(System.in);
         try {
             int x = scanner.nextInt();
-            if (x <= 0 || x > 9) {
+            if (x < min || x > max) {
                 throw new InputMismatchException();
             }
             return x;
         } catch (InputMismatchException e) {
-            System.out.print("Versuche es erneut: (1-9) ");
+            System.out.print("Versuche es erneut: (" + min + "-" + max + ") ");
             return 0;
         }
     }
