@@ -4,12 +4,16 @@ public class EditorMenu {
 
 
     public static void start() {
-        String caption = "\n\r\tThis is the Editor. Here you can\n\r" +
-                "\n\r\t 1. Create a New Topic" +
+        String caption = "\n\r\t==========================" +
+                "\n\r\t||\t     Editor         ||\n" +
+                "\t==========================";
+
+        String nav = "\n\r\t 1. Create a New Topic" +
                 "\n\r\t 2. Edit Existing Topic" +
                 "\n\r\t 3. Return to Main Menu\n";
 
         System.out.println(caption);
+        System.out.println(nav);
 
         int menuPoint = Utility.getIntInput(1, 3);
 
