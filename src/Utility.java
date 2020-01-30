@@ -3,18 +3,18 @@ import java.util.Scanner;
 
 public class Utility {
     public static void main(String[] args) {
-        getInput();
+        getIntInput();
     }
-    public static int getInput() {
+    public static int getIntInput() {
         int x = 0;
         System.out.print("Waehle einen Menu Punkt: ");
         while (x == 0) {
-            x = handleInputMismatchException();
+            x = checkIntInput();
         }
         return x;
     }
 
-    public static int handleInputMismatchException() {
+    private static int checkIntInput() {
         Scanner scanner = new Scanner(System.in);
         try {
             int x = scanner.nextInt();
