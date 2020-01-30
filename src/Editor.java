@@ -1,20 +1,17 @@
 import com.google.gson.Gson;
 
 import java.util.ArrayList;
-import java.util.Scanner;
 
 public class Editor {
 
     public static void start() {
-        String caption = "This is the Editor. Here you can" +
+        String caption = "\n\r\tThis is the Editor. Here you can" +
                 "\n\r\t 1. Create New Topic" +
-                "\n\r\t 2. Edit Existing Topic";
+                "\n\r\t 2. Edit Existing Topic\n";
 
         System.out.println(caption);
 
-        Scanner sc = new Scanner(System.in);
-        System.out.println("Navigate to?  ");
-        int menuPoint = sc.nextInt();
+        int menuPoint = Utility.getIntInput();
 
         switch (menuPoint) {
             case 1:
@@ -24,8 +21,6 @@ public class Editor {
                 editTopic();
                 break;
         }
-
-        //n = Utiliy.getMenuInput();
     }
 
     private static void createTopic()
@@ -53,6 +48,8 @@ public class Editor {
             System.out.println(i + ". " + t);
             i++;
         }
+
+
     }
 
 }
