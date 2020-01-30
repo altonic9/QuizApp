@@ -3,10 +3,8 @@ import com.google.gson.Gson;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.util.ArrayList;
-import java.util.Scanner;
 
 public class Topic {
 
@@ -55,17 +53,17 @@ public class Topic {
 
     public void saveToFile()
     {
-        //create JSON-String of a topic Instance
+        //create JSON-String of a Topic Instance
 
         String jsonString = gson.toJson(this);
 
         //write jsonString to File
-        // filename = topic's name
+        // filename = topic's name.top
         try {
             FileWriter myWriter = new FileWriter("Resources/" + this.name + ".top");
             myWriter.write(jsonString);
             myWriter.close();
-            System.out.println("Successfully wrote to the file.");
+            System.out.println("Successfully wrote to file.");
         } catch (IOException e) {
             System.out.println("An error occurred.");
             e.printStackTrace();
