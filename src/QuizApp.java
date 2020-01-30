@@ -6,7 +6,7 @@ import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-public class LernApp {
+public class QuizApp {
 
     public static void main(String[] args) {
 
