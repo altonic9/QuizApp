@@ -2,9 +2,10 @@ import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class Utility {
-    public static void main(String[] args) {
-        getIntInput();
-    }
+//     public static void main(String[] args) {
+//        getIntInput();
+//    }
+
     public static int getIntInput() {
         int x = 0;
         System.out.print("Waehle einen Menu Punkt: ");
