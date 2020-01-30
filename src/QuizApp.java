@@ -4,10 +4,5 @@ public class QuizApp {
         MainMenu.start();
     }
 
-
-
-    
-//    // from JSON to object
-//    yourObject o = gson.fromJson(JSONString,yourObject.class);
 }
 

@@ -18,7 +18,7 @@ public class EditorMenu {
                 createTopic();
                 break;
             case 2:
-                //editTopic();
+                editTopic();
                 break;
             case 3:
                 MainMenu.start();
@@ -28,8 +28,9 @@ public class EditorMenu {
 
     public static void createTopic() {
         String s1 = "Please insert Topic's name: ";
-        String s2 = "Would you like to add a Question?: \n\r\t 1. Yes \t 2. No\n\r";
-        String s3 = "Would you like to add another Question?: \n\r\t 1. Yes \t 2. No\n\r";
+        String s2 = "Would you like to add a Question? \n\r\t 1. Yes \t 2. No\n\r";
+        String s3 = "Would you like to add another Question? \n\r\t 1. Yes \t 2. No\n\r";
+        String s4 = "Would you like to save the created topic? \n\r\t 1. Yes \t 2. No\n\r";
 
         System.out.println(s1);
         String name = Utility.getStringInput();
@@ -39,12 +40,20 @@ public class EditorMenu {
         System.out.println(s2);
         int y = Utility.getIntInput(1, 2);
 
+        //create Questions
         while(y == 1) {
             Question q = createQuestion();
             t.addQuestion(q);
             System.out.println(s3);
             y = Utility.getIntInput(1, 2);
         }
+
+        //save topic to file
+        System.out.println(s4);
+        y = Utility.getIntInput(1, 2);
+        if (y==1)
+            t.saveToFile();
+
         start();
 
     }
@@ -81,4 +90,16 @@ public class EditorMenu {
         Question q = new Question(text, type, answers, crrAnswer);
         return q;
     }
+
+    public static void editTopic() {
+        System.out.println("\nChoose topic to edit:\n");
+        ArrayList<String> topics =  Topic.getAvailabeTopics();
+
+        int i = 1;
+        for (String t : topics) {
+            System.out.println(i + ". " + t);
+            i++;
+        }
+    }
+
 }
