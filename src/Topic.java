@@ -1,3 +1,5 @@
+import com.google.gson.Gson;
+
 import java.io.File;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
@@ -6,8 +8,8 @@ import java.util.Scanner;
 
 public class Topic {
 
-    public String name;
-    public ArrayList<Question> questions = new ArrayList<Question>();
+    private String name;
+    private ArrayList<Question> questions = new ArrayList<Question>();
 
     public Topic(String name) {
         this.name = name;
@@ -45,5 +47,13 @@ public class Topic {
             e.printStackTrace();
             return "";
         }
+    }
+
+    public void saveToFile()
+    {
+        Gson gson = new Gson();
+        String j = gson.toJson(this);
+        System.out.println();
+        System.out.println(j);
     }
 }

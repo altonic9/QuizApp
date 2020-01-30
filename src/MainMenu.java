@@ -9,7 +9,7 @@ public class MainMenu {
 
         System.out.println(caption);
 
-        int menuPoint = Utility.getIntInput();
+        int menuPoint = Utility.getIntInput(1, 3);
 
         switch (menuPoint) {
             case 1:
@@ -19,7 +19,7 @@ public class MainMenu {
                 //User.load;
                 break;
             case 3:
-                Editor.start();
+                EditorMenu.start();
                 break;
         }
     }
