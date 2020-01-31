@@ -83,13 +83,13 @@ public class EditorMenu {
 
         String[] answers =  new String[4];
         for (int i=0; i<n; i++) {
-            System.out.println(s4);
-            String a = Utility.getStringInputMinMax(1, 30);
+            System.out.println(s6);
+            String a = Utility.getStringInput();
             answers[i] = a;
         }
 
-        System.out.println(s6);
-        int crrAnswer = Utility.getIntInput(1, n);
+        System.out.println(s5);
+        int crrAnswer = Utility.getIntInput(1, n) - 1;
 
         Question q = new Question(text, type, answers, crrAnswer);
         return q;

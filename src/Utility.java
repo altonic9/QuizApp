@@ -32,6 +32,7 @@ public class Utility {
     }
 
     public static String getStringInputMinMax(int min, int max) {
+        //funktioniert nicht!!
         while (true) {
             String text = scanner.nextLine();
             if (text.length() > min && text.length() < max) {
