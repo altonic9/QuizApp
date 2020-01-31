@@ -1,49 +1,72 @@
+import com.google.gson.Gson;
+
 import java.io.File;
+import java.io.FileWriter;
 import java.io.IOException;
-import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
 import java.util.ArrayList;
-import java.util.Scanner;
 
 public class Topic {
 
-    public String name;
-    public ArrayList<Question> questions = new ArrayList<Question>();
+    private String name;
+    private ArrayList<Question> questions = new ArrayList<Question>();
 
-    public Topic(String name) {
-        this.name = name;
-    }
+    private static Gson gson = new Gson();
+
+
+    public Topic(String name) { this.name = name; }
 
     public void addQuestion(Question q) {
+
         questions.add(q);
     }
 
     public static ArrayList<String> getAvailabeTopics() {
-        ArrayList<String> topics = readTopicsFromFiles();
-        return topics;
-    }
 
-    private static ArrayList<String> readTopicsFromFiles() {
-        // read first line in every txt-file in resource folder
         ArrayList<String> topics = new ArrayList<String>();
 
-        //get all files in Resources
+        //get all files in Resources-folder and convert to objects
         File res_folder = new File("Resources");
         for (File f : res_folder.listFiles()) {
-            if (f.getName().toLowerCase().endsWith((".txt"))) {
-                topics.add(readTitleFromFile(f));
+            if ( f.getName().toLowerCase().endsWith((".top")) ) {
+                Topic t = loadFromFile(f);
+                topics.add(t.name);
             }
         }
 
         return topics;
     }
 
-    private static String readTitleFromFile(File f) {
-        // read first line in given file
-        try (Scanner sc = new Scanner(f, StandardCharsets.UTF_8.name())) {
-            return sc.nextLine();
+    private static Topic loadFromFile(File f) {
+
+        // read Topic object from json file
+        try {
+            String jsonString = Files.readString(f.toPath());
+            Topic t = gson.fromJson(jsonString, Topic.class);
+            return t;
+
         } catch (IOException e) {
             e.printStackTrace();
-            return "";
+            return null;
+        }
+    }
+
+    public void saveToFile()
+    {
+        //create JSON-String of a Topic Instance
+
+        String jsonString = gson.toJson(this);
+
+        //write jsonString to File
+        // filename = topic's name.top
+        try {
+            FileWriter myWriter = new FileWriter("Resources/" + this.name + ".top");
+            myWriter.write(jsonString);
+            myWriter.close();
+            System.out.println("Successfully wrote to file.");
+        } catch (IOException e) {
+            System.out.println("An error occurred.");
+            e.printStackTrace();
         }
     }
 }

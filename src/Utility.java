@@ -15,6 +15,7 @@ public class Utility {
         while (true) {
             try {
                 int x = scanner.nextInt();
+                scanner.nextLine(); //eat next line, otherwise next input will fail
                 if (x < min || x > max) {
                     throw new InputMismatchException();
                 }
