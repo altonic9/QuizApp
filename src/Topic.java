@@ -19,9 +19,22 @@ public class Topic {
     public void addQuestion(Question q) {
 
         questions.add(q);
+        System.out.println("\n\tQuestion added to " + this.name + "-Topic\n");
     }
 
-    public static ArrayList<String> getAvailabeTopics() {
+    public void deleteQuestion(String questionText) {
+
+        questions.removeIf(q -> q.getText() == questionText);
+        System.out.println("\n\tQuestion removed!\n");
+    }
+
+    public void getAllQuestionTexts(String questionText) {
+
+        questions.removeIf(q -> q.getText() == questionText);
+        System.out.println("\n\tQuestion removed!\n");
+    }
+
+    public static ArrayList<String> getAllTopicNames() {
 
         ArrayList<String> topics = new ArrayList<String>();
 
@@ -37,7 +50,7 @@ public class Topic {
         return topics;
     }
 
-    private static Topic loadFromFile(File f) {
+    public static Topic loadFromFile(File f) {
 
         // read Topic object from json file
         try {
@@ -51,8 +64,7 @@ public class Topic {
         }
     }
 
-    public void saveToFile()
-    {
+    public void saveToFile() {
         //create JSON-String of a Topic Instance
 
         String jsonString = gson.toJson(this);
@@ -67,6 +79,19 @@ public class Topic {
         } catch (IOException e) {
             System.out.println("An error occurred.");
             e.printStackTrace();
+        }
+    }
+
+    public static void deleteTopic(String name) {
+        File file = new File("Resources/" + name + ".top");
+
+        System.out.println("\n\tDo you really want to delete " + name + "-Topic? \n" +
+                "\n\tThis can't be undone! \n\t 1. Yes \t 2. No\n");
+
+        int input = Utility.getIntInput(1, 2);
+        if (input==1) {
+            file.delete();
+            System.out.println("\n\t" + name + "-Topic deleted!\n");
         }
     }
 }

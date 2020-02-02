@@ -27,4 +27,9 @@ public class Question {
     public void setType(String type) { this.type = type; }
     public void setAnswers(String[] answers) { this.answers = answers; }
     public void setCrrAnswer(int crrAnswer) { this.crrAnswer = crrAnswer; }
+
+    public String getText() {return this.text;}
+    public String getType() {return this.type;}
+    public String[] getAnswers() {return this.answers;}
+    public int getCrrAnswer() {return this.crrAnswer;}
 }
