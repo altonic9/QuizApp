@@ -1,65 +1,82 @@
+import com.google.gson.Gson;
+
 import java.io.File;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
 import java.util.ArrayList;
 import java.util.Scanner;
 
 public class User {
 
-    public ArrayList<String> userNames = new ArrayList<>();
+    private static Gson gson = new Gson();
+    private String name;
 
     public static void main(String[] args) {
 
     }
 
-    public User(String userName){
-        this.userNames.add(userName);
+    public User(String name) { this.name = name;}
+
+
+    public void insertUser(){
+        //create JSON-String of a Topic Instance
+
+        String jsonString = gson.toJson(this);
+
+        //write jsonString to File
+        // filename = topic's name.top
+        try {
+            FileWriter myWriter = new FileWriter("Resources/user/" + this.name + ".user");
+            myWriter.write(jsonString);
+            myWriter.close();
+            System.out.println("Successfully wrote to file.");
+        } catch (IOException e) {
+            System.out.println("An error occurred.");
+            e.printStackTrace();
+        }
     }
 
-    public static ArrayList<String> getUsers(){
-        ArrayList<String> users = readUser();
-        return users;
-    }
-
-    public static void insertUser(){
-
-    }
-
-    public static ArrayList<String> readUser(){
-        ArrayList<String> users = new ArrayList<String>();
-
-        File res_folder = new File("User");
-        for (File f : res_folder.listFiles()) {
-            if (f.getName().toLowerCase().endsWith((".txt"))) {
-                users.add(readUserFromFile(f));
+    public static ArrayList<User> getAllUser(){
+        ArrayList<User> users = new ArrayList<User>();
+        File res_folder = new File("Resources/user/");
+        if (res_folder.listFiles() != null){
+            for (File f : res_folder.listFiles()) {
+                if (f.getName().toLowerCase().endsWith((".user"))) {
+                    users.add(readUserFromFile(f));
+                }
             }
         }
         return users;
     }
 
-    private static String readUserFromFile(File f) {
-        // read first line in given file
-        try (Scanner sc = new Scanner(f, StandardCharsets.UTF_8.name())) {
-            return sc.nextLine();
+    private static User readUserFromFile(File f) {
+        String jsonstr = "";
+        try {
+            jsonstr = Files.readString(f.toPath());
         } catch (IOException e) {
             e.printStackTrace();
-            return "";
         }
+
+        User a = gson.fromJson(jsonstr, User.class);
+        return a;
     }
 
-    //Kommt ins main
-     /*public static void newUser(){
-        var scanner = new Scanner(System.in);
+    public static ArrayList getAllUserNames(){
+        ArrayList<String> userNames = new ArrayList<String>();
 
-        System.out.println("Username eingeben: ");
-        String userName = scanner.nextLine();
-
-
-        if (User.readUsers.equals(userName)){
-               sout("Name vergeben);
-        }else{
-        User u = new User(userName);
-        User.insertUser();
+        for (int i = 0; i < getAllUser().size(); i++){
+            userNames.add(getAllUser().get(i).name);
         }
-    }*/
+
+        return userNames;
+    }
+
+    public static boolean checkUserName(String userName){
+        if (getAllUserNames().contains(userName)){
+            return false;
+        }else
+            return true;
+    }
 }
