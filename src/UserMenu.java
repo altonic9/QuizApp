@@ -1,3 +1,6 @@
+import java.util.ArrayList;
+import java.util.SplittableRandom;
+
 public class UserMenu {
 
     public static void main(String[] args) {
@@ -5,27 +8,26 @@ public class UserMenu {
     }
 
     public static void start() {
-        String caption = "\n\r\t==========================" +
-                "\n\r\t||\t     Editor         ||\n" +
-                "\t==========================";
+        Utility.printHeader("User selection:");
 
-        String nav = "\n\r\t 1. Create a New User" +
-                "\n\r\t 2. Edit Existing User" +
-                "\n\r\t 3. Return to Main Menu\n";
+        String[] nav = new String[]{"Create a New User",
+                "Load User",
+                "Edit existing User",
+                "Return to Main Menu"};
 
-        System.out.println(caption);
-        System.out.println(nav);
-
-        int menuPoint = Utility.getIntInput(1, 3);
+        int menuPoint = Utility.printNavigation("What would you like to do?", nav);
 
         switch (menuPoint) {
             case 1:
                 createUser();
                 break;
             case 2:
-                //editUser
+                loadUser();
                 break;
             case 3:
+                //editUSer();
+                break;
+            case 4:
                 MainMenu.start();
                 break;
         }
@@ -48,11 +50,11 @@ public class UserMenu {
 
     }
 
-    public static void editUser(){
-        String s1 = "Which of the following User are you?";
+    public static void loadUser(){
+        ArrayList<String> names = User.getAllUserNames();
 
-        for (int i = 0; i < User.getAllUserNames().size(); i++){
-            
+        for (int i = 0; i < names.size(); i++){
+            Utility.printNavigation("Choose your User!", names.toArray(new String[0]));
         }
     }
 }
