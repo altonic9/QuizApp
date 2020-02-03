@@ -5,15 +5,12 @@ public class EditorMenu {
 
 
     public static void start() {
-        String caption = "\n\t==========================" +
-                "\n\t||\t     Editor         ||\n" +
-                "\t==========================";
+
+        Utility.printHeader("Editor");
 
         String nav = "\n\t 1. Create a New Topic" +
                 "\n\t 2. Edit Existing Topic" +
                 "\n\t 3. Return to Main Menu\n";
-
-        System.out.println(caption);
         System.out.println(nav);
 
         int menuPoint = Utility.getIntInput(1, 3);
@@ -143,9 +140,7 @@ public class EditorMenu {
         t.addQuestion(q);
 
         //save topic to file
-        System.out.println("Would you like to save changes? \n\t 1. Yes \t 2. No\n");
-        int y = Utility.getIntInput(1, 2);
-        if (y==1)
+        if (Utility.getConfirmation("Would you like to save changes?"))
             t.saveToFile();
 
         editTopic();
@@ -164,13 +159,11 @@ public class EditorMenu {
         t.deleteQuestion(questions.get(y-1));
 
         //save topic to file
-        System.out.println("Would you like to save changes? \n\t 1. Yes \t 2. No\n");
-        y = Utility.getIntInput(1, 2);
-        if (y==1)
+        if (Utility.getConfirmation("Would you like to save changes?"))
             t.saveToFile();
 
+        //back to edit topic menu
         editTopic();
-
     }
 
     private static void deleteTopic(Topic t) {
