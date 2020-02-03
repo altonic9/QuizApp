@@ -82,7 +82,7 @@ public class EditorMenu {
         System.out.println(s4);
         int  n = Utility.getIntInput(1, 4);
 
-        String[] answers =  new String[4];
+        String[] answers =  new String[n];
         for (int i=0; i<n; i++) {
             System.out.println(s6);
             String a = Utility.getStringInput();
@@ -97,20 +97,20 @@ public class EditorMenu {
     }
 
     public static void editTopic() {
-        ArrayList<String> topicNames =  Topic.getAllTopicNames();
+        ArrayList<Topic> topics =  Topic.getAllTopics();
 
         System.out.println("\nChoose Topic by number: \n");
         int i = 1;
-        for (String t : topicNames) {
-            System.out.println("\t" + i + ". " + t);
+        for (Topic t : topics) {
+            System.out.println("\t" + i + ". " + t.getName());
             i++;
         }
         System.out.println();
 
         int y = Utility.getIntInput(1, i);
-        String chosenTopic = topicNames.get(y-1);
+        Topic chosenTopic = topics.get(y-1);
 
-        System.out.println("\nYou chose: " + chosenTopic);
+        System.out.println("\nYou chose: " + chosenTopic.getName());
         String nav = "\n\t What would you like to do?\n" +
                 "\n\t 1. Add Question" +
                 "\n\t 2. Delete Question" +
@@ -137,11 +137,9 @@ public class EditorMenu {
 
     }
 
-    private static void addQuestionToTopic(String topicName) {
-        Question q = createQuestion();
+    private static void addQuestionToTopic(Topic t) {
 
-        File file = new File("Resources/" + topicName + ".top");
-        Topic t = Topic.loadFromFile(file);
+        Question q = createQuestion();
         t.addQuestion(q);
 
         //save topic to file
@@ -153,15 +151,31 @@ public class EditorMenu {
         editTopic();
     }
 
-    private static void deleteQuestion(String topicName) {
-        File file = new File("Resources/" + topicName + ".top");
-        Topic t = Topic.loadFromFile(file);
-        t.deleteQuestion(text);
+    private static void deleteQuestion(Topic t) {
+
+        ArrayList<Question> questions = t.getAllQuestions();
+        int i = 1;
+        for (Question q : questions) {
+            System.out.println("\t" + i + ". " + q.getText());
+            i++;
+        }
+
+        int y = Utility.getIntInput(1, i);
+        t.deleteQuestion(questions.get(y-1));
+
+        //save topic to file
+        System.out.println("Would you like to save changes? \n\t 1. Yes \t 2. No\n");
+        y = Utility.getIntInput(1, 2);
+        if (y==1)
+            t.saveToFile();
+
+        editTopic();
+
     }
 
-    private static void deleteTopic(String topicName) {
+    private static void deleteTopic(Topic t) {
 
-        Topic.deleteTopic(topicName);
+        Topic.deleteTopic(t);
         start();
     }
 

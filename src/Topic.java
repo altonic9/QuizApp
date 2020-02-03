@@ -16,34 +16,35 @@ public class Topic {
 
     public Topic(String name) { this.name = name; }
 
+    public String getName() { return name; }
+
     public void addQuestion(Question q) {
 
         questions.add(q);
         System.out.println("\n\tQuestion added to " + this.name + "-Topic\n");
     }
 
-    public void deleteQuestion(String questionText) {
+    public void deleteQuestion(Question q) {
 
-        questions.removeIf(q -> q.getText() == questionText);
-        System.out.println("\n\tQuestion removed!\n");
+        questions.remove(q);
+        System.out.println("\n\t" + q.getText() + " removed!\n");
     }
 
-    public void getAllQuestionTexts(String questionText) {
+    public ArrayList<Question> getAllQuestions() {
 
-        questions.removeIf(q -> q.getText() == questionText);
-        System.out.println("\n\tQuestion removed!\n");
+        return this.questions;
     }
 
-    public static ArrayList<String> getAllTopicNames() {
+    public static ArrayList<Topic> getAllTopics() {
 
-        ArrayList<String> topics = new ArrayList<String>();
+        ArrayList<Topic> topics = new ArrayList<Topic>();
 
         //get all files in Resources-folder and convert to objects
         File res_folder = new File("Resources");
         for (File f : res_folder.listFiles()) {
             if ( f.getName().toLowerCase().endsWith((".top")) ) {
                 Topic t = loadFromFile(f);
-                topics.add(t.name);
+                topics.add(t);
             }
         }
 
@@ -82,7 +83,9 @@ public class Topic {
         }
     }
 
-    public static void deleteTopic(String name) {
+    public static void deleteTopic(Topic t) {
+
+        String name = t.getName();
         File file = new File("Resources/" + name + ".top");
 
         System.out.println("\n\tDo you really want to delete " + name + "-Topic? \n" +
