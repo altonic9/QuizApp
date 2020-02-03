@@ -8,7 +8,7 @@ public class MainMenu {
 
         switch (menuPoint) {
             case 1:
-                //User.create();
+                UserMenu.createUser();
                 break;
             case 2:
                 //User.load;
