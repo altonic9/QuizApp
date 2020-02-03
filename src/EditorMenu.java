@@ -8,12 +8,8 @@ public class EditorMenu {
 
         Utility.printHeader("Editor");
 
-        String nav = "\n\t 1. Create a New Topic" +
-                "\n\t 2. Edit Existing Topic" +
-                "\n\t 3. Return to Main Menu\n";
-        System.out.println(nav);
-
-        int menuPoint = Utility.getIntInput(1, 3);
+        String[] nav = {"Create New Topic", "Edit Existing Topic", "Return to Main Menu"};
+        int menuPoint = Utility.printNavigation("This is the Editor. Here you can..", nav);
 
         switch (menuPoint) {
             case 1:
@@ -29,64 +25,48 @@ public class EditorMenu {
     }
 
     public static void createTopic() {
-        String s1 = "Please insert Topic's name: ";
-        String s2 = "Would you like to add a Question? \n\t 1. Yes \t 2. No\n";
-        String s3 = "Would you like to add another Question? \n\t 1. Yes \t 2. No\n";
-        String s4 = "Would you like to save the created topic? \n\t 1. Yes \t 2. No\n";
 
-        System.out.println(s1);
+        System.out.println("Please insert Topic's name: ");
         String name = Utility.getStringInput();
 
         Topic t = new Topic(name);
 
-        System.out.println(s2);
-        int y = Utility.getIntInput(1, 2);
-
         //create Questions
-        while(y == 1) {
+        boolean createQ = Utility.getConfirmation("Would you like to add a Question?");
+        while(createQ) {
             Question q = createQuestion();
             t.addQuestion(q);
-            System.out.println(s3);
-            y = Utility.getIntInput(1, 2);
+            createQ = Utility.getConfirmation("Would you like to add another Question?");
         }
 
         //save topic to file
-        System.out.println(s4);
-        y = Utility.getIntInput(1, 2);
-        if (y==1)
+        if (Utility.getConfirmation("Would you like to save created topic?"))
             t.saveToFile();
 
         start();
-
     }
 
     public static Question createQuestion() {
-        String s2 = "Please insert a Question: ";
-        String s3 = "What Type of answer do you expect?: " +
-                "\n\t 1. Multiple Choice" +
-                "\n\t 2. Text\n";
-        String s4 = "How many answers do you want to offer?: ";
-        String s5 = "Whats the correct answer?" +
-                "\n\t (1,2,.. for Multiple Choice, text otherwise)";
-        String s6 = "Please insert possible answer: ";
 
-        System.out.println(s2);
+        Utility.printHeader("Editor: Topic creation");
+
+        System.out.println("Please insert a Question:");
         String text = Utility.getStringInput();
 
-        System.out.println(s3);
-        String type = Utility.getStringInput();
+        int menuPoint = Utility.printNavigation("What Type of answer do you expect?", new String[] {"Multiple Choice", "Text"});
+        String type = (menuPoint == 1) ? "MC" : "text";
 
-        System.out.println(s4);
+        System.out.println("How many answers do you want to offer?");
         int  n = Utility.getIntInput(1, 4);
 
         String[] answers =  new String[n];
         for (int i=0; i<n; i++) {
-            System.out.println(s6);
+            System.out.println("Please insert possible answer:");
             String a = Utility.getStringInput();
             answers[i] = a;
         }
 
-        System.out.println(s5);
+        System.out.println("Whats the correct answer? \n\t (1, 2, .. for Multiple Choice, text otherwise)");
         int crrAnswer = Utility.getIntInput(1, n) - 1;
 
         Question q = new Question(text, type, answers, crrAnswer);
@@ -94,6 +74,7 @@ public class EditorMenu {
     }
 
     public static void editTopic() {
+
         ArrayList<Topic> topics =  Topic.getAllTopics();
 
         System.out.println("\nChoose Topic by number: \n");
@@ -108,14 +89,10 @@ public class EditorMenu {
         Topic chosenTopic = topics.get(y-1);
 
         System.out.println("\nYou chose: " + chosenTopic.getName());
-        String nav = "\n\t What would you like to do?\n" +
-                "\n\t 1. Add Question" +
-                "\n\t 2. Delete Question" +
-                "\n\t 3. Delete Topic\n" +
-                "\n\t 4. Save Changes";
-        System.out.println(nav);
 
-        int input = Utility.getIntInput(1, 3);
+        String[] nav = {"Add Question", "Delete Question", "Delete Topic"};
+        int input = Utility.printNavigation("What would you like to do?", nav);
+
         switch (input) {
             case 1:
                 addQuestionToTopic(chosenTopic);
@@ -126,10 +103,6 @@ public class EditorMenu {
             case 3:
                 deleteTopic(chosenTopic);
                 break;
-            case 4:
-                //
-                break;
-
         }
 
     }
@@ -148,14 +121,13 @@ public class EditorMenu {
 
     private static void deleteQuestion(Topic t) {
 
+        // create a string array containing all question names
         ArrayList<Question> questions = t.getAllQuestions();
-        int i = 1;
-        for (Question q : questions) {
-            System.out.println("\t" + i + ". " + q.getText());
-            i++;
-        }
+        ArrayList<String> questionNames = new ArrayList<String>();
+        for (Question q : questions) { questionNames.add(q.getText()); }
 
-        int y = Utility.getIntInput(1, i);
+        int y = Utility.printNavigation("Chose Question you want to delete:", questionNames.toArray(new String[0]));
+        //arraylist is ordered Collection so this works:
         t.deleteQuestion(questions.get(y-1));
 
         //save topic to file
