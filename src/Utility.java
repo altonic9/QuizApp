@@ -2,13 +2,14 @@ import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class Utility {
-    private static Scanner scanner = new Scanner(System.in);
 
-//    public static void main(String[] args) {
-//        System.out.println(getStringInput());
-//        System.out.println(getStringInputMinMax(2,5));
-//        getIntInput(1,5);
-//    }
+    private static Scanner scanner = new Scanner(System.in);
+    private static String clearLine = "";
+
+    //initialize static variable
+    static {
+        for (int i=0; i<100; i++){ clearLine += "\n"; }
+    }
 
     public static int getIntInput(int min, int max) {
         System.out.print("Waehle einen Menu Punkt: ");
@@ -83,4 +84,7 @@ public class Utility {
         return getIntInput(1, points.length);
     }
 
+    public static void clearScreen() {
+        System.out.println(clearLine);
+    }
 }

@@ -5,7 +5,7 @@ public class EditorMenu {
 
 
     public static void start() {
-
+        Utility.clearScreen();
         Utility.printHeader("Editor");
 
         String[] nav = {"Create New Topic", "Edit Existing Topic", "Return to Main Menu"};
@@ -25,7 +25,7 @@ public class EditorMenu {
     }
 
     public static void createTopic() {
-
+        Utility.clearScreen();
         System.out.println("Please insert Topic's name: ");
         String name = Utility.getStringInput();
 
@@ -47,6 +47,7 @@ public class EditorMenu {
     }
 
     public static Question createQuestion() {
+        Utility.clearScreen();
 
         Utility.printHeader("Editor: Topic creation");
 
@@ -74,20 +75,17 @@ public class EditorMenu {
     }
 
     public static void editTopic() {
+        Utility.clearScreen();
 
+        // create a string array containing all topic names
         ArrayList<Topic> topics =  Topic.getAllTopics();
+        ArrayList<String> topicNames = new ArrayList<String>();
+        for (Topic t : topics) { topicNames.add(t.getName()); }
 
-        System.out.println("\nChoose Topic by number: \n");
-        int i = 1;
-        for (Topic t : topics) {
-            System.out.println("\t" + i + ". " + t.getName());
-            i++;
-        }
-        System.out.println();
-
-        int y = Utility.getIntInput(1, i);
+        int y = Utility.printNavigation("Choose Topic you want to edit:", topicNames.toArray(new String[0]));
         Topic chosenTopic = topics.get(y-1);
 
+        Utility.clearScreen();
         System.out.println("\nYou chose: " + chosenTopic.getName());
 
         String[] nav = {"Add Question", "Delete Question", "Delete Topic"};
@@ -108,6 +106,7 @@ public class EditorMenu {
     }
 
     private static void addQuestionToTopic(Topic t) {
+        Utility.clearScreen();
 
         Question q = createQuestion();
         t.addQuestion(q);
@@ -120,6 +119,7 @@ public class EditorMenu {
     }
 
     private static void deleteQuestion(Topic t) {
+        Utility.clearScreen();
 
         // create a string array containing all question names
         ArrayList<Question> questions = t.getAllQuestions();
@@ -130,6 +130,9 @@ public class EditorMenu {
         //arraylist is ordered Collection so this works:
         t.deleteQuestion(questions.get(y-1));
 
+        Utility.clearScreen();
+
+        System.out.println("\n\tQuestion removed!\n");
         //save topic to file
         if (Utility.getConfirmation("Would you like to save changes?"))
             t.saveToFile();
@@ -139,8 +142,13 @@ public class EditorMenu {
     }
 
     private static void deleteTopic(Topic t) {
+        Utility.clearScreen();
 
-        Topic.deleteTopic(t);
+        String name = t.getName();
+        if (Utility.getConfirmation("Do you really want to delete \"" + name + "\"-Topic? This can't be undone!")) {
+            t.delete();
+            System.out.println("\n\t\"" + name + "\"-Topic deleted!\n");
+        }
         start();
     }
 

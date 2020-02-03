@@ -28,7 +28,7 @@ public class User {
         //write jsonString to File
         // filename = topic's name.top
         try {
-            FileWriter myWriter = new FileWriter("Resources/user/" + this.name + ".user");
+            FileWriter myWriter = new FileWriter("resources/user/" + this.name + ".user");
             myWriter.write(jsonString);
             myWriter.close();
             System.out.println("Successfully wrote to file.");
@@ -40,7 +40,7 @@ public class User {
 
     public static ArrayList<User> getAllUser(){
         ArrayList<User> users = new ArrayList<User>();
-        File res_folder = new File("Resources/user/");
+        File res_folder = new File("resources/user/");
         if (res_folder.listFiles() != null){
             for (File f : res_folder.listFiles()) {
                 if (f.getName().toLowerCase().endsWith((".user"))) {
