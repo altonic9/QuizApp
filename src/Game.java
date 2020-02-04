@@ -48,7 +48,7 @@ public class Game {
 
             // prints questions and possible answers & gets user input
             int answer = Utility.printNavigation(q.getText(), q.getAnswers());
-            crr = q.isCrrAnswer(answer -1);
+            crr = q.isCrrAnswer(answer);
         }
         else {
             // text question

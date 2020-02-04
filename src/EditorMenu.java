@@ -48,30 +48,38 @@ public class EditorMenu {
 
     public static Question createQuestion() {
         Utility.clearScreen();
-
         Utility.printHeader("Editor: Topic creation");
 
         System.out.println("Please insert a Question:");
         String text = Utility.getStringInput();
 
         int menuPoint = Utility.printNavigation("What Type of answer do you expect?", new String[] {"Multiple Choice", "Text"});
-        String type = (menuPoint == 1) ? "MC" : "text";
+        String type = (menuPoint == 1) ? "mc" : "txt";
 
-        System.out.println("How many answers do you want to offer?");
-        int  n = Utility.getIntInput(1, 4);
+        if ( type.equals("mc")) {
+            System.out.println("How many answers do you want to offer?");
+            int  n = Utility.getIntInput(1, 4);
 
-        String[] answers =  new String[n];
-        for (int i=0; i<n; i++) {
-            System.out.println("Please insert possible answer:");
-            String a = Utility.getStringInput();
-            answers[i] = a;
+            String[] answers =  new String[n];
+            for (int i=0; i<n; i++) {
+                System.out.println("Please insert possible answer:");
+                String a = Utility.getStringInput();
+                answers[i] = a;
+            }
+
+            // get correct answer
+            int crrAnswer = Utility.printNavigation("Whats the correct answer?", answers);
+
+            Question q = new Question(text, type, answers, crrAnswer);
+            return q;
         }
+        else {
+            System.out.println("\nPlease type in correct aswer now:");
+            String answer = Utility.getStringInput();
 
-        System.out.println("Whats the correct answer? \n\t (1, 2, .. for Multiple Choice, text otherwise)");
-        int crrAnswer = Utility.getIntInput(1, n) - 1;
-
-        Question q = new Question(text, type, answers, crrAnswer);
-        return q;
+            Question q = new Question(text, type, answer);
+            return q;
+        }
     }
 
     public static void editTopic() {
@@ -86,7 +94,7 @@ public class EditorMenu {
         Topic chosenTopic = topics.get(y-1);
 
         Utility.clearScreen();
-        System.out.println("\nYou chose: " + chosenTopic.getName());
+        System.out.println("\nYou chose: " + chosenTopic.getName() + "\n");
 
         String[] nav = {"Add Question", "Delete Question", "Delete Topic"};
         int input = Utility.printNavigation("What would you like to do?", nav);

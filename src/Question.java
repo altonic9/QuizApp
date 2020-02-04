@@ -31,6 +31,7 @@ public class Question {
         this.type = type;
         this.text = text;
         this.textCrrAnswer = crrAnswer;
+        this.mcCrrAnswer = -1;
     }
 
     public void setText(String text) { this.text = text; }
