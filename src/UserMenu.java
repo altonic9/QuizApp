@@ -13,6 +13,7 @@ public class UserMenu {
         String[] nav = new String[]{"Create a New User",
                 "Load User",
                 "Edit existing User",
+                "Delete User",
                 "Return to Main Menu"};
 
         int menuPoint = Utility.printNavigation("What would you like to do?", nav);
@@ -28,6 +29,9 @@ public class UserMenu {
                 editUserName();
                 break;
             case 4:
+                deleteUser();
+                break;
+            case 5:
                 MainMenu.start();
                 break;
         }
@@ -45,7 +49,7 @@ public class UserMenu {
             name = Utility.getStringInput();
         }
 
-        User u = new User(name, 0);
+        User u = new User(name);
         u.insertUser();
 
     }
@@ -80,5 +84,13 @@ public class UserMenu {
         }
 
         User.editUserName(nameOld, nameNew);
+    }
+
+    public static void deleteUser(){
+        String s1 = "Whats you Username?";
+        System.out.println(s1);
+        String name = Utility.getStringInput();
+        User.deleteUser(User.getUserObjectWithName(name));
+
     }
 }
