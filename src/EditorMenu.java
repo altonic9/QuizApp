@@ -8,7 +8,7 @@ public class EditorMenu {
         Utility.clearScreen();
         Utility.printHeader("Editor");
 
-        String[] nav = {"Create New Topic", "Edit Existing Topic", "Return to Main Menu"};
+        String[] nav = {"Create New Topic", "Edit Existing Topic", "Edit existing User", "Delete User", "Return to Main Menu"};
         int menuPoint = Utility.printNavigation("This is the Editor. Here you can..", nav);
 
         switch (menuPoint) {
@@ -19,6 +19,12 @@ public class EditorMenu {
                 editTopic();
                 break;
             case 3:
+                editUserName();
+                break;
+            case 4:
+                deleteUser();
+                break;
+            case 5:
                 MainMenu.start();
                 break;
         }
@@ -160,4 +166,36 @@ public class EditorMenu {
         start();
     }
 
+    public static void editUserName(){
+        String s1 = "Whats your old Username?";
+        String s2 = "Whats your new Username?";
+        String s3 = "Name is not available, please insert existing Username.";
+        String s4 = "Name is not available, please insert new Username.";
+
+        System.out.println(s1);
+        String nameOld = Utility.getStringInput();
+
+        while (User.checkUserName(nameOld) == true){
+            System.out.println(s3);
+            nameOld = Utility.getStringInput();
+        }
+
+        System.out.println(s2);
+        String nameNew = Utility.getStringInput();
+
+        while (User.checkUserName(nameNew) == false){
+            System.out.println(s4);
+            nameNew = Utility.getStringInput();
+        }
+
+        User.editUserName(nameOld, nameNew);
+    }
+
+    public static void deleteUser(){
+        String s1 = "Whats you Username?";
+        System.out.println(s1);
+        String name = Utility.getStringInput();
+        User.deleteUser(User.getUserObjectWithName(name));
+
+    }
 }
