@@ -49,7 +49,7 @@ public class UserMenu {
             name = Utility.getStringInput();
         }
 
-        User u = new User(name, 0);
+        User u = new User(name);
         u.insertUser();
 
     }

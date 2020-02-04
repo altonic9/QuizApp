@@ -10,13 +10,12 @@ public class User {
 
     private static Gson gson = new Gson();
     private String name;
-    private int progress;
 
     public static void main(String[] args) {
 
     }
 
-    public User(String name, int progress) { this.name = name; this.progress = progress;}
+    public User(String name) { this.name = name;}
 
 
     public void insertUser(){
@@ -110,7 +109,7 @@ public class User {
 
     public static void editUserName(String oldName, String newName){
         ArrayList<User> allUser = getAllUser();
-        User uEdit = new User("",0);
+        User uEdit = new User("");
         Path source = Paths.get("Resources/user/" + uEdit.name + ".user");
         deleteUser(getUserObjectWithName(oldName));
         uEdit.name = newName;
