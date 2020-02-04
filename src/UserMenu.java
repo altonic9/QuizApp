@@ -25,7 +25,7 @@ public class UserMenu {
                 loadUser();
                 break;
             case 3:
-                //editUSer();
+                editUserName();
                 break;
             case 4:
                 MainMenu.start();
@@ -34,7 +34,7 @@ public class UserMenu {
     }
 
     public static void createUser(){
-        String s1 = "Please insert Username: ";
+        String s1 = "Please insert Username";
         String s2 = "Username exits, please insert new Username!";
 
         System.out.println(s1);
@@ -45,16 +45,40 @@ public class UserMenu {
             name = Utility.getStringInput();
         }
 
-        User u = new User(name);
+        User u = new User(name, 0);
         u.insertUser();
 
     }
 
     public static void loadUser(){
         ArrayList<String> names = User.getAllUserNames();
-
-        for (int i = 0; i < names.size(); i++){
+        
             Utility.printNavigation("Choose your User!", names.toArray(new String[0]));
+
+    }
+
+    public static void editUserName(){
+        String s1 = "Whats your old Username?";
+        String s2 = "Whats your new Username?";
+        String s3 = "Name is not available, please insert existing Username.";
+        String s4 = "Name is not available, please insert new Username.";
+
+        System.out.println(s1);
+        String nameOld = Utility.getStringInput();
+
+        while (User.checkUserName(nameOld) == true){
+            System.out.println(s3);
+            nameOld = Utility.getStringInput();
         }
+
+        System.out.println(s2);
+        String nameNew = Utility.getStringInput();
+
+        while (User.checkUserName(nameNew) == false){
+            System.out.println(s4);
+            nameNew = Utility.getStringInput();
+        }
+
+        User.editUserName(nameOld, nameNew);
     }
 }
