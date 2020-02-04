@@ -119,6 +119,7 @@ public class User {
             try {
                 Files.move(source, source.resolveSibling(newName + ".user"));
             } catch (IOException e) {
+                
                 e.printStackTrace();
             }
         }
