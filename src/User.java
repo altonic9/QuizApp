@@ -3,10 +3,8 @@ import com.google.gson.Gson;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.nio.charset.StandardCharsets;
 import java.nio.file.*;
 import java.util.ArrayList;
-import java.util.Scanner;
 
 public class User {
 
@@ -82,30 +80,39 @@ public class User {
     }
 
     public static void deleteUser(User u) {
-        Path path = Paths.get("Resources/user/" + u.name + ".user");
-        try {
-            Files.delete(path);
-        } catch (NoSuchFileException x) {
-            System.err.format("%s: no such" + " file or directory%n", path);
-        } catch (DirectoryNotEmptyException x) {
-            System.err.format("%s not empty%n", path);
-        } catch (IOException x) {
-            System.err.println(x);
+       try {
+           Path path = Paths.get("Resources/user/" + u.name + ".user");
+           try {
+               Files.delete(path);
+           } catch (NoSuchFileException x) {
+               System.err.format("%s: no such" + " file or directory%n", path);
+           } catch (DirectoryNotEmptyException x) {
+               System.err.format("%s not empty%n", path);
+           } catch (IOException x) {
+               System.err.println(x);
+           }
+       }catch (NullPointerException x){
+           System.out.println("User does not exits!");
+           UserMenu.deleteUser();
+       }
+
+    }
+
+    public static User getUserObjectWithName(String name){
+        ArrayList<User> allUser = getAllUser();
+        for (int i = 0; i < allUser.size(); i++){
+            if (allUser.get(i).name.equals(name)){
+                return allUser.get(i);
+            }
         }
+        return null;
     }
 
     public static void editUserName(String oldName, String newName){
-
         ArrayList<User> allUser = getAllUser();
         User uEdit = new User("",0);
-        for (int i = 0; i < allUser.size(); i++){
-            if (allUser.get(i).name.contains(oldName)){
-                uEdit = allUser.get(i);
-                deleteUser(allUser.get(i));
-            }
-        }
-
         Path source = Paths.get("Resources/user/" + uEdit.name + ".user");
+        deleteUser(getUserObjectWithName(oldName));
         uEdit.name = newName;
         uEdit.insertUser();
 
