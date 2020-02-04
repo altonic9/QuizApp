@@ -92,7 +92,7 @@ public class User {
            }
        }catch (NullPointerException x){
            System.out.println("User does not exits!");
-           UserMenu.deleteUser();
+           EditorMenu.deleteUser();
        }
 
     }
