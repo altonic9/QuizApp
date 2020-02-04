@@ -1,7 +1,3 @@
-import jdk.jshell.execution.Util;
-
-import java.lang.reflect.Array;
-import java.sql.SQLOutput;
 import java.util.ArrayList;
 import java.util.concurrent.TimeUnit;
 
@@ -45,8 +41,7 @@ public class Game {
     public static void ask(Question q) {
         Utility.clearScreen();
         Utility.printHeader(currentTopic.getName());
-
-        // answer := user answer
+        
         Boolean crr;
         if (q.getType().equals("mc")) {
             //multiple choice
