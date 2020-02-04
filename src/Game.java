@@ -1,6 +1,7 @@
 import jdk.jshell.execution.Util;
 
 import java.lang.reflect.Array;
+import java.sql.SQLOutput;
 import java.util.ArrayList;
 import java.util.concurrent.TimeUnit;
 
@@ -42,26 +43,34 @@ public class Game {
     }
 
     public static void ask(Question q) {
-        // answer := user answer
-        int answer = Utility.printNavigation(q.getText(), q.getAnswers());
-
         Utility.clearScreen();
         Utility.printHeader(currentTopic.getName());
 
-        //show if correct
-        if ( answer-1 == q.getCrrAnswer())
+        // answer := user answer
+        Boolean crr;
+        if (q.getType().equals("mc")) {
+            //multiple choice
+
+            // prints questions and possible answers & gets user input
+            int answer = Utility.printNavigation(q.getText(), q.getAnswers());
+            crr = q.isCrrAnswer(answer -1);
+        }
+        else {
+            // text question
+            System.out.println("\t" + q.getText());
+            System.out.println("\nPlease type in your aswer now:");
+            String answer = Utility.getStringInput();
+            crr = q.isCrrAnswer(answer);
+        }
+
+        //show result
+        if ( crr )
             System.out.println(w);
         else
             System.out.println(f);
 
         //wait some seconds
-        try {
-            TimeUnit.SECONDS.sleep(2);
-        }
-        catch(InterruptedException e) {
-
-        }
-
+        try { TimeUnit.SECONDS.sleep(2); } catch(InterruptedException e) {}
     }
 
 
