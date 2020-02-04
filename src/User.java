@@ -80,7 +80,7 @@ public class User {
 
     public static void deleteUser(User u) {
        try {
-           Path path = Paths.get("Resources/user/" + u.name + ".user");
+           Path path = Paths.get("resources/user/" + u.name + ".user");
            try {
                Files.delete(path);
            } catch (NoSuchFileException x) {
@@ -110,7 +110,7 @@ public class User {
     public static void editUserName(String oldName, String newName){
         ArrayList<User> allUser = getAllUser();
         User uEdit = new User("");
-        Path source = Paths.get("Resources/user/" + uEdit.name + ".user");
+        Path source = Paths.get("resources/user/" + uEdit.name + ".user");
         deleteUser(getUserObjectWithName(oldName));
         uEdit.name = newName;
         uEdit.insertUser();
