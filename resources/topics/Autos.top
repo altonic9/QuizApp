@@ -1,0 +1,16 @@
+{"name":"Autos",
+"questions":[
+{"text":"Wann wurde der VW Käfer erstmals gebaut?","type":"mc","answers":["1934","1945","1952"],"crrAnswer":0}, 
+{"text":"Wie lange wurde der VW Käfer gebaut? Bis...","type":"mc","answers":["1972","1988","2003"],"crrAnswer":2},
+{"text":"Wieviel PS hatte der erste Mercedes SL 300?","type":"mc","answers":["150","90","215"],"crrAnswer":2}, 
+{"text":"Wer erfand den Otto-Motor??","type":"mc","answers":["Otto van Ferdinand","Nicolaus August Otto"],"crrAnswer":1},
+{"text":"Der Spitzname des Citroen DS war (übersetzt):","type":"1","answers":["Gott","Held","Göttin"],"crrAnswer":2}, 
+{"text":"Was ist das Firmenlogo von Maserati?","type":"mc","answers":["ein Blitz","ein Stier", "ein Dreizack"],"crrAnswer":2},
+{"text":"Wann wurde die Auto-Fahrerlaubnis eingeführt?","type":"mc","answers":["1914","1888", "1903"],"crrAnswer":1},
+{"text":"Welche Farbe hatte das Autolicht früher in Frankreich?","type":"mc","answers":["Gelb","Weiß", "Ultraviolett"],"crrAnswer":0},
+{"text":"Wieviele Zylinder hat der klassische Boxer-Motor von Porsche heute?","type":"mc","answers":["vier","sechs", "acht"],"crrAnswer":1},
+{"text":"Wo ist die Gläserne Manufaktur von VW?","type":"mc","answers":["Wolfsburg","Leipzig", "Dresden"],"crrAnswer":2},
+{"text":"Wann fand das erste Grand-Prix-Autorennen statt?","type":"mc","answers":["1906","1920", "1920"],"crrAnswer":0},
+{"text":"Ein Kilowatt Leistung entspricht wie vielen PS?","type":"mc","answers":["1.36","0.87", "1.12"],"crrAnswer":0},
+{"text":"Wer hat den Dieselmotor erfunden?","type":"mc","answers":["Dieter Diesel","Richard Diesel", "Rudolf Diesel"],"crrAnswer":2},
+{"text":"Was bedeutet MPU?","type":"mc","answers":["Medizinisch-psychologische Untersuchung","Monatliche polizeiliche Untersuchung", "Moderne Persönlichkeits-Untersuchung"],"crrAnswer":0}]}

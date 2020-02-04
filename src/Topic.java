@@ -27,7 +27,6 @@ public class Topic {
     public void deleteQuestion(Question q) {
 
         questions.remove(q);
-        System.out.println("\n\t" + q.getText() + " removed!\n");
     }
 
     public ArrayList<Question> getAllQuestions() {
@@ -40,7 +39,7 @@ public class Topic {
         ArrayList<Topic> topics = new ArrayList<Topic>();
 
         //get all files in Resources-folder and convert to objects
-        File res_folder = new File("Resources");
+        File res_folder = new File("resources/topics");
         for (File f : res_folder.listFiles()) {
             if ( f.getName().toLowerCase().endsWith((".top")) ) {
                 Topic t = loadFromFile(f);
@@ -73,7 +72,7 @@ public class Topic {
         //write jsonString to File
         // filename = topic's name.top
         try {
-            FileWriter myWriter = new FileWriter("Resources/" + this.name + ".top");
+            FileWriter myWriter = new FileWriter("resources/topics/" + this.name + ".top");
             myWriter.write(jsonString);
             myWriter.close();
             System.out.println("Successfully wrote to file.");
@@ -83,18 +82,10 @@ public class Topic {
         }
     }
 
-    public static void deleteTopic(Topic t) {
+    public void delete() {
 
-        String name = t.getName();
-        File file = new File("Resources/" + name + ".top");
-
-        System.out.println("\n\tDo you really want to delete " + name + "-Topic? \n" +
-                "\n\tThis can't be undone! \n\t 1. Yes \t 2. No\n");
-
-        int input = Utility.getIntInput(1, 2);
-        if (input==1) {
-            file.delete();
-            System.out.println("\n\t" + name + "-Topic deleted!\n");
-        }
+        File file = new File("resources/topics/" + name + ".top");
+        file.delete();
     }
+
 }
