@@ -5,7 +5,7 @@
 {"text":"Wer hat den Dieselmotor erfunden?","type":"txt","textCrrAnswer":"Rudolf Diesel"},
 {"text":"Wieviel PS hatte der erste Mercedes SL 300?","type":"mc","answers":["150","90","215"],"mcCrrAnswer":3},
 {"text":"Wer erfand den Otto-Motor??","type":"mc","answers":["Otto van Ferdinand","Nicolaus August Otto"],"mcCrrAnswer":2},
-{"text":"Der Spitzname des Citroen DS war (übersetzt):","type":"1","answers":["Gott","Held","Göttin"],"mcCrrAnswer":3},
+{"text":"Der Spitzname des Citroen DS war (übersetzt):","type":"mc","answers":["Gott","Held","Göttin"],"mcCrrAnswer":3},
 {"text":"Was ist das Firmenlogo von Maserati?","type":"mc","answers":["ein Blitz","ein Stier", "ein Dreizack"],"mcCrrAnswer":3},
 {"text":"Wann wurde die Auto-Fahrerlaubnis eingeführt?","type":"mc","answers":["1914","1888", "1903"],"mcCrrAnswer":2},
 {"text":"Welche Farbe hatte das Autolicht früher in Frankreich?","type":"mc","answers":["Gelb","Weiß", "Ultraviolett"],"mcCrrAnswer":1},

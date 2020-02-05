@@ -16,7 +16,7 @@ public class Game {
         ArrayList<String> topicNames = new ArrayList<String>();
         for (Topic t : topics) { topicNames.add(t.getName()); }
 
-        int menuPoint = Utility.printNavigation("Chose your topic...", topicNames.toArray(new String[0]));
+        int menuPoint = Utility.printNavigation("Chose your topic...", topicNames.toArray(new String[0]), false);
         currentTopic = topics.get(menuPoint-1);
 
         play();
@@ -47,7 +47,7 @@ public class Game {
             //multiple choice
 
             // prints questions and possible answers & gets user input
-            int answer = Utility.printNavigation(q.getText(), q.getAnswers());
+            int answer = Utility.printNavigation(q.getText(), q.getAnswers(), false);
             crr = q.isCrrAnswer(answer);
         }
         else {

@@ -10,13 +10,23 @@ public class Topic {
 
     private String name;
     private ArrayList<Question> questions = new ArrayList<Question>();
+    private String id;
 
     private static Gson gson = new Gson();
 
 
-    public Topic(String name) { this.name = name; }
+    public Topic(String name) {
+        this.name = name;
+        this.id = Utility.generateUUID();
+    }
 
-    public String getName() { return name; }
+    public String getName() {
+        return this.name;
+    }
+
+    public String getId() {
+        return this.id;
+    }
 
     public void addQuestion(Question q) {
 
