@@ -77,7 +77,7 @@ public class Profile {
 
     public void delete() {
        try {
-           Path path = Paths.get("resources/user/" + this.name + ".p");
+           Path path = Paths.get("resources/profiles/" + this.name + ".p");
            try {
                Files.delete(path);
            } catch (NoSuchFileException x) {
@@ -105,16 +105,13 @@ public class Profile {
 
     public void changeName(String name) {
 
-        try {
-            Profile newP = (Profile) this.clone();
-            newP.setName( name );
-            newP.create(); //writes it to file
+        String oldName = this.name;
+        this.setName(name);
+        this.create(); //writes it to file
 
-            this.delete();
-        }
-        catch (CloneNotSupportedException x) {
-            System.err.println(x);
-        }
+        findProfile(oldName).delete();
+
+
     }
 
 }
