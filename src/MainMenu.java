@@ -1,23 +1,26 @@
 public class MainMenu {
 
     public static void start() {
-        Utility.printHeader("Main Menu");
+        Utility.clearScreen();
+        Utility.printHeader("QuizApp");
 
-        String[] nav = {"Start Game!", "Start Editor", "Play Game (provisorisch)", "Exit Game"};
-        int menuPoint = Utility.printNavigation("What would you like to do?", nav);
+        String[] nav = {"Start Game!", "Manage Profiles", "Start Editor", "Exit Game"};
+        int menuPoint = Utility.printNavigation("What would you like to do?", nav, true);
 
         switch (menuPoint) {
             case 1:
-                UserMenu.start();
+                GameMenu.start();
                 break;
             case 2:
-                EditorMenu.start();
+                ProfileMenu.start();
                 break;
             case 3:
-                Game.start();
+                EditorMenu.start();
                 break;
             case 4:
+                Utility.clearScreen();
                 System.exit(0);
+
         }
     }
 }

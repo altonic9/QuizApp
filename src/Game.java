@@ -4,19 +4,23 @@ import java.util.concurrent.TimeUnit;
 public class Game {
 
     private static Topic currentTopic;
+    private static Profile currentProfile;
     private static String w = "\n\n\n\t\t\t   KORREKT \n\n\n\n";
     private static String f = "\n\n\n\t\t\t   FALSCH  \n\n\n\n";
 
-    public static void start() {
+    public static void start(Profile profile) {
         Utility.clearScreen();
         Utility.printHeader("Game");
 
+        currentProfile = profile;
+
+        // topic selection
         // create a string array containing all topic names
         ArrayList<Topic> topics =  Topic.getAllTopics();
         ArrayList<String> topicNames = new ArrayList<String>();
         for (Topic t : topics) { topicNames.add(t.getName()); }
 
-        int menuPoint = Utility.printNavigation("Chose your topic...", topicNames.toArray(new String[0]));
+        int menuPoint = Utility.printNavigation("Chose your topic...", topicNames.toArray(new String[0]), false);
         currentTopic = topics.get(menuPoint-1);
 
         play();
@@ -28,6 +32,7 @@ public class Game {
         ArrayList<Question> questions = currentTopic.getAllQuestions();
         int max = questions.size();
 
+        //loop through questions
         int i = 1;
         for (Question q : questions) {
             Utility.clearScreen();
@@ -39,15 +44,13 @@ public class Game {
     }
 
     public static void ask(Question q) {
-        Utility.clearScreen();
-        Utility.printHeader(currentTopic.getName());
         
         Boolean crr;
         if (q.getType().equals("mc")) {
             //multiple choice
 
             // prints questions and possible answers & gets user input
-            int answer = Utility.printNavigation(q.getText(), q.getAnswers());
+            int answer = Utility.printNavigation(q.getText(), q.getAnswers(), false);
             crr = q.isCrrAnswer(answer);
         }
         else {
@@ -58,7 +61,11 @@ public class Game {
             crr = q.isCrrAnswer(answer);
         }
 
+        // update profile statistics
+        currentProfile.addToHistory(currentTopic.getId(), q.getId(), crr);
+
         //show result
+        Utility.clearScreen();
         if ( crr )
             System.out.println(w);
         else

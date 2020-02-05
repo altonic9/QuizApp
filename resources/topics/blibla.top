@@ -1,0 +1,6 @@
+{"name":"blibla",
+"questions":[
+{"text":"blia?","type":"mc","answers":["h","g","f"],"mcCrrAnswer":1,"id":"28ab3053-3da8-454a-b977-12d31c6c43f1"},
+{"text":"deine mutta?","type":"txt","mcCrrAnswer":-1,"textCrrAnswer":"martha","id":"28b5352a-52ab-4a5b-b65f-f20595d16876"}
+],
+"id":"87a3eada-a6fe-4a1b-bc26-240a4e563c42"}

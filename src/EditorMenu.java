@@ -8,8 +8,8 @@ public class EditorMenu {
         Utility.clearScreen();
         Utility.printHeader("Editor");
 
-        String[] nav = {"Create New Topic", "Edit Existing Topic", "Edit existing User", "Delete User", "Return to Main Menu"};
-        int menuPoint = Utility.printNavigation("This is the Editor. Here you can..", nav);
+        String[] nav = {"Create New Topic", "Edit Existing Topic", "Return to Main Menu"};
+        int menuPoint = Utility.printNavigation("This is the Editor. Here you can..", nav, true);
 
         switch (menuPoint) {
             case 1:
@@ -19,12 +19,6 @@ public class EditorMenu {
                 editTopic();
                 break;
             case 3:
-                editUserName();
-                break;
-            case 4:
-                deleteUser();
-                break;
-            case 5:
                 MainMenu.start();
                 break;
         }
@@ -32,6 +26,8 @@ public class EditorMenu {
 
     public static void createTopic() {
         Utility.clearScreen();
+        Utility.printHeader("Editor: Topic creation");
+
         System.out.println("Please insert Topic's name: ");
         String name = Utility.getStringInput();
 
@@ -54,33 +50,32 @@ public class EditorMenu {
 
     public static Question createQuestion() {
         Utility.clearScreen();
-        Utility.printHeader("Editor: Topic creation");
 
         System.out.println("Please insert a Question:");
         String text = Utility.getStringInput();
 
-        int menuPoint = Utility.printNavigation("What Type of answer do you expect?", new String[] {"Multiple Choice", "Text"});
+        int menuPoint = Utility.printNavigation("What Type of answer do you expect?", new String[] {"Multiple Choice", "Text"}, false);
         String type = (menuPoint == 1) ? "mc" : "txt";
 
         if ( type.equals("mc")) {
-            System.out.println("How many answers do you want to offer?");
+            System.out.println("\n\tHow many answers do you want to offer?\n");
             int  n = Utility.getIntInput(1, 4);
 
             String[] answers =  new String[n];
             for (int i=0; i<n; i++) {
-                System.out.println("Please insert possible answer:");
+                System.out.println("\n\tPlease insert possible answer:\n");
                 String a = Utility.getStringInput();
                 answers[i] = a;
             }
 
             // get correct answer
-            int crrAnswer = Utility.printNavigation("Whats the correct answer?", answers);
+            int crrAnswer = Utility.printNavigation("\n\tWhats the correct answer?\n", answers, false);
 
             Question q = new Question(text, type, answers, crrAnswer);
             return q;
         }
         else {
-            System.out.println("\nPlease type in correct aswer now:");
+            System.out.println("\n\tPlease enter correct aswer now:\n");
             String answer = Utility.getStringInput();
 
             Question q = new Question(text, type, answer);
@@ -96,14 +91,14 @@ public class EditorMenu {
         ArrayList<String> topicNames = new ArrayList<String>();
         for (Topic t : topics) { topicNames.add(t.getName()); }
 
-        int y = Utility.printNavigation("Choose Topic you want to edit:", topicNames.toArray(new String[0]));
+        int y = Utility.printNavigation("Choose Topic you want to edit:", topicNames.toArray(new String[0]), false);
         Topic chosenTopic = topics.get(y-1);
 
         Utility.clearScreen();
         System.out.println("\nYou chose: " + chosenTopic.getName() + "\n");
 
         String[] nav = {"Add Question", "Delete Question", "Delete Topic"};
-        int input = Utility.printNavigation("What would you like to do?", nav);
+        int input = Utility.printNavigation("What would you like to do?", nav, false);
 
         switch (input) {
             case 1:
@@ -140,7 +135,7 @@ public class EditorMenu {
         ArrayList<String> questionNames = new ArrayList<String>();
         for (Question q : questions) { questionNames.add(q.getText()); }
 
-        int y = Utility.printNavigation("Chose Question you want to delete:", questionNames.toArray(new String[0]));
+        int y = Utility.printNavigation("Chose Question you want to delete:", questionNames.toArray(new String[0]), false);
         //arraylist is ordered Collection so this works:
         t.deleteQuestion(questions.get(y-1));
 
@@ -166,36 +161,4 @@ public class EditorMenu {
         start();
     }
 
-    public static void editUserName(){
-        String s1 = "Whats your old Username?";
-        String s2 = "Whats your new Username?";
-        String s3 = "Name is not available, please insert existing Username.";
-        String s4 = "Name is not available, please insert new Username.";
-
-        System.out.println(s1);
-        String nameOld = Utility.getStringInput();
-
-        while (User.checkUserName(nameOld) == true){
-            System.out.println(s3);
-            nameOld = Utility.getStringInput();
-        }
-
-        System.out.println(s2);
-        String nameNew = Utility.getStringInput();
-
-        while (User.checkUserName(nameNew) == false){
-            System.out.println(s4);
-            nameNew = Utility.getStringInput();
-        }
-
-        User.editUserName(nameOld, nameNew);
-    }
-
-    public static void deleteUser(){
-        String s1 = "Whats you Username?";
-        System.out.println(s1);
-        String name = Utility.getStringInput();
-        User.deleteUser(User.getUserObjectWithName(name));
-
-    }
 }

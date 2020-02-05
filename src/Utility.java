@@ -1,5 +1,6 @@
 import java.util.InputMismatchException;
 import java.util.Scanner;
+import java.util.UUID;
 
 public class Utility {
 
@@ -12,6 +13,7 @@ public class Utility {
     }
 
     public static int getIntInput(int min, int max) {
+        //funktioniert nciht richtig bei flasch eingabe
         System.out.print("Waehle einen Menu Punkt: ");
         while (true) {
             try {
@@ -60,15 +62,17 @@ public class Utility {
         System.out.println(header);
     }
 
-    public static int printNavigation(String caption, String[] points){
+    public static int printNavigation(String caption, String[] points, boolean lastSpace){
         //prints a bulletpoint list and waits for user input
 
-        System.out.println("\t" + caption + "\n");
+        System.out.println("\n\t" + caption + "\n");
 
         int i = 1;
         for (String p : points) {
             System.out.println("\t" + i + ". " + p);
             i++;
+            if (i==points.length && lastSpace ) // print last bulletpoint with a space before
+                System.out.println();
         }
         System.out.println();
         return getIntInput(1, points.length);
@@ -76,6 +80,13 @@ public class Utility {
 
     public static void clearScreen() {
         System.out.println(clearLine);
+    }
+
+    public static String generateUUID() {
+
+        UUID uuid = UUID.randomUUID();
+
+        return uuid.toString();
     }
 
     public static int levensthein(String str1, String str2) {

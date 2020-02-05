@@ -1,28 +1,29 @@
 public class Question {
 
     private String text;
-    private String type;
+    private String type; // either "mc" or "txt"
     private String[] answers; // possible answers for Multiple Choice
     private int mcCrrAnswer; // correct answer for Multiple Choice
     private String textCrrAnswer; // correct answer for Text-Questions
 
+    private String id;
+
     //default constructor
     public Question()
     {
-        this.text = null;
-        this.type = null; // either "mc" or "txt"
-        this.answers = null;
         this.mcCrrAnswer = -1;
-        this.textCrrAnswer = null;
+        this.id = Utility.generateUUID();
     }
 
-    //constructor for MC question
+    //constructor for Multiple Choice question
     public Question(String text, String type, String[] answers, int crrAnswer)
     {
         this.type = type;
         this.text = text;
         this.answers = answers;
         this.mcCrrAnswer = crrAnswer;
+
+        this.id = Utility.generateUUID();
     }
 
     //constructor for text question
@@ -31,7 +32,9 @@ public class Question {
         this.type = type;
         this.text = text;
         this.textCrrAnswer = crrAnswer;
+
         this.mcCrrAnswer = -1;
+        this.id = Utility.generateUUID();
     }
 
     public void setText(String text) { this.text = text; }
@@ -51,4 +54,5 @@ public class Question {
     public Boolean isCrrAnswer(String answer) {
         return answer.toLowerCase().equals(textCrrAnswer.toLowerCase());
     }
+    public String getId() {return this.id;}
 }
