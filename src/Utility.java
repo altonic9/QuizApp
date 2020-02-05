@@ -13,6 +13,7 @@ public class Utility {
     }
 
     public static int getIntInput(int min, int max) {
+        //funktioniert nciht richtig bei flasch eingabe
         System.out.print("Waehle einen Menu Punkt: ");
         while (true) {
             try {
@@ -64,7 +65,7 @@ public class Utility {
     public static int printNavigation(String caption, String[] points, boolean lastSpace){
         //prints a bulletpoint list and waits for user input
 
-        System.out.println("\t" + caption + "\n");
+        System.out.println("\n\t" + caption + "\n");
 
         int i = 1;
         for (String p : points) {

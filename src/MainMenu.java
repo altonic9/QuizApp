@@ -4,7 +4,7 @@ public class MainMenu {
         Utility.clearScreen();
         Utility.printHeader("QuizApp");
 
-        String[] nav = {"Start Game!", "Manage Profiles", "Start Editor", "Play Game (provisorisch)", "Exit Game"};
+        String[] nav = {"Start Game!", "Manage Profiles", "Start Editor", "Exit Game"};
         int menuPoint = Utility.printNavigation("What would you like to do?", nav, true);
 
         switch (menuPoint) {
@@ -18,8 +18,6 @@ public class MainMenu {
                 EditorMenu.start();
                 break;
             case 4:
-                Game.start();
-            case 5:
                 Utility.clearScreen();
                 System.exit(0);
 

@@ -5,17 +5,22 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.file.*;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Set;
 
 public class Profile {
 
     private static Gson gson = new Gson();
     private String name;
-    private ArrayList<History> history;
+    private HashMap<String, HashMap<String, Boolean>> history = new HashMap<>();
+    // e.g. {top1_uuid : {q1_uuid: true, q2: false, ...},
+    //       top2_uuid : {q1_uuid: true, q2: true, ...}, ....
+    //       }
 
     public Profile(String name) { this.name = name;}
 
     public void setName( String name) { this.name = name; }
-
 
     public void create(){
         //creates Profile file
@@ -114,4 +119,63 @@ public class Profile {
 
     }
 
+    public void addToHistory(String topicUUID, String questionUUID, boolean pass) {
+
+        if (history.containsKey(topicUUID)) {
+            history.get(topicUUID).put(questionUUID, pass);
+        }
+        else {
+            // create the sub-hashmap that contains questions outcome
+            HashMap<String, Boolean> questionMap = new HashMap<String, Boolean>();
+            questionMap.put(questionUUID, pass);
+            history.put(topicUUID, questionMap);
+        }
+        this.create();
+    }
+
+    public HashMap<String, float[]> getHistory() {
+
+        HashMap<String, float[]> result = new HashMap <String, float[]>();
+
+        // returns completed %, correct % to each topic
+        // since topics can change by editor, ignore statistics to non-existend questions
+        
+        // loop through all topics in history
+        for (String topicID : history.keySet()) {
+            
+            Set<String> questionIdsInHistory = history.get(topicID).keySet();
+            Set<String> questionIdsInTopic = new HashSet<>();
+            
+            Topic t = Topic.getById(topicID);
+            if (t != null) {
+                for (Question q : t.getAllQuestions()) { questionIdsInTopic.add(q.getId()); }
+
+                //intersection of sets - stored in questionIdsInTopic
+                questionIdsInTopic.retainAll(questionIdsInHistory);
+                float[] totalAndPositives= crunchNumbers(questionIdsInTopic, history.get(topicID), t.getAllQuestions().size());
+
+                result.put(t.getName(), totalAndPositives);
+            }
+            else {
+                // topic doesnt exist anymore
+                history.remove(topicID);
+            }
+
+        }
+
+        return result;
+
+    }
+
+    private static float[] crunchNumbers(Set<String> relevantQuestions, HashMap<String, Boolean> questionsInHistory, int all) {
+        int pos = 0;
+        for (String questionId : relevantQuestions) {
+            if (questionsInHistory.get(questionId)) { pos++; }
+        }
+
+        float total = (float)relevantQuestions.size()/all * 100;
+        float positiv = (float)pos / all * 100;
+
+        return new float[] {total, positiv};
+    }
 }

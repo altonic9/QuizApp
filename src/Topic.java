@@ -60,6 +60,14 @@ public class Topic {
         return topics;
     }
 
+    public static Topic getById(String id) {
+        for (Topic t : getAllTopics()) {
+            if (t.getId().equals(id))
+                return t;
+        }
+        return null;
+    }
+
     public static Topic loadFromFile(File f) {
 
         // read Topic object from json file

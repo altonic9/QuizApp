@@ -4,13 +4,17 @@ import java.util.concurrent.TimeUnit;
 public class Game {
 
     private static Topic currentTopic;
+    private static Profile currentProfile;
     private static String w = "\n\n\n\t\t\t   KORREKT \n\n\n\n";
     private static String f = "\n\n\n\t\t\t   FALSCH  \n\n\n\n";
 
-    public static void start() {
+    public static void start(Profile profile) {
         Utility.clearScreen();
         Utility.printHeader("Game");
 
+        currentProfile = profile;
+
+        // topic selection
         // create a string array containing all topic names
         ArrayList<Topic> topics =  Topic.getAllTopics();
         ArrayList<String> topicNames = new ArrayList<String>();
@@ -28,6 +32,7 @@ public class Game {
         ArrayList<Question> questions = currentTopic.getAllQuestions();
         int max = questions.size();
 
+        //loop through questions
         int i = 1;
         for (Question q : questions) {
             Utility.clearScreen();
@@ -39,8 +44,6 @@ public class Game {
     }
 
     public static void ask(Question q) {
-        Utility.clearScreen();
-        Utility.printHeader(currentTopic.getName());
         
         Boolean crr;
         if (q.getType().equals("mc")) {
@@ -58,7 +61,11 @@ public class Game {
             crr = q.isCrrAnswer(answer);
         }
 
+        // update profile statistics
+        currentProfile.addToHistory(currentTopic.getId(), q.getId(), crr);
+
         //show result
+        Utility.clearScreen();
         if ( crr )
             System.out.println(w);
         else

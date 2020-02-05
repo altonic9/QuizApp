@@ -3,6 +3,7 @@ import java.util.ArrayList;
 public class GameMenu {
 
     public static void start() {
+        Utility.clearScreen();
         Utility.printHeader("Game Menu:");
 
         String[] nav = new String[]{"Start with new Profile", "Load Profile", "Return to Main Menu"};
@@ -23,6 +24,8 @@ public class GameMenu {
     }
 
     public static void createProfile(){
+        Utility.clearScreen();
+
         System.out.println("Please enter your Name");
         String name = Utility.getStringInput();
 
@@ -37,9 +40,15 @@ public class GameMenu {
     }
 
     public static void loadProfile(){
-        ArrayList<String> names = Profile.getAllProfileNames();
+        Utility.clearScreen();
 
-        Utility.printNavigation("Choose your Profile: ", names.toArray(new String[0]), false);
+        ArrayList<String> names = Profile.getAllProfileNames();
+        // show profile selection and get user input
+        int input = Utility.printNavigation("Choose your Profile: ", names.toArray(new String[0]), false);
+
+        // find profile by name
+        Profile p = Profile.findProfile(names.get(input -1));
+        Game.start(p);
     }
 
 }
