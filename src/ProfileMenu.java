@@ -1,3 +1,4 @@
+import java.awt.event.KeyEvent;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -44,6 +45,13 @@ public class ProfileMenu {
             float[] result = statistics.get(topic);
             System.out.println("\n\tTopic \t\t total \t positives");
             System.out.println(String.format("\n\t%s \t\t %02.0f%% \t %02.0f%% \n", topic, result[0], result[1]));
+        }
+
+        System.out.println();
+        System.out.print("Press enter to leave this profile.");
+        String goOn = Utility.getStringInput();
+        if (goOn != null) {
+            start();
         }
     }
 
