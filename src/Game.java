@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.concurrent.TimeUnit;
 
 public class Game {
@@ -32,9 +33,13 @@ public class Game {
         ArrayList<Question> questions = currentTopic.getAllQuestions();
         int max = questions.size();
 
+        // randomise questions
+        Collections.shuffle(questions);
+
         //loop through questions
         int i = 1;
         for (Question q : questions) {
+
             Utility.clearScreen();
             Utility.printHeader(currentTopic.getName());
             System.out.println("\tFrage (" + i + "/" + max + ")\n");
@@ -56,7 +61,7 @@ public class Game {
         else {
             // text question
             System.out.println("\t" + q.getText());
-            System.out.println("\nPlease type in your aswer now:");
+            System.out.println("\nPlease type in your answer now:");
             String answer = Utility.getStringInput();
             crr = q.isCrrAnswer(answer);
         }

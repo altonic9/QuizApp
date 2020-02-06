@@ -7,25 +7,25 @@ public class Utility {
     private static Scanner scanner = new Scanner(System.in);
     private static String clearLine = "";
 
-    //initialize static variable
+    // initialize static variable
     static {
         for (int i=0; i<100; i++){ clearLine += "\n"; }
     }
 
     public static int getIntInput(int min, int max) {
-        //funktioniert nciht richtig bei flasch eingabe
-        System.out.print("Waehle einen Menu Punkt: ");
+        // funktioniert nicht richtig bei falscher eingabe
+        System.out.print("How do you want to go on: ");
         while (true) {
             try {
                 int x = scanner.nextInt();
-                scanner.nextLine(); //eat next line, otherwise next input will fail
+                scanner.nextLine(); // eat next line, otherwise next input will fail
                 if (x < min || x > max) {
                     throw new InputMismatchException();
                 }
                 return x;
             } catch (InputMismatchException e) {
-                System.out.print("Versuche es erneut: (" + min + "-" + max + ") ");
-                scanner.nextLine();
+                System.out.print("Try again: (" + min + "-" + max + ") ");
+                // scanner.nextLine(); Mir ist nicht ganz klar wieso das raus muss, deshalb lass ich es mal noch temporär hier.
             }
         }
     }
