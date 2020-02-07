@@ -45,20 +45,8 @@ public class StartWindowController {
     }
 
     @FXML
-    void openCreateNewTopic(ActionEvent event) {
-        try {
-            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("topicCreation.fxml"));
-            Parent root1 = (Parent) fxmlLoader.load();
-            Stage stage = new Stage();
-            stage.initModality(Modality.APPLICATION_MODAL);
-            stage.initStyle(StageStyle.UNDECORATED);
-            stage.setScene(new Scene(root1));
-            stage.show();
-            Stage cstage = (Stage) menuBar.getScene().getWindow();
-            cstage.close();
-        } catch(Exception e) {
-            e.printStackTrace();
-        }
+    void openCreateNewTopic() {
+        Main.changeScene("topicCreation.fxml");
     }
 
     @FXML
