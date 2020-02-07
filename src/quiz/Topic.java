@@ -74,8 +74,7 @@ public class Topic {
 
         // read Topic object from json file
         try {
-            // String jsonString = Files.readString(f.toPath()); //java 11, doenst work with java 8
-            String jsonString = new String(Files.readAllBytes(f.toPath()));
+            String jsonString = Files.readString(f.toPath()); //java 11, doenst work with java 8
             Topic t = gson.fromJson(jsonString, Topic.class);
             return t;
 
