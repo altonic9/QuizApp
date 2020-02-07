@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.RadioButton?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.TopicCreationController">
+   <children>
+      <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="63.0" prefWidth="600.0" text="Topic creation" textAlignment="CENTER" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <font>
+            <Font size="50.0" />
+         </font>
+      </Label>
+      <TextField editable="false" layoutY="63.0" prefHeight="30.0" prefWidth="217.0" text="Please insert Topic´s name:" />
+      <TextField fx:id="topicNameTF" layoutX="221.0" layoutY="64.0" prefHeight="30.0" prefWidth="379.0" />
+      <TextField editable="false" layoutY="94.0" prefHeight="30.0" prefWidth="217.0" text="Would you like to add a Question?" />
+      <Button fx:id="yesQuestionBTN" layoutX="221.0" layoutY="94.0" mnemonicParsing="false" onAction="#yesQuestionBTN" prefHeight="30.0" prefWidth="190.0" text="Yes" />
+      <Button fx:id="noQuestionBTN" layoutX="411.0" layoutY="94.0" mnemonicParsing="false" onAction="#noQuestion" prefHeight="30.0" prefWidth="190.0" text="No" />
+      <TextField editable="false" layoutY="124.0" prefHeight="30.0" prefWidth="217.0" text="Please insert a Question:" />
+      <TextField fx:id="questionTF" editable="false" layoutX="221.0" layoutY="124.0" onAction="#question" prefHeight="30.0" prefWidth="379.0" />
+      <TextField editable="false" layoutY="154.0" prefHeight="30.0" prefWidth="217.0" text="What Type of answer do you expect?" />
+      <Button fx:id="answerMultipleChoiceBTN" alignment="CENTER" contentDisplay="CENTER" layoutX="221.0" layoutY="154.0" mnemonicParsing="false" onAction="#answerMultipleChoice" prefHeight="30.0" prefWidth="190.0" text="Multiple Chioce" textAlignment="CENTER" />
+      <Button fx:id="answerTextBTN" alignment="CENTER" contentDisplay="CENTER" layoutX="411.0" layoutY="154.0" mnemonicParsing="false" onAction="#answerText" prefHeight="30.0" prefWidth="190.0" text="Text" textAlignment="CENTER" />
+      <TextField alignment="CENTER" editable="false" layoutY="187.0" prefHeight="25.0" prefWidth="200.0" text="Answer 1:" />
+      <TextField alignment="CENTER" editable="false" layoutX="203.0" layoutY="187.0" prefHeight="25.0" prefWidth="200.0" text="Answer 2:" />
+      <TextField alignment="CENTER" editable="false" layoutX="403.0" layoutY="187.0" prefHeight="25.0" prefWidth="200.0" text="Answer 3:" />
+      <TextField fx:id="multipleChoiceAnswer1TF" editable="false" layoutY="214.0" onAction="#multipleChoiceAnswer1" prefHeight="25.0" prefWidth="200.0" />
+      <TextField fx:id="multipleChoiceAnswer2TF" editable="false" layoutX="203.0" layoutY="214.0" onAction="#multipleChoiceAnswer2" prefHeight="25.0" prefWidth="200.0" />
+      <TextField fx:id="multipleChoiceAnswer3TF" editable="false" layoutX="403.0" layoutY="214.0" onAction="#multipleChoiceAnswer3" prefHeight="25.0" prefWidth="200.0" />
+      <TextField alignment="CENTER" editable="false" layoutY="241.0" prefHeight="25.0" prefWidth="200.0" text="What´s the correct Answer?" />
+      <RadioButton fx:id="multipleChoiceAnwser1RB" layoutX="217.0" layoutY="246.0" mnemonicParsing="false" text="Answer 1" />
+      <RadioButton fx:id="multipleChoiceAnwser2RB" layoutX="365.0" layoutY="246.0" mnemonicParsing="false" text="Answer 2" />
+      <RadioButton fx:id="multipleChoiceAnwser3RB" layoutX="513.0" layoutY="246.0" mnemonicParsing="false" text="Answer 3" />
+      <TextField editable="false" layoutX="-5.0" layoutY="268.0" prefHeight="30.0" prefWidth="217.0" text="Please enter correct Answer:" />
+      <TextField fx:id="textAnswer" editable="false" layoutX="214.0" layoutY="268.0" prefHeight="30.0" prefWidth="379.0" />
+      <Button fx:id="saveTopicBTN" contentDisplay="CENTER" layoutX="291.0" layoutY="310.0" mnemonicParsing="false" onAction="#saveTopic" prefHeight="30.0" prefWidth="50.0" text="Save" textAlignment="CENTER" />
+      <Button fx:id="returnToStartBTN" layoutX="441.0" layoutY="359.0" mnemonicParsing="false" onAction="#returnToStart" text="Return to Start" />
+      <Button fx:id="exitBTN" layoutX="555.0" layoutY="359.0" mnemonicParsing="false" onAction="#exit" text="Exit" />
+   </children>
+</AnchorPane>

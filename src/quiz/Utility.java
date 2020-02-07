@@ -1,3 +1,5 @@
+package quiz;
+
 import java.util.InputMismatchException;
 import java.util.Scanner;
 import java.util.UUID;
