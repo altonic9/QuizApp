@@ -1,3 +1,5 @@
+package quiz;
+
 import com.google.gson.Gson;
 
 import java.io.File;
@@ -56,7 +58,8 @@ public class Profile {
     public static Profile readProfileFromFile(File f) {
         String jsonstr = "";
         try {
-            jsonstr = Files.readString(f.toPath());
+            // jsonstr = Files.readString(f.toPath()); //java 11, doenst work with java 8
+            jsonstr = new String(Files.readAllBytes(f.toPath()));
         } catch (IOException e) {
             e.printStackTrace();
         }
