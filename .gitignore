@@ -72,3 +72,6 @@ fabric.properties
 
 # Apple
 .DS_Store
+
+# unwanted
+resources/user/
