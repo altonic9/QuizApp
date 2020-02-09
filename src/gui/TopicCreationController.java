@@ -92,7 +92,7 @@ public class TopicCreationController {
     }
 
     public void addQuestionButton() {
-        createQuestionScene();
+        Main.changeScene("questionCreation.fxml");
     }
 
     public void deleteTopicButton() {
@@ -136,26 +136,4 @@ public class TopicCreationController {
 
     }
 
-    private static void createQuestionScene() {
-        VBox vbox = new VBox();
-
-        // question text
-        HBox hbox1 = new HBox();
-        Label questionTxt = new Label("Question");
-        TextField textField = new TextField("Enter question");
-        textField.setMinWidth(120);
-        hbox1.getChildren().addAll(questionTxt, textField);
-        vbox.getChildren().add(hbox1);
-
-        // question type
-        HBox hbox2 = new HBox();
-        Label questionType = new Label("Choose Question Type");
-        ObservableList<String> types= FXCollections.observableArrayList("Multiple Choice", "Text Answer");
-        ChoiceBox<String> choiceBox = new ChoiceBox<String>(types);
-        hbox2.getChildren().addAll(questionType, choiceBox);
-        vbox.getChildren().add(hbox2);
-
-
-        Main.changeScene(new Scene(vbox, 800, 600));
-    }
 }

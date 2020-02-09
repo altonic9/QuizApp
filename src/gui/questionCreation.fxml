@@ -1,14 +1,23 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import java.util.*?>
-<?import javafx.scene.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
 
-<AnchorPane xmlns="http://javafx.com/javafx"
-            xmlns:fx="http://javafx.com/fxml"
-            fx:controller="gui.TopicCreationController"
-            prefHeight="400.0" prefWidth="600.0">
+<VBox fx:id="rootVbox" alignment="CENTER" spacing="10" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.questionCreationController">
+   <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="20.0">
+      <children>
+         <Label text="Question" />
+         <TextField />
+      </children>
+   </HBox>
+   <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="20.0">
+      <children>
+         <Label text="Type" />
+         <ComboBox fx:id="typeComboBox" onAction="#changetypeComboBox" prefWidth="150.0" />
+      </children>
+   </HBox>
 
-</AnchorPane>
+</VBox>
