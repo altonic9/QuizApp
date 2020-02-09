@@ -39,7 +39,9 @@ public class Main extends Application {
         primaryStage.show();
     }
 
+
     public static void changeScene(String fxml) {
+        // change scene by pointing current scene to new fxml file
         try {
             URL xmlUrl = Main.class.getResource(fxml);
             Parent pane = FXMLLoader.load(xmlUrl);
@@ -47,6 +49,11 @@ public class Main extends Application {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    public static void changeScene(Scene scene) {
+        //change scene by setting new scene
+        primaryStage.setScene(scene);
     }
 
 }

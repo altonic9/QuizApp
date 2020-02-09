@@ -46,7 +46,7 @@
          <ListView fx:id="questionsListView">
 
          </ListView>
-            <Button fx:id="addQuestonButton" mnemonicParsing="false" text="Add" />
+            <Button fx:id="addQuestonButton" mnemonicParsing="false" onAction="#addQuestionButton" text="Add" />
             <Button mnemonicParsing="false" onAction="#deleteQuestionButton" text="Delete" />
       </VBox>
    </HBox>
