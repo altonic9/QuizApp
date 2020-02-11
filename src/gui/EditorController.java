@@ -22,8 +22,6 @@ public class EditorController {
     private ListView questionsListView;
     @FXML
     private Button addTopicButton;
-    @FXML
-    private Button addQuestonButton;
 
     private ArrayList<Topic> topics;
     private Topic selectedTopic;
@@ -34,7 +32,7 @@ public class EditorController {
         initButtonsWithDialogInput();
     }
 
-    public void loadTopicsList() {
+    private void loadTopicsList() {
         topicsListView.getItems().clear();
 
         // get all topic names and add to listView
@@ -45,8 +43,8 @@ public class EditorController {
         }
     }
 
-    public void initButtonsWithDialogInput() {
-        // set action for buttons with textinput dialog
+    private void initButtonsWithDialogInput() {
+        // set action for buttons which trigger textinput dialog
         // cant do it in fxml file, because textinputdialog is opened twice then
         addTopicButton.setOnAction(new EventHandler<ActionEvent>() {
             @Override
@@ -55,14 +53,19 @@ public class EditorController {
                 addTopicButton(name);
             }
         });
+    }
 
-//        addQuestonButton.setOnAction(new EventHandler<ActionEvent>() {
-//            @Override
-//            public void handle(ActionEvent event) {
-//                String name = showInputTextDialog("New Question", "Enter question's text");
-//                addQuestionButton(name);
-//            }
-//        });
+    private static String showInputTextDialog(String title, String text) {
+
+        TextInputDialog dialog = new TextInputDialog();
+
+        dialog.setTitle(title);
+        dialog.setHeaderText(text);
+        dialog.setContentText("Name:");
+
+        Optional<String> result = dialog.showAndWait();
+
+        return result.get();
     }
 
     public void loadButton() {
@@ -126,18 +129,6 @@ public class EditorController {
 
     }
 
-    private static String showInputTextDialog(String title, String text) {
 
-        TextInputDialog dialog = new TextInputDialog();
-
-        dialog.setTitle(title);
-        dialog.setHeaderText(text);
-        dialog.setContentText("Name:");
-
-        Optional<String> result = dialog.showAndWait();
-
-        return result.get();
-
-    }
 
 }

@@ -10,47 +10,46 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<!--   <ListView> </ListView>-->
-
 <BorderPane xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.EditorController">
-<top>
-   <Label alignment="TOP_LEFT" contentDisplay="TOP" text="Editor" textAlignment="RIGHT" BorderPane.alignment="CENTER">
-         <font>
-            <Font size="30.0" />
-         </font></Label>
-</top>
-<left>
-   <Label BorderPane.alignment="CENTER">LEFT</Label>
-</left>
-<right>
-   <Label BorderPane.alignment="CENTER">RIGHT</Label>
-</right>
-<center>
-   <HBox spacing="50" BorderPane.alignment="CENTER">
-      <padding>
-         <Insets bottom="10" left="10" right="10" top="10" />
-      </padding>
-      <VBox alignment="CENTER" spacing="10.0">
-            <Label text="Topics" />
-         <ListView fx:id="topicsListView">
+   <top>
+      <Label alignment="TOP_LEFT" contentDisplay="TOP" text="Editor" textAlignment="RIGHT" BorderPane.alignment="CENTER">
+            <font>
+               <Font size="30.0" />
+            </font>
+      </Label>
+   </top>
+   <left>
+      <Label BorderPane.alignment="CENTER">LEFT</Label>
+   </left>
+   <right>
+      <Label BorderPane.alignment="CENTER">RIGHT</Label>
+   </right>
+   <center>
+      <HBox spacing="50" BorderPane.alignment="CENTER">
+         <padding>
+            <Insets bottom="10" left="10" right="10" top="10" />
+         </padding>
+         <VBox alignment="CENTER" spacing="10.0">
+               <Label text="Topics" />
+            <ListView fx:id="topicsListView">
 
-         </ListView>
-            <Button fx:id="addTopicButton" mnemonicParsing="false" text="Add" />
-            <Button mnemonicParsing="false" onAction="#deleteTopicButton" text="Delete" />
-      </VBox>
-      <VBox alignment="CENTER">
-            <Button fx:id="loadButton" mnemonicParsing="false" onAction="#loadButton" text="Load" />
-      </VBox>
-      <VBox alignment="CENTER" spacing="10.0">
-            <Label text="Questions" />
-         <ListView fx:id="questionsListView">
+            </ListView>
+               <Button fx:id="addTopicButton" mnemonicParsing="false" text="Add" />
+               <Button mnemonicParsing="false" onAction="#deleteTopicButton" text="Delete" />
+         </VBox>
+         <VBox alignment="CENTER">
+               <Button fx:id="loadButton" mnemonicParsing="false" onAction="#loadButton" text="Load" />
+         </VBox>
+         <VBox alignment="CENTER" spacing="10.0">
+               <Label text="Questions" />
+            <ListView fx:id="questionsListView">
 
-         </ListView>
-            <Button fx:id="addQuestonButton" mnemonicParsing="false" onAction="#addQuestionButton" text="Add" />
-            <Button mnemonicParsing="false" onAction="#deleteQuestionButton" text="Delete" />
-      </VBox>
-   </HBox>
-</center>
+            </ListView>
+               <Button fx:id="addQuestonButton" mnemonicParsing="false" onAction="#addQuestionButton" text="Add" />
+               <Button mnemonicParsing="false" onAction="#deleteQuestionButton" text="Delete" />
+         </VBox>
+      </HBox>
+   </center>
    <bottom>
       <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="30.0" BorderPane.alignment="CENTER">
          <children>
