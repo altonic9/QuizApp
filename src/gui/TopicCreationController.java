@@ -66,6 +66,9 @@ public class TopicCreationController {
     }
 
     public void loadButton() {
+        // empty list
+        questionsListView.getItems().clear();
+
         // get index of selected item
         int selectedItem = topicsListView.getSelectionModel().getSelectedIndex();
         selectedTopic = topics.get(selectedItem);
