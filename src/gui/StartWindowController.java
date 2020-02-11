@@ -46,7 +46,7 @@ public class StartWindowController {
 
     @FXML
     void openCreateNewTopic() {
-        Main.changeScene("topicCreation.fxml");
+        Main.changeScene("editor.fxml");
     }
 
     @FXML

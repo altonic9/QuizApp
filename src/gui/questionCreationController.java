@@ -8,6 +8,7 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.event.ActionEvent;
 import quiz.Question;
+import quiz.Topic;
 
 public class questionCreationController {
 
@@ -17,15 +18,21 @@ public class questionCreationController {
     private VBox rootVbox;
     @FXML
     private TextField questionTxt;
+    // globally available question type
+    private String type;
+    private Topic currentTopic;
 
     public void initialize() {
-        //populate choiceBox, cant do it in fxml or scenebuilder
+        //get current topic
+        currentTopic = Topic.getById(Helper.topUUID);
+
+        //populate ComboBox, cant do it in fxml or scenebuilder
         typeComboBox.setItems(FXCollections.observableArrayList("Multiple Choice", "Text Answer"));
     }
 
     public void changetypeComboBox() {
-        String type = typeComboBox.getValue();
-        if (type == "Text Answer")
+        type = typeComboBox.getValue().equals("Text Answer") ? "txt" : "mc";
+        if (type.equals("txt"))
             extendSceneforTextQuestion();
         else
             extendSceneforMultipleChoice();
@@ -50,7 +57,7 @@ public class questionCreationController {
         vBox.getChildren().addAll(hbox);
 
         Button btn = new Button("Add");
-        btn.setOnAction((event) -> { handleAddButton(event); });
+        btn.setOnAction((event) -> handleAddButton(event));
         vBox.getChildren().add(btn);
 
         rootVbox.getChildren().add(vBox);
@@ -103,7 +110,7 @@ public class questionCreationController {
         }
 
         Button btn = new Button("Add");
-        btn.setOnAction((event) -> { handleAddButton(event); });
+        btn.setOnAction((event) ->  handleAddButton(event));
         answerBox.getChildren().add(btn);
 
         mcBox.getChildren().add(answerBox);
@@ -113,11 +120,9 @@ public class questionCreationController {
     public void handleAddButton(ActionEvent event) {
         Question q = new Question();
         q.setText(questionTxt.getText());
-
-        String type = typeComboBox.getValue();
         q.setType(type);
 
-        if (type == "Text Answer") {
+        if (type.equals("txt")) {
             // get the answer textfield
             TextField t = (TextField) rootVbox.lookup("#crrAnswer");
             q.setCrrAnswer(t.getText());
@@ -125,6 +130,11 @@ public class questionCreationController {
         else {
 
         }
+
+        currentTopic.addQuestion(q);
+        currentTopic.saveToFile();
+
+        Main.changeScene("editor.fxml");
 
         // How to pass topics name?
         // passing information between scenes?

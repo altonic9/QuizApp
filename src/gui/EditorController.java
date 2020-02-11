@@ -14,7 +14,7 @@ import quiz.Topic;
 import java.util.ArrayList;
 import java.util.Optional;
 
-public class TopicCreationController {
+public class EditorController {
 
     @FXML
     private ListView topicsListView;
@@ -95,6 +95,7 @@ public class TopicCreationController {
     }
 
     public void addQuestionButton() {
+        Helper.topUUID = selectedTopic.getId();
         Main.changeScene("questionCreation.fxml");
     }
 
