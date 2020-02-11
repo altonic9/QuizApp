@@ -42,10 +42,10 @@ public class ProfileMenu {
         HashMap<String, float[]> statistics = p.getHistory();
 
         Utility.clearScreen();
+        System.out.println("\n\tTopic \t\t total \t positives\n");
         for (String topic : statistics.keySet()) {
             float[] result = statistics.get(topic);
-            System.out.println("\n\tTopic \t\t total \t positives");
-            System.out.println(String.format("\n\t%s \t\t %02.0f%% \t %02.0f%% \n", topic, result[0], result[1]));
+            System.out.println(String.format("\t%s \t\t %02.0f%% \t %02.0f%% \n", topic, result[0], result[1]));
         }
 
         System.out.println();
