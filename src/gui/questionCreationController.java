@@ -1,5 +1,7 @@
 package gui;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.geometry.Pos;
@@ -91,6 +93,9 @@ public class questionCreationController {
     }
 
     private void extendSceneforMultipleChoice2(VBox mcBox, int j) {
+        //this function adds textfields for possible answers according to number af answers j.
+        // also adds a comboBox for the correct answer
+
         //remove previously made changes to scene
         mcBox.getChildren().remove(mcBox.lookup("#answers"));
 
@@ -109,6 +114,20 @@ public class questionCreationController {
             answerBox.getChildren().add(hBox);
         }
 
+        // add correct answer combobox
+        HBox hBox = new HBox();
+        hBox.setAlignment(Pos.CENTER);
+        Label l = new Label("correct Answer");
+
+        ComboBox<String> cb = new ComboBox();
+        cb.setId("crrAnswer");
+        String[] possCrrAsnwer = Arrays.copyOfRange(new String[] {"1", "2", "3"}, 0, j);
+        cb.setItems(FXCollections.observableArrayList(possCrrAsnwer));
+
+        hBox.getChildren().addAll(l, cb);
+        answerBox.getChildren().add(hBox);
+
+        // add "add" button
         Button btn = new Button("Add");
         btn.setOnAction((event) ->  handleAddButton(event));
         answerBox.getChildren().add(btn);
@@ -123,11 +142,27 @@ public class questionCreationController {
         q.setType(type);
 
         if (type.equals("txt")) {
-            // get the answer textfield
+            // get the answer textfield by id
             TextField t = (TextField) rootVbox.lookup("#crrAnswer");
             q.setCrrAnswer(t.getText());
         }
         else {
+            // get answer comboBox by id
+            ComboBox<String> cb = (ComboBox) rootVbox.lookup("#crrAnswer");
+            q.setCrrAnswer(Integer.parseInt(cb.getValue()));
+
+            // gather all possible answers
+            ArrayList<String> possAnswers = new ArrayList<String>();
+            int i = 0;
+            TextField t = (TextField) rootVbox.lookup("#answer"+i);
+            while (t != null) {
+                possAnswers.add(t.getText());
+                i++;
+                t = (TextField) rootVbox.lookup("#answer"+i);
+            }
+
+            // add possible answers to newly created question
+            q.setAnswers(possAnswers.toArray(new String[0]));
 
         }
 
