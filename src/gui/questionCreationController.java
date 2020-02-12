@@ -27,7 +27,7 @@ public class questionCreationController {
 
     public void initialize() {
         //get current topic
-        currentTopic = Topic.getById(Helper.topUUID);
+        currentTopic = Topic.getById(Helper.topicUUID);
 
         //populate ComboBox, can't do it in fxml or scenebuilder
         typeComboBox.setItems(FXCollections.observableArrayList("Multiple Choice", "Text Answer"));
