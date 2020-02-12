@@ -10,19 +10,9 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.EditorController">
-   <top>
-      <Label alignment="TOP_LEFT" contentDisplay="TOP" text="Editor" textAlignment="RIGHT" BorderPane.alignment="CENTER">
-            <font>
-               <Font size="30.0" />
-            </font>
-      </Label>
-   </top>
-   <left>
-      <Label BorderPane.alignment="CENTER">LEFT</Label>
-   </left>
+<BorderPane prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.EditorController">
    <right>
-      <Label BorderPane.alignment="CENTER">RIGHT</Label>
+      <Label minWidth="70.0" BorderPane.alignment="CENTER">RIGHT</Label>
    </right>
    <center>
       <HBox spacing="50" BorderPane.alignment="CENTER">
@@ -51,11 +41,23 @@
       </HBox>
    </center>
    <bottom>
-      <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="30.0" BorderPane.alignment="CENTER">
+      <HBox alignment="CENTER" prefHeight="70.0" prefWidth="800.0" spacing="30.0" BorderPane.alignment="TOP_LEFT">
          <children>
-            <Button fx:id="saveButton" mnemonicParsing="false" onAction="#saveButton" text="Save" />
             <Button mnemonicParsing="false" onAction="#closeButton" text="Close" />
          </children>
       </HBox>
    </bottom>
+   <left>
+      <Label minWidth="70.0" BorderPane.alignment="CENTER">LEFT</Label>
+   </left>
+   <top>
+      <Label prefHeight="50.0" prefWidth="107.0" text="Editor" textAlignment="CENTER" BorderPane.alignment="CENTER">
+         <font>
+            <Font name="System Italic" size="36.0" />
+         </font>
+         <BorderPane.margin>
+            <Insets top="15.0" />
+         </BorderPane.margin>
+      </Label>
+   </top>
 </BorderPane>

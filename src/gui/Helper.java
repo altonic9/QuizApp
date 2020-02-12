@@ -6,6 +6,6 @@ package gui;
 public class Helper {
 
     // editor scene --> question creation scene
-    public static String topUUID;
+    public static String topicUUID;
 
 }
