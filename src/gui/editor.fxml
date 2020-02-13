@@ -24,7 +24,7 @@
             <ListView fx:id="topicsListView">
 
             </ListView>
-               <Button fx:id="addTopicButton" mnemonicParsing="false" text="Add" />
+               <Button fx:id="addTopicButton" onAction="#addTopicButton" mnemonicParsing="false" text="Add" />
                <Button mnemonicParsing="false" onAction="#deleteTopicButton" text="Delete" />
          </VBox>
          <VBox alignment="CENTER">
