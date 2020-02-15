@@ -29,7 +29,7 @@ public class EditorController {
         if (Helper.topicUUID != null) {
             topicsListView.getSelectionModel().select(Topic.getById(Helper.topicUUID).getName());
             loadButton();
-            
+
             // forget last topic you added a question to
             Helper.topicUUID = null;
         }
