@@ -24,6 +24,12 @@ public class EditorController {
 
     public void initialize() {
         loadTopicsList();
+
+        // if you come form question creation, select last current topic in topicsListview and run loadButton()
+        if (Helper.topicUUID != null) {
+            topicsListView.getSelectionModel().select(Topic.getById(Helper.topicUUID).getName());
+            loadButton();
+        }
     }
 
     private void loadTopicsList() {
@@ -42,6 +48,7 @@ public class EditorController {
         if (name != null) {
             Topic newTopic = new Topic(name);
             newTopic.saveToFile();
+
             loadTopicsList();
         }
     }
@@ -113,6 +120,9 @@ public class EditorController {
     }
 
     public void closeButton() {
+        // forget last topic you added a question to
+        Helper.topicUUID = null;
+
         Main.changeScene("startWindow.fxml");
     }
 
