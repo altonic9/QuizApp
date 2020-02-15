@@ -10,7 +10,7 @@ import quiz.Topic;
 import java.util.ArrayList;
 import java.util.Arrays;
 
-public class questionCreationController2 {
+public class questionCreationController {
 
     @FXML
     private VBox inputArea;

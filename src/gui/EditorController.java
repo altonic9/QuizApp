@@ -152,4 +152,5 @@ public class EditorController {
 
         return result.get() == ButtonType.OK;
     }
+
 }
