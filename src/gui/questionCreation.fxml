@@ -24,8 +24,14 @@
          <children>
             <VBox alignment="CENTER_LEFT" prefHeight="439.0" prefWidth="169.0" spacing="15.0">
                <children>
+                  <Label text="Question Text">
+                     <VBox.margin>
+                        <Insets bottom="25.0" />
+                     </VBox.margin>
+                     <font>
+                        <Font size="14.0" />
+                     </font></Label>
                   <Label text="Type" />
-                  <Label text="Question Text" />
                   <Label text="Correct Answer" />
                   <Label text="How many Questions?" />
                   <Label text="Answer 1" />
@@ -37,8 +43,11 @@
             </VBox>
             <VBox fx:id="inputArea" alignment="CENTER_LEFT" prefHeight="439.0" prefWidth="370.0" spacing="7.0">
                <children>
+                  <TextField fx:id="questionTxt" prefHeight="26.0" prefWidth="258.0">
+                     <VBox.margin>
+                        <Insets bottom="25.0" />
+                     </VBox.margin></TextField>
                   <ComboBox fx:id="typeCB" onAction="#onChangeTypeComboBox" prefWidth="150.0" />
-                  <TextField fx:id="questionTxt" prefHeight="26.0" prefWidth="258.0" />
                   <TextField fx:id="crrAnswerTxt" />
                   <ComboBox fx:id="amountAnswersCB" onAction="#onChangeAmountAnswers" prefHeight="26.0" prefWidth="70.0" />
                   <TextField fx:id="mcAnswer1" />

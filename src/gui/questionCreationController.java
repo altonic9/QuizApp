@@ -37,6 +37,7 @@ public class questionCreationController {
 
     private String questionType;
     private Topic currentTopic;
+    private TextField[] mcAnswers;
 
 
     public void initialize() {
@@ -47,31 +48,40 @@ public class questionCreationController {
         //populate ComboBoxes, can't do it in fxml or scenebuilder
         typeCB.setItems(FXCollections.observableArrayList("Multiple Choice", "Text Answer"));
         amountAnswersCB.setItems(FXCollections.observableArrayList("1", "2", "3", "4"));
+
+        mcAnswers = new TextField[] {mcAnswer1, mcAnswer2, mcAnswer3, mcAnswer4};
+
+        // disable all "changeable fields" at beginning
+        crrAnswerTxt.setDisable(true);
+        amountAnswersCB.setDisable(true);
+        crrAnswerCB.setDisable(true);
+        for (TextField t: mcAnswers)
+            t.setDisable(true);
+
     }
 
     public void onChangeTypeComboBox() {
-        // disable/enable according input fields
-
+        // set global questionType
         questionType = typeCB.getValue().equals("Text Answer") ? "txt" : "mc";
-        if (questionType.equals("txt"))
-            toggleQuestionType(false);
-        else
-            toggleQuestionType(true);
-    }
 
-    public void toggleQuestionType(Boolean mcOn) {
-        crrAnswerTxt.setDisable(mcOn);
-        amountAnswersCB.setDisable(!mcOn);
-        mcAnswer1.setDisable(!mcOn);
-        mcAnswer2.setDisable(!mcOn);
-        mcAnswer3.setDisable(!mcOn);
-        mcAnswer4.setDisable(!mcOn);
-        crrAnswerCB.setDisable(!mcOn);
+        // disable/enable according input fields
+        if (questionType.equals("txt")) {
+            crrAnswerTxt.setDisable(false);
+            amountAnswersCB.setDisable(true);
+        }
+        else {
+            crrAnswerTxt.setDisable(true);
+            amountAnswersCB.setDisable(false);
+        }
 
-        //reset amount answers combobox
+        // always disable these fields on type change
+        crrAnswerCB.setDisable(true);
+        for (TextField t: mcAnswers)
+            t.setDisable(true);
+
+        //reset amount answers & correct answer combobox
         amountAnswersCB.setValue(null);
         crrAnswerCB.setValue(null);
-
     }
 
     public void onChangeAmountAnswers() {
@@ -80,16 +90,17 @@ public class questionCreationController {
         if (amountAnswersCB.getValue() == null)
             return;
 
+        // activate correct answer Combobox
+        crrAnswerCB.setDisable(false);
+
         // change content of crrAnswer ComboBox
         int amount = Integer.parseInt(amountAnswersCB.getValue());
         String[] pssAnswers = Arrays.copyOfRange(new String[] {"1", "2", "3", "4"}, 0, amount);
         crrAnswerCB.setItems(FXCollections.observableArrayList(pssAnswers));
 
         // disable all answer textfields
-        mcAnswer1.setDisable(true);
-        mcAnswer2.setDisable(true);
-        mcAnswer3.setDisable(true);
-        mcAnswer4.setDisable(true);
+        for (TextField t: mcAnswers)
+            t.setDisable(true);
         // re-enable those needed
         for (int i=1; i<=amount; i++) {
             inputArea.lookup("#mcAnswer"+i).setDisable(false);
@@ -102,6 +113,11 @@ public class questionCreationController {
     }
 
     public void addButton() {
+        if (!isfilledOut()) {
+            showAlert("Missing Information", "Please fill out all Input Fields");
+            return;
+        }
+
         Question q = new Question();
         q.setText(questionTxt.getText());
         q.setType(questionType);
@@ -131,6 +147,39 @@ public class questionCreationController {
         currentTopic.saveToFile();
 
         Main.changeScene("editor.fxml");
+    }
+
+    private boolean isfilledOut() {
+        // check if type is set first, otherwise following if-statement will fail
+        if (questionType==null)
+            return false;
+
+        if (questionType.equals("txt")) {
+            return !(questionTxt.getText().trim().equals("") || crrAnswerTxt.getText().trim().equals(""));
+        }
+        else {  //multiple choice
+
+            // check every active answer field
+            for (TextField t : mcAnswers) {
+                if ( !t.isDisabled() && t.getText().trim().equals("") )
+                    return false;
+            }
+
+            // check crrAnswer ComboBox
+            return crrAnswerCB.getValue() != null;
+        }
+
+    }
+
+    private void showAlert(String title, String text) {
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle(title);
+
+        // Header Text: null
+        alert.setHeaderText(null);
+        alert.setContentText(text);
+
+        alert.showAndWait();
     }
 
 }
