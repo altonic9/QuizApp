@@ -25,13 +25,10 @@ public class StartWindowController {
     private MenuItem editExistingTopicMI;
 
     @FXML
-    private MenuItem showProfileMI;
+    private MenuItem profileManagmentMI;
 
     @FXML
-    private MenuItem editExistingProfileMI;
-
-    @FXML
-    private MenuItem deleteProfileMI;
+    private MenuItem exitMI;
 
     @FXML
     private Button startQuizBTN;
@@ -50,40 +47,16 @@ public class StartWindowController {
     }
 
     @FXML
-    void openDeleteProfile(ActionEvent event) {
-
-    }
-
-    @FXML
     void openEditExistingTopic(ActionEvent event) {
 
     }
 
     @FXML
-    void openExistingProfile(ActionEvent event) {
-
-    }
+    void openStartQuiz(ActionEvent event) { Main.changeScene("quizMenu.fxml"); }
 
     @FXML
-    void openShowProfile(ActionEvent event) {
-
-    }
+    void openProfileManagment(ActionEvent event) { Main.changeScene("profileManagment.fxml"); }
 
     @FXML
-    void openStartQuiz(ActionEvent event) {
-        try {
-            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("quizMenu.fxml"));
-            Parent root1 = (Parent) fxmlLoader.load();
-            Stage stage = new Stage();
-            stage.initModality(Modality.APPLICATION_MODAL);
-            stage.initStyle(StageStyle.UNDECORATED);
-            stage.setScene(new Scene(root1));
-            stage.show();
-            final Node source = (Node) event.getSource();
-            final Stage currentStage = (Stage) source.getScene().getWindow();
-            currentStage.close();
-        } catch(Exception e) {
-            e.printStackTrace();
-        }
-    }
+    void exit(ActionEvent event) { System.exit(0); }
 }
