@@ -38,12 +38,16 @@ public class questionCreationController {
     private String questionType;
     private Topic currentTopic;
     private TextField[] mcAnswers;
+    private String mode; // create new or edit question
+    private Question currentQuestion; // either a new question or the one to be edited
 
 
     public void initialize() {
-        //get current topic and set title
+        // set mode
+        mode = Helper.questionToEdit == null ? "new" : "edit";
+
+        //get current topic
         currentTopic = Topic.getById(Helper.topicUUID);
-        title.setText("Add Question to \"" + currentTopic.getName() + "\"");
 
         //populate ComboBoxes, can't do it in fxml or scenebuilder
         typeCB.setItems(FXCollections.observableArrayList("Multiple Choice", "Text Answer"));
@@ -57,6 +61,16 @@ public class questionCreationController {
         crrAnswerCB.setDisable(true);
         for (TextField t: mcAnswers)
             t.setDisable(true);
+
+
+        if (mode.equals("new")) {
+            title.setText("Add Question to \"" + currentTopic.getName() + "\"");
+        }
+        else { // edit
+            currentQuestion = Helper.questionToEdit;
+            title.setText("Edit Question \"" + currentQuestion.getText() + "\"");
+            fillInputFields();
+        }
 
     }
 
@@ -112,13 +126,20 @@ public class questionCreationController {
         Main.changeScene("editor.fxml");
     }
 
-    public void addButton() {
+    public void saveButton() {
         if (!isfilledOut()) {
             showAlert("Missing Information", "Please fill out all Input Fields");
             return;
         }
 
         Question q = new Question();
+
+        // in edit mode, save unique question ID
+        if (mode.equals("edit")) {
+            q.setId(currentQuestion.getId());
+            currentTopic.deleteQuestion(currentQuestion.getId());
+        }
+
         q.setText(questionTxt.getText());
         q.setType(questionType);
 
@@ -169,6 +190,35 @@ public class questionCreationController {
             return crrAnswerCB.getValue() != null;
         }
 
+    }
+
+    private void fillInputFields() {
+        // fill question txt
+        questionTxt.setText(currentQuestion.getText());
+
+        // set type combobox
+        String type = currentQuestion.getType().equals("txt") ? "Text Answer" : "Multiple Choice";
+        typeCB.setValue(type);
+        onChangeTypeComboBox();
+
+        if (currentQuestion.getType().equals("txt")) {
+            //set correct answer text if it is a text question
+            crrAnswerTxt.setText(currentQuestion.getTextCrrAnswer());
+        }
+        else {
+            // get poss. answers, set amound combobox
+            String[] possAnswers = currentQuestion.getAnswers();
+            amountAnswersCB.setValue(String.valueOf(possAnswers.length));
+            onChangeAmountAnswers();
+
+            // display poss. answers
+            for (int i=0; i<possAnswers.length; i++) {
+                mcAnswers[i].setText(possAnswers[i]);
+            }
+
+            // display correct answer
+            crrAnswerCB.setValue(String.valueOf(currentQuestion.getMcCrrAnswer()));
+        }
     }
 
     private void showAlert(String title, String text) {

@@ -49,6 +49,8 @@ public class Question {
     public String getText() {return this.text;}
     public String getType() {return this.type;}
     public String[] getAnswers() {return this.answers;}
+    public String getTextCrrAnswer() {return this.textCrrAnswer;}
+    public int getMcCrrAnswer() {return this.mcCrrAnswer;}
     // overloaded:
     public Boolean isCrrAnswer(int answer) {
         return answer == mcCrrAnswer;
@@ -57,4 +59,8 @@ public class Question {
         return answer.toLowerCase().equals(textCrrAnswer.toLowerCase());
     }
     public String getId() {return this.id;}
+    public void setId(String uuid) {
+        this.id = uuid;
+    }
+
 }

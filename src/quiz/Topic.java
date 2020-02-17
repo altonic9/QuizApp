@@ -41,6 +41,16 @@ public class Topic {
         questions.remove(q);
     }
 
+    public void deleteQuestion(String id) {
+
+        for (Question q : questions) {
+            if (q.getId().equals(id)) {
+                questions.remove(q);
+                break;
+            }
+        }
+    }
+
     public ArrayList<Question> getAllQuestions() {
 
         return this.questions;

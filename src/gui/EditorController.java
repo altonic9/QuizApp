@@ -99,6 +99,20 @@ public class EditorController {
         Main.changeScene("questionCreation.fxml");
     }
 
+    public void editQuestonButton() {
+        // get index of selected item, returns -1 if none is selected
+        int selectedItem = questionsListView.getSelectionModel().getSelectedIndex();
+
+        if (selectedItem == -1) {
+            showAlert("Info", "No Question selected!");
+            return;
+        }
+
+        Helper.topicUUID = selectedTopic.getId();
+        Helper.questionToEdit = selectedTopic.getAllQuestions().get(selectedItem);
+        Main.changeScene("questionCreation.fxml");
+    }
+
     public void deleteQuestionButton() {
         // get index of selected item, returns -1 if none is selected
         int selectedItem = questionsListView.getSelectionModel().getSelectedIndex();
