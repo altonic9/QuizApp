@@ -1,188 +1,185 @@
 package gui;
 
-import java.util.ArrayList;
-import java.util.Arrays;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
-import javafx.geometry.Pos;
 import javafx.scene.control.*;
-import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
-import javafx.event.ActionEvent;
-
 import quiz.Question;
 import quiz.Topic;
+
+import java.util.ArrayList;
+import java.util.Arrays;
 
 public class questionCreationController {
 
     @FXML
-    private ComboBox<String> typeComboBox;
+    private VBox inputArea;
     @FXML
-    private VBox rootVbox;
+    private Label title;
+    @FXML
+    private ComboBox<String> typeCB;
     @FXML
     private TextField questionTxt;
-    // globally available question type
-    private String type;
+    @FXML
+    private TextField crrAnswerTxt;
+    @FXML
+    private ComboBox<String> amountAnswersCB;
+    @FXML
+    private TextField mcAnswer1;
+    @FXML
+    private TextField mcAnswer2;
+    @FXML
+    private TextField mcAnswer3;
+    @FXML
+    private TextField mcAnswer4;
+    @FXML
+    private ComboBox<String> crrAnswerCB;
+
+    private String questionType;
     private Topic currentTopic;
+    private TextField[] mcAnswers;
+
 
     public void initialize() {
-        //get current topic
+        //get current topic and set title
         currentTopic = Topic.getById(Helper.topicUUID);
+        title.setText("Add Question to \"" + currentTopic.getName() + "\"");
 
-        //populate ComboBox, can't do it in fxml or scenebuilder
-        typeComboBox.setItems(FXCollections.observableArrayList("Multiple Choice", "Text Answer"));
+        //populate ComboBoxes, can't do it in fxml or scenebuilder
+        typeCB.setItems(FXCollections.observableArrayList("Multiple Choice", "Text Answer"));
+        amountAnswersCB.setItems(FXCollections.observableArrayList("1", "2", "3", "4"));
+
+        mcAnswers = new TextField[] {mcAnswer1, mcAnswer2, mcAnswer3, mcAnswer4};
+
+        // disable all "changeable fields" at beginning
+        crrAnswerTxt.setDisable(true);
+        amountAnswersCB.setDisable(true);
+        crrAnswerCB.setDisable(true);
+        for (TextField t: mcAnswers)
+            t.setDisable(true);
+
     }
 
     public void onChangeTypeComboBox() {
-        type = typeComboBox.getValue().equals("Text Answer") ? "txt" : "mc";
-        if (type.equals("txt"))
-            extendSceneforTextQuestion();
-        else
-            extendSceneforMultipleChoice();
-    }
+        // set global questionType
+        questionType = typeCB.getValue().equals("Text Answer") ? "txt" : "mc";
 
-    private void extendSceneforTextQuestion() {
-        //remove previously made changes to scene
-        rootVbox.getChildren().remove(rootVbox.lookup("#textQuestion"));
-        rootVbox.getChildren().remove(rootVbox.lookup("#mc"));
-
-        //all changes are children of this Vbox
-        VBox vBox = new VBox();
-        vBox.setAlignment(Pos.CENTER);
-        vBox.setSpacing(15);
-        vBox.setId("textQuestion");
-
-        HBox hbox = getHboxWithTextField("correct Answer", "crrAnswer");
-        vBox.getChildren().addAll(hbox);
-
-        Button btn = new Button("Add");
-        btn.setOnAction((event) -> handleAddButton(event));
-        vBox.getChildren().add(btn);
-
-        rootVbox.getChildren().add(vBox);
-    }
-
-    private void extendSceneforMultipleChoice() {
-        //remove previously made changes to scene
-        rootVbox.getChildren().remove(rootVbox.lookup("#textQuestion"));
-        rootVbox.getChildren().remove(rootVbox.lookup("#mc"));
-
-        //all changes are children of this Vbox
-        VBox mcBox = new VBox();
-        mcBox.setAlignment(Pos.CENTER);
-        mcBox.setSpacing(15);
-        mcBox.setId("mc");
-
-        HBox hbox = getHboxWithComboBox("How many answers?  ","amount", new String[]{"1", "2", "3"});
-        ComboBox<String> cb = (ComboBox) hbox.lookup("#amount");
-        cb.setOnAction((event) -> {
-            int i = Integer.parseInt(cb.getValue());
-            extendSceneforMultipleChoice2(mcBox, i);
-        });
-
-        mcBox.getChildren().add(hbox);
-        rootVbox.getChildren().add(mcBox);
-    }
-
-    private void extendSceneforMultipleChoice2(VBox mcBox, int j) {
-        //this function adds textfields for possible answers according to number af answers j.
-        // also adds a comboBox for the correct answer
-
-        //remove previously made changes to scene
-        mcBox.getChildren().remove(mcBox.lookup("#answers"));
-
-        VBox answerBox = new VBox();
-        answerBox.setAlignment(Pos.CENTER);
-        answerBox.setSpacing(15);
-        answerBox.setId("answers");
-
-        for (int i=0; i<j; i++) {
-            HBox hBox = getHboxWithTextField("Answer " + i, "answer"+i);
-            answerBox.getChildren().add(hBox);
-        }
-
-        // add correct combobox for correct answer
-        String[] possCrrAsnwer = Arrays.copyOfRange(new String[] {"1", "2", "3"}, 0, j);
-        HBox hBox = getHboxWithComboBox("correct Answer", "crrAnswer", possCrrAsnwer);
-        answerBox.getChildren().add(hBox);
-
-        // add "add" button
-        Button btn = new Button("Add");
-        btn.setOnAction((event) ->  handleAddButton(event));
-        answerBox.getChildren().add(btn);
-
-        mcBox.getChildren().add(answerBox);
-
-    }
-
-    public void handleAddButton(ActionEvent event) {
-        Question q = new Question();
-        q.setText(questionTxt.getText());
-        q.setType(type);
-
-        if (type.equals("txt")) {
-            // get the answer textfield by id
-            TextField t = (TextField) rootVbox.lookup("#crrAnswer");
-            q.setCrrAnswer(t.getText());
+        // disable/enable according input fields
+        if (questionType.equals("txt")) {
+            crrAnswerTxt.setDisable(false);
+            amountAnswersCB.setDisable(true);
         }
         else {
-            // get answer comboBox by id
-            ComboBox<String> cb = (ComboBox) rootVbox.lookup("#crrAnswer");
-            q.setCrrAnswer(Integer.parseInt(cb.getValue()));
+            crrAnswerTxt.setDisable(true);
+            amountAnswersCB.setDisable(false);
+        }
+
+        // always disable these fields on type change
+        crrAnswerCB.setDisable(true);
+        for (TextField t: mcAnswers)
+            t.setDisable(true);
+
+        //reset amount answers & correct answer combobox
+        amountAnswersCB.setValue(null);
+        crrAnswerCB.setValue(null);
+    }
+
+    public void onChangeAmountAnswers() {
+
+        // catch error when amountAnswersCB is resetted
+        if (amountAnswersCB.getValue() == null)
+            return;
+
+        // activate correct answer Combobox
+        crrAnswerCB.setDisable(false);
+
+        // change content of crrAnswer ComboBox
+        int amount = Integer.parseInt(amountAnswersCB.getValue());
+        String[] pssAnswers = Arrays.copyOfRange(new String[] {"1", "2", "3", "4"}, 0, amount);
+        crrAnswerCB.setItems(FXCollections.observableArrayList(pssAnswers));
+
+        // disable all answer textfields
+        for (TextField t: mcAnswers)
+            t.setDisable(true);
+        // re-enable those needed
+        for (int i=1; i<=amount; i++) {
+            inputArea.lookup("#mcAnswer"+i).setDisable(false);
+        }
+
+    }
+
+    public void cancelButton() {
+        Main.changeScene("editor.fxml");
+    }
+
+    public void addButton() {
+        if (!isfilledOut()) {
+            showAlert("Missing Information", "Please fill out all Input Fields");
+            return;
+        }
+
+        Question q = new Question();
+        q.setText(questionTxt.getText());
+        q.setType(questionType);
+
+        if (questionType.equals("txt")) {
+            // get the answer textfield by id
+            q.setCrrAnswer(crrAnswerTxt.getText());
+        }
+        else {
 
             // gather all possible answers
             ArrayList<String> possAnswers = new ArrayList<String>();
-            int i = 0;
-            TextField t = (TextField) rootVbox.lookup("#answer"+i);
-            while (t != null) {
+            int amount = Integer.parseInt(amountAnswersCB.getValue());
+            for (int i=1; i<=amount; i++) {
+                TextField t = (TextField) inputArea.lookup("#mcAnswer"+i);
                 possAnswers.add(t.getText());
-                i++;
-                t = (TextField) rootVbox.lookup("#answer"+i);
             }
 
-            // add possible answers to newly created question
+            // add possible answers to question object
             q.setAnswers(possAnswers.toArray(new String[0]));
+
+            // add correct answer to question object
+            q.setCrrAnswer(Integer.parseInt(crrAnswerCB.getValue()));
         }
 
         currentTopic.addQuestion(q);
         currentTopic.saveToFile();
 
         Main.changeScene("editor.fxml");
+    }
+
+    private boolean isfilledOut() {
+        // check if type is set first, otherwise following if-statement will fail
+        if (questionType==null)
+            return false;
+
+        if (questionType.equals("txt")) {
+            return !(questionTxt.getText().trim().equals("") || crrAnswerTxt.getText().trim().equals(""));
+        }
+        else {  //multiple choice
+
+            // check every active answer field
+            for (TextField t : mcAnswers) {
+                if ( !t.isDisabled() && t.getText().trim().equals("") )
+                    return false;
+            }
+
+            // check crrAnswer ComboBox
+            return crrAnswerCB.getValue() != null;
+        }
 
     }
 
-    private HBox getHboxWithTextField(String label, String id) {
-        // little method to create a styled HBox with label and textfield in it
-        // adds id to textfield
+    private void showAlert(String title, String text) {
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle(title);
 
-        HBox hbox = new HBox();
-        hbox.setAlignment(Pos.CENTER);
-        hbox.setSpacing(30);
-        Label l = new Label(label);
+        // Header Text: null
+        alert.setHeaderText(null);
+        alert.setContentText(text);
 
-        TextField input = new TextField();
-        input.setId(id);
-        hbox.getChildren().addAll(l, input);
-
-        return hbox;
+        alert.showAndWait();
     }
-
-    private HBox getHboxWithComboBox(String label, String id, String[] items) {
-        // little method to create a styled HBox with label and comboBox in it
-        // adds id to comboBox
-
-        HBox hbox = new HBox();
-        hbox.setAlignment(Pos.CENTER);
-        hbox.setSpacing(30);
-        Label l = new Label(label);
-
-        ComboBox<String> input = new ComboBox<String>();
-        input.setItems(FXCollections.observableArrayList(items));
-        input.setId(id);
-        hbox.getChildren().addAll(l, input);
-
-        return hbox;
-    }
-
 
 }
