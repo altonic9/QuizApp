@@ -39,6 +39,11 @@ public class Question {
         this.id = Utility.generateUUID();
     }
 
+    @Override
+    public String toString() {
+        return this.text;
+    }
+
     public void setText(String text) { this.text = text; }
     public void setType(String type) { this.type = type; }
     public void setAnswers(String[] answers) { this.answers = answers; }

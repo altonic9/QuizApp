@@ -22,6 +22,11 @@ public class Topic {
         this.id = Utility.generateUUID();
     }
 
+    @Override
+    public String toString() {
+        return this.name;
+    }
+
     public String getName() {
         return this.name;
     }
