@@ -68,6 +68,7 @@ public class questionCreationController {
         }
         else { // edit
             currentQuestion = Helper.questionToEdit;
+            Helper.questionToEdit = null;
             title.setText("Edit Question \"" + currentQuestion.getText() + "\"");
             fillInputFields();
         }
