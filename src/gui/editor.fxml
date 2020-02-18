@@ -11,49 +11,62 @@
 <?import javafx.scene.text.Font?>
 
 <BorderPane prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.EditorController">
-   <right>
-      <Label minWidth="70.0" BorderPane.alignment="CENTER">RIGHT</Label>
-   </right>
    <center>
-      <HBox spacing="50" BorderPane.alignment="CENTER">
+      <HBox alignment="CENTER" spacing="40.0" BorderPane.alignment="CENTER">
          <padding>
             <Insets bottom="10" left="10" right="10" top="10" />
          </padding>
          <VBox alignment="CENTER" spacing="10.0">
-               <Label text="Topics" />
+               <Label text="Topics">
+               <font>
+                  <Font size="14.0" />
+               </font></Label>
             <ListView fx:id="topicsListView">
 
             </ListView>
-               <Button fx:id="addTopicButton" mnemonicParsing="false" text="Add" />
-               <Button mnemonicParsing="false" onAction="#deleteTopicButton" text="Delete" />
+            <HBox alignment="CENTER" spacing="40.0">
+               <children>
+                     <Button fx:id="addTopicButton" mnemonicParsing="false" onAction="#addTopicButton" prefWidth="60.0" text="Add" />
+                     <Button mnemonicParsing="false" onAction="#deleteTopicButton" prefWidth="60.0" text="Delete" />
+               </children>
+            </HBox>
          </VBox>
          <VBox alignment="CENTER">
-               <Button fx:id="loadButton" mnemonicParsing="false" onAction="#loadButton" text="Load" />
+               <Button fx:id="loadButton" mnemonicParsing="false" onAction="#loadButton" prefWidth="60.0" text="Load" />
          </VBox>
          <VBox alignment="CENTER" spacing="10.0">
-               <Label text="Questions" />
+               <Label text="Questions">
+               <font>
+                  <Font size="14.0" />
+               </font></Label>
             <ListView fx:id="questionsListView">
 
             </ListView>
-               <Button fx:id="addQuestonButton" mnemonicParsing="false" onAction="#addQuestionButton" text="Add" />
-               <Button mnemonicParsing="false" onAction="#deleteQuestionButton" text="Delete" />
+            <HBox alignment="CENTER" spacing="20.0">
+               <children>
+                     <Button fx:id="addQuestonButton" alignment="CENTER" mnemonicParsing="false" onAction="#addQuestionButton" prefWidth="60.0" text="Add">
+                     <opaqueInsets>
+                        <Insets />
+                     </opaqueInsets>
+                  </Button>
+                <Button fx:id="editQuestonButton" mnemonicParsing="false" onAction="#editQuestonButton" prefWidth="60.0" text="Edit" />
+                     <Button mnemonicParsing="false" onAction="#deleteQuestionButton" prefHeight="25.0" prefWidth="60.0" text="Delete" />
+               </children>
+            </HBox>
          </VBox>
       </HBox>
    </center>
    <bottom>
       <HBox alignment="CENTER" prefHeight="70.0" prefWidth="800.0" spacing="30.0" BorderPane.alignment="TOP_LEFT">
          <children>
-            <Button mnemonicParsing="false" onAction="#closeButton" text="Close" />
+            <Button mnemonicParsing="false" onAction="#closeButton" prefWidth="60.0" text="Close" />
          </children>
       </HBox>
    </bottom>
-   <left>
-      <Label minWidth="70.0" BorderPane.alignment="CENTER">LEFT</Label>
-   </left>
    <top>
       <Label prefHeight="50.0" prefWidth="107.0" text="Editor" textAlignment="CENTER" BorderPane.alignment="CENTER">
          <font>
-            <Font name="System Italic" size="36.0" />
+            <Font size="36.0" />
          </font>
          <BorderPane.margin>
             <Insets top="15.0" />

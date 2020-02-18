@@ -22,6 +22,11 @@ public class Topic {
         this.id = Utility.generateUUID();
     }
 
+    @Override
+    public String toString() {
+        return this.name;
+    }
+
     public String getName() {
         return this.name;
     }
@@ -39,6 +44,16 @@ public class Topic {
     public void deleteQuestion(Question q) {
 
         questions.remove(q);
+    }
+
+    public void deleteQuestion(String id) {
+
+        for (Question q : questions) {
+            if (q.getId().equals(id)) {
+                questions.remove(q);
+                break;
+            }
+        }
     }
 
     public ArrayList<Question> getAllQuestions() {
