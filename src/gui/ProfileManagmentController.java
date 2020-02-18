@@ -1,22 +1,12 @@
 package gui;
 
-import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
-import javafx.geometry.Pos;
 import javafx.scene.control.*;
-import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.VBox;
 import quiz.Profile;
-import quiz.Question;
-import quiz.Topic;
-import quiz.Utility;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Optional;
 
 public class ProfileManagmentController {
 
@@ -37,21 +27,6 @@ public class ProfileManagmentController {
 
     @FXML
     private ListView loadProfileLV;
-
-    @FXML
-    private ListView loadProfileInfoLV;
-
-    @FXML
-    private Button loadBTN;
-
-    @FXML
-    private Button deleteProfileBTN;
-
-    @FXML
-    private Button addProfileBTN;
-
-    @FXML
-    private Button editProfileBTN;
 
     @FXML
     private Label profilInfo;
