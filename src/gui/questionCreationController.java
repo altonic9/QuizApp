@@ -16,6 +16,9 @@ import quiz.Topic;
 public class questionCreationController {
 
     @FXML
+    private TextField editName;
+
+    @FXML
     private ComboBox<String> typeComboBox;
     @FXML
     private VBox rootVbox;
