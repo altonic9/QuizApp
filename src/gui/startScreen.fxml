@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.Font?>
+
+
+<BorderPane prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.StartScreenController">
+   <center>
+      <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" spacing="30.0" BorderPane.alignment="CENTER">
+         <children>
+            <Label text="Hallo!" />
+            <GridPane alignment="CENTER" prefHeight="193.0" prefWidth="480.0">
+               <columnConstraints>
+                  <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="60.0" />
+                  <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="204.79996337890628" minWidth="10.0" prefWidth="179.19996337890626" />
+                  <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="214.40003662109376" minWidth="10.0" prefWidth="188.00001220703123" />
+                  <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="60.0" />
+               </columnConstraints>
+               <rowConstraints>
+                  <RowConstraints minHeight="10.0" valignment="CENTER" vgrow="SOMETIMES" />
+                  <RowConstraints minHeight="10.0" valignment="CENTER" vgrow="SOMETIMES" />
+               </rowConstraints>
+               <children>
+                  <Button fx:id="exitGameBTN" mnemonicParsing="false" onAction="#exit" prefHeight="70.0" prefWidth="150.0" text="Quit" GridPane.columnIndex="2" GridPane.rowIndex="1">
+                     <font>
+                        <Font size="24.0" />
+                     </font>
+                  </Button>
+                  <Button mnemonicParsing="false" onAction="#openEditor" prefHeight="70.0" prefWidth="150.0" text="Editor" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                     <font>
+                        <Font size="24.0" />
+                     </font>
+                  </Button>
+                  <Button mnemonicParsing="false" onAction="#openProfileManagment" prefHeight="70.0" prefWidth="150.0" text="Profiles" GridPane.columnIndex="2">
+                     <font>
+                        <Font size="24.0" />
+                     </font>
+                  </Button>
+                  <Button mnemonicParsing="false" onAction="#startQuiz" prefHeight="70.0" prefWidth="150.0" text="Start" GridPane.columnIndex="1">
+                     <font>
+                        <Font size="24.0" />
+                     </font>
+                  </Button>
+               </children>
+            </GridPane>
+         </children>
+      </VBox>
+   </center>
+   <top>
+      <VBox alignment="CENTER" spacing="30.0" BorderPane.alignment="CENTER">
+         <children>
+            <MenuBar fx:id="menuBar">
+              <menus>
+                <Menu mnemonicParsing="false" text="File">
+                  <items>
+                    <MenuItem fx:id="createNewTopicMI" mnemonicParsing="false" onAction="#openEditor" text="Start Editor" />
+                        <MenuItem fx:id="editExistingTopicMI" mnemonicParsing="false" onAction="#exit" text="Exit" />
+                  </items>
+                </Menu>
+                <Menu mnemonicParsing="false" text="Profile">
+                  <items>
+                    <MenuItem fx:id="profileManagmentMI" mnemonicParsing="false" onAction="#openProfileManagment" text="Profile Managment" />
+                        <MenuItem fx:id="exitMI" mnemonicParsing="false" onAction="#exit" text="Exit" />
+                  </items>
+                </Menu>
+              </menus>
+            </MenuBar>
+            <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="80.0" prefWidth="600.0" text="QuizApp" textAlignment="CENTER">
+               <font>
+                  <Font size="50.0" />
+               </font>
+            </Label>
+         </children>
+      </VBox>
+   </top>
+   <left>
+      <Pane prefHeight="574.0" prefWidth="160.0" BorderPane.alignment="CENTER" />
+   </left>
+   <right>
+      <Pane prefHeight="574.0" prefWidth="160.0" BorderPane.alignment="CENTER" />
+   </right>
+   <bottom>
+      <Pane prefHeight="30.0" prefWidth="800.0" BorderPane.alignment="CENTER" />
+   </bottom>
+</BorderPane>

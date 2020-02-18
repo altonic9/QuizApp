@@ -10,7 +10,6 @@ import quiz.Question;
 import quiz.Topic;
 
 
-
 public class EditorController {
 
     @FXML
@@ -128,7 +127,7 @@ public class EditorController {
     }
 
     public void closeButton() {
-        Main.changeScene("startWindow.fxml");
+        Main.changeScene("startScreen.fxml");
     }
 
     private static String showInputTextDialog(String title, String text) {
