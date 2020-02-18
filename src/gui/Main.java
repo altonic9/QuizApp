@@ -22,7 +22,7 @@ public class Main extends Application {
     public void start(Stage primaryStage) throws Exception{
         this.primaryStage = primaryStage;
 
-        URL xmlUrl = getClass().getResource("startWindow.fxml");
+        URL xmlUrl = getClass().getResource("startScreen.fxml");
 
         FXMLLoader fxmlLoader = new FXMLLoader();
         Parent root = fxmlLoader.load(xmlUrl);
