@@ -14,8 +14,8 @@
    <bottom>
       <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="50.0" BorderPane.alignment="CENTER">
          <children>
-            <Button mnemonicParsing="false" onAction="#cancelButton" text="Cancel" />
-            <Button mnemonicParsing="false" onAction="#addButton" text="Add" />
+            <Button mnemonicParsing="false" onAction="#cancelButton" prefWidth="60.0" text="Cancel" />
+            <Button mnemonicParsing="false" onAction="#saveButton" prefWidth="60.0" text="Save" />
          </children>
       </HBox>
    </bottom>

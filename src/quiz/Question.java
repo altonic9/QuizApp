@@ -39,6 +39,11 @@ public class Question {
         this.id = Utility.generateUUID();
     }
 
+    @Override
+    public String toString() {
+        return this.text;
+    }
+
     public void setText(String text) { this.text = text; }
     public void setType(String type) { this.type = type; }
     public void setAnswers(String[] answers) { this.answers = answers; }
@@ -49,6 +54,8 @@ public class Question {
     public String getText() {return this.text;}
     public String getType() {return this.type;}
     public String[] getAnswers() {return this.answers;}
+    public String getTextCrrAnswer() {return this.textCrrAnswer;}
+    public int getMcCrrAnswer() {return this.mcCrrAnswer;}
     // overloaded:
     public Boolean isCrrAnswer(int answer) {
         return answer == mcCrrAnswer;
@@ -57,4 +64,8 @@ public class Question {
         return answer.toLowerCase().equals(textCrrAnswer.toLowerCase());
     }
     public String getId() {return this.id;}
+    public void setId(String uuid) {
+        this.id = uuid;
+    }
+
 }

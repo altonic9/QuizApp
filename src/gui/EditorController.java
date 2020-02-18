@@ -14,12 +14,12 @@ import quiz.Topic;
 public class EditorController {
 
     @FXML
-    private ListView topicsListView;
+    private ListView<Topic> topicsListView;
     @FXML
-    private ListView questionsListView;
+    private ListView<Question> questionsListView;
 
     private ArrayList<Topic> topics;
-    private Topic selectedTopic; // the loaded topic
+    private Topic loadedTopic; // topic loaded by using the load button
 
 
     public void initialize() {
@@ -27,7 +27,7 @@ public class EditorController {
 
         // if you come form question creation, select last current topic in topicsListview and run loadButton()
         if (Helper.topicUUID != null) {
-            topicsListView.getSelectionModel().select(Topic.getById(Helper.topicUUID).getName());
+            topicsListView.getSelectionModel().select(Topic.getById(Helper.topicUUID));
             loadButton();
 
             // forget last topic you added a question to
@@ -39,11 +39,9 @@ public class EditorController {
         // remove all items first
         topicsListView.getItems().clear();
 
-        // get all topic names and add to listView
+        // get all topics and add to listView
         topics = Topic.getAllTopics();
-        for (Topic t : topics) {
-            topicsListView.getItems().add(t.getName());
-        }
+        topicsListView.getItems().addAll(topics);
     }
 
     public void addTopicButton() {
@@ -58,14 +56,13 @@ public class EditorController {
 
     public void deleteTopicButton() {
         // get index of selected object
-        int selectedItem = topicsListView.getSelectionModel().getSelectedIndex();
+        Topic selectedTopic = topicsListView.getSelectionModel().getSelectedItem();
 
-        if (selectedItem == -1) {
+        if (selectedTopic == null) {
             showAlert("Info", "No Topic selected");
             return;
         }
 
-        Topic selectedTopic = topics.get(selectedItem);
         if (showConfirmationDialog("Confirmation", "Do you really want to delete \"" + selectedTopic.getName() + "\"-Topic?"))
             selectedTopic.delete();
 
@@ -78,47 +75,55 @@ public class EditorController {
         // empty list
         questionsListView.getItems().clear();
 
-        // get index of selected item
-        int selectedItem = topicsListView.getSelectionModel().getSelectedIndex();
-        selectedTopic = topics.get(selectedItem);
+        // get selected item (loadedTopic global var)
+        loadedTopic = topicsListView.getSelectionModel().getSelectedItem();
 
         // popuate question ListView
-        for (Question q : selectedTopic.getAllQuestions()) {
-            questionsListView.getItems().add(q.getText());
-        }
+        questionsListView.getItems().addAll(loadedTopic.getAllQuestions());
     }
 
     public void addQuestionButton() {
 
-        if (selectedTopic == null) {
+        if (loadedTopic == null) {
             showAlert("Info", "First, Select and Load Topic");
             return;
         }
 
-        Helper.topicUUID = selectedTopic.getId();
+        Helper.topicUUID = loadedTopic.getId();
+        Main.changeScene("questionCreation.fxml");
+    }
+
+    public void editQuestonButton() {
+        // get selected item
+        Question q = questionsListView.getSelectionModel().getSelectedItem();
+
+        if (q == null) {
+            showAlert("Info", "No Question selected!");
+            return;
+        }
+
+        Helper.topicUUID = loadedTopic.getId();
+        Helper.questionToEdit = q;
         Main.changeScene("questionCreation.fxml");
     }
 
     public void deleteQuestionButton() {
         // get index of selected item, returns -1 if none is selected
-        int selectedItem = questionsListView.getSelectionModel().getSelectedIndex();
+        Question q = questionsListView.getSelectionModel().getSelectedItem();
 
-        if (selectedItem == -1) {
+        if (q == null) {
             showAlert("Info", "No Question selected!");
             return;
         }
 
-        Question q = selectedTopic.getAllQuestions().get(selectedItem);
         if (showConfirmationDialog("Confirmation", "Do you really want to delete \n \"" + q.getText() + "\"-Question?")) {
-            selectedTopic.deleteQuestion(q);
-            selectedTopic.saveToFile();
+            loadedTopic.deleteQuestion(q);
+            loadedTopic.saveToFile();
         }
 
         //update listview
         questionsListView.getItems().clear();
-        for (Question a : selectedTopic.getAllQuestions()) {
-            questionsListView.getItems().add(a.getText());
-        }
+        questionsListView.getItems().addAll(loadedTopic.getAllQuestions());
 
     }
 
