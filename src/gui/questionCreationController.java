@@ -12,7 +12,6 @@ import java.util.Arrays;
 
 public class questionCreationController {
 
-    @FXML
     private VBox inputArea;
     @FXML
     private Label title;

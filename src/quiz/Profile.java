@@ -24,6 +24,8 @@ public class Profile {
 
     public void setName( String name) { this.name = name; }
 
+    public String getName(){ return this.name; }
+
     public void create(){
         //creates Profile file
 
@@ -117,8 +119,6 @@ public class Profile {
         this.create(); //writes it to file
 
         findProfile(oldName).delete();
-
-
     }
 
     public void addToHistory(String topicUUID, String questionUUID, boolean pass) {
