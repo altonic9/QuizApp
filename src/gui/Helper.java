@@ -3,6 +3,7 @@ package gui;
 // This class is used to hand over information between scenes
 // Bad practice, I know..
 
+import quiz.Profile;
 import quiz.Question;
 
 public class Helper {
@@ -11,5 +12,8 @@ public class Helper {
     public static String topicUUID;
     // for question edit
     public static Question questionToEdit;
+
+    //gamestart: profile selection --> topic seletion
+    public static Profile gameProfile;
 
 }
