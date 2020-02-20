@@ -6,7 +6,7 @@
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.ProfileManagmentController">
+<AnchorPane prefHeight="611.0" prefWidth="780.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.ProfileManagmentController">
    <children>
       <ListView fx:id="loadProfileLV" layoutX="46.0" layoutY="65.0" prefHeight="200.0" prefWidth="200.0" />
       <Button fx:id="loadBTN" layoutX="257.0" layoutY="152.0" mnemonicParsing="false" onAction="#loadProfiles" text="Load" />
@@ -18,6 +18,12 @@
       <Button fx:id="addProfileBTN" layoutX="168.0" layoutY="273.0" mnemonicParsing="false" onAction="#addProfile" text="Add Profile" />
       <Button fx:id="addProfileWithNameBTN" layoutX="479.0" layoutY="259.0" mnemonicParsing="false" onAction="#addProfileWithName" text="Add" />
       <Label fx:id="profilInfo" layoutX="358.0" layoutY="85.0" prefHeight="17.0" prefWidth="242.0" text="Profile Info" />
-      <Label fx:id="profileInfoL" layoutX="360.0" layoutY="102.0" prefHeight="27.0" prefWidth="219.0" />
+      <Button layoutX="237.0" layoutY="354.0" mnemonicParsing="false" onAction="#close" text="Close" />
+      <Label layoutX="359.0" layoutY="102.0" prefHeight="17.0" prefWidth="78.0" text="Topic" />
+      <Label layoutX="440.0" layoutY="102.0" prefHeight="17.0" prefWidth="78.0" text="Total in %" />
+      <Label layoutX="520.0" layoutY="102.0" prefHeight="17.0" prefWidth="78.0" text="Positives in %" />
+      <ListView fx:id="topicName" layoutX="356.0" layoutY="123.0" prefHeight="59.0" prefWidth="78.0" />
+      <ListView fx:id="total" layoutX="440.0" layoutY="123.0" prefHeight="59.0" prefWidth="78.0" />
+      <ListView fx:id="positives" layoutX="522.0" layoutY="123.0" prefHeight="59.0" prefWidth="78.0" />
    </children>
 </AnchorPane>

@@ -13,8 +13,6 @@ public class ProfileManagmentController {
     private ArrayList<Profile> profiles;
     private Profile selectedProfile;
 
-    @FXML
-    private Label profileInfoL;
 
     @FXML
     private Label enterPnL;
@@ -34,13 +32,21 @@ public class ProfileManagmentController {
     @FXML
     private Button addProfileWithNameBTN;
 
+    @FXML
+    private ListView  topicName;
+
+    @FXML
+    private ListView  total;
+
+    @FXML
+    private ListView positives;
+
     public void initialize() {
         loadProfiles();
         editName.setVisible(false);
         changeNameBTN.setVisible(false);
         enterPnL.setVisible(false);
         addProfileWithNameBTN.setVisible(false);
-        profileInfoL.setVisible(false);
         profilInfo.setVisible(false);
 
     }
@@ -87,6 +93,8 @@ public class ProfileManagmentController {
 
         Profile.findProfile(selectedProfile.getName()).changeName(editName.getText());
 
+        editName.clear();
+
         loadProfiles();
 
         editName.setVisible(false);
@@ -123,21 +131,30 @@ public class ProfileManagmentController {
 
     @FXML
     void loadProfiles(ActionEvent event) {
-        profileInfoL.setVisible(true);
         profilInfo.setVisible(true);
+        topicName.getItems().clear();
+        total.getItems().clear();
+        positives.getItems().clear();
 
         int selectedItem = loadProfileLV.getSelectionModel().getSelectedIndex();
         selectedProfile = profiles.get(selectedItem);
 
         HashMap<String, float[]> statistics = selectedProfile.getHistory();
 
+        if (statistics.isEmpty()){
 
-        for (String topic : statistics.keySet()) {
-            float[] result = statistics.get(topic);
-
-            profileInfoL.setText(String.format(topic, result[0], result[1]));
+        }else {
+            for (String topic : statistics.keySet()) {
+                float[] result = statistics.get(topic);
+                topicName.getItems().add(topic);
+                total.getItems().add(String.valueOf(result[0]));
+                positives.getItems().add(String.valueOf(result[1]));
+            }
         }
 
     }
+
+    @FXML
+    void close(ActionEvent event) { Main.changeScene("startScreen.fxml"); }
 
 }
