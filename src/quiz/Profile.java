@@ -100,7 +100,6 @@ public class Profile {
            }
        }catch (NullPointerException x){
            System.out.println("User does not exits!");
-           ProfileMenu.deleteProfile();
        }
 
     }
