@@ -5,6 +5,7 @@ package gui;
 
 import quiz.Profile;
 import quiz.Question;
+import quiz.Topic;
 
 public class Helper {
 
@@ -13,7 +14,10 @@ public class Helper {
     // for question edit
     public static Question questionToEdit;
 
-    //gamestart: profile selection --> topic seletion
+    //gamestart: profile selection --> topic seletion --> game
     public static Profile gameProfile;
+    public static Topic gameTopic;
+    public static int questionAmount;
+    public static Boolean randomized;
 
 }

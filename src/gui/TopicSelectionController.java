@@ -19,10 +19,13 @@ public class TopicSelectionController {
     @FXML
     private CheckBox randomChkBox;
 
-    Profile gameProfile = Helper.gameProfile;
-    Topic chosenTopic;
+    private Profile chosenProfile;
+    private Topic chosenTopic;
 
     public void initialize() {
+        chosenProfile = Helper.gameProfile;
+        Helper.gameProfile = null;
+
         loadTopicsList();
     }
 
@@ -35,10 +38,13 @@ public class TopicSelectionController {
     }
 
     public void onAllTopicChkBox() {
+        // disable topic select box
         topicCB.setDisable(allTopicChkBox.isSelected());
     }
 
     public void onTopicCB() {
+        // get selected topic and set spinner range
+
         chosenTopic = topicCB.getValue();
         int maxQuestions = chosenTopic.getAllQuestions().size();
 
@@ -47,7 +53,15 @@ public class TopicSelectionController {
     }
 
     public void start() {
-        int amount = questionSpinner.getValue();
+        // gather all game preferences and switch scene
+
+        Helper.gameTopic = chosenTopic;
+        Helper.gameProfile = chosenProfile;
+        Helper.questionAmount = questionSpinner.getValue();
+        Helper.randomized = randomChkBox.isSelected();
+
+        Main.changeScene("gameScreen.fxml");
+
     }
 
     public void cancel() {
