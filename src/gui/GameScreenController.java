@@ -142,7 +142,7 @@ public class GameScreenController {
             setScreen(currentQuestion);
         }
         else {
-            showAlert("End", "You finished the game. \n A game summary is planned");
+            showAlert("End", "You finished the game. \nA game summary is planned \nYou can go to \"Profiles\" to see your overall statistics");
             Main.changeScene("startScreen.fxml");
         }
 
