@@ -65,7 +65,7 @@ public class GameScreenController {
     }
 
     private void prepareQuestions() {
-        // prepares questions and return first one
+        // prepares questions
 
         questions = chosenTopic.getAllQuestions();
         //shuffle
@@ -137,8 +137,15 @@ public class GameScreenController {
 
     public void nextQuestion() {
         questionCounter++;
-        currentQuestion = questions.get(questionCounter);
-        setScreen(currentQuestion);
+        if (questionCounter < questions.size()) {
+            currentQuestion = questions.get(questionCounter);
+            setScreen(currentQuestion);
+        }
+        else {
+            showAlert("End", "You finished the game. \n A game summary is planned");
+            Main.changeScene("startScreen.fxml");
+        }
+
     }
 
     public void cancel() {

@@ -8,7 +8,6 @@
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.HBox?>
-<?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
@@ -39,10 +38,10 @@
                   <Font size="18.0" />
                </font>
             </Label>
-            <GridPane fx:id="mcInput" prefHeight="130.0" prefWidth="642.0" VBox.vgrow="ALWAYS">
+            <GridPane fx:id="mcInput" prefHeight="82.0" prefWidth="771.0" VBox.vgrow="ALWAYS">
                <columnConstraints>
-                  <ColumnConstraints halignment="RIGHT" hgrow="SOMETIMES" maxWidth="313.0" minWidth="0.0" prefWidth="162.0" />
-                  <ColumnConstraints halignment="LEFT" hgrow="SOMETIMES" maxWidth="321.0" minWidth="8.0" prefWidth="159.0" />
+                  <ColumnConstraints halignment="RIGHT" hgrow="SOMETIMES" maxWidth="591.0" minWidth="0.0" prefWidth="317.0" />
+                  <ColumnConstraints halignment="LEFT" hgrow="SOMETIMES" maxWidth="473.0" minWidth="8.0" prefWidth="317.0" />
                </columnConstraints>
                <rowConstraints>
                   <RowConstraints minHeight="10.0" valignment="BOTTOM" vgrow="SOMETIMES" />
@@ -71,7 +70,7 @@
                   </Button>
                </children>
             </GridPane>
-            <HBox fx:id="txtAnswerInput" alignment="CENTER" prefHeight="100.0" prefWidth="400.0" spacing="30.0" VBox.vgrow="ALWAYS">
+            <HBox fx:id="txtAnswerInput" alignment="TOP_CENTER" prefHeight="126.0" prefWidth="800.0" spacing="30.0" VBox.vgrow="ALWAYS">
                <children>
                   <TextField fx:id="answerTF" prefWidth="300.0" promptText="Your answer....." />
                   <Button mnemonicParsing="false" onAction="#processAnswer" prefWidth="60.0" text="send" />
@@ -91,10 +90,4 @@
          </children>
       </HBox>
    </bottom>
-   <left>
-      <Pane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER" />
-   </left>
-   <right>
-      <HBox prefHeight="100.0" prefWidth="200.0" BorderPane.alignment="CENTER" />
-   </right>
 </BorderPane>
