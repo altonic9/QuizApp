@@ -127,6 +127,8 @@ public class GameScreenController {
             txtAnswerInput.setVisible(true);
             // disable button array field
             mcInput.setVisible(false);
+            // clear last answer
+            answerTF.setText(null);
         }
 
     }
@@ -143,9 +145,13 @@ public class GameScreenController {
             crr = currentQuestion.isCrrAnswer(chosenAnswer);
         }
         else { // it's a text question
+            // check if answer text box contains something
+            if (answerTF.getText()==null || answerTF.getText().trim().equals("")) {
+                showAlert("Missing Information", "Please enter an Answer!");
+                return;
+            }
+
             crr = currentQuestion.isCrrAnswer(answerTF.getText());
-            // clear last answer
-            answerTF.setText("");
         }
 
         // update profile statistics

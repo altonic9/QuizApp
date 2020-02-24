@@ -177,13 +177,13 @@ public class questionCreationController {
             return false;
 
         if (questionType.equals("txt")) {
-            return !(questionTxt.getText().trim().equals("") || crrAnswerTxt.getText().trim().equals(""));
+            return !(questionTxt.getText()==null || crrAnswerTxt.getText()==null || questionTxt.getText().trim().equals("") || crrAnswerTxt.getText().trim().equals(""));
         }
         else {  //multiple choice
 
             // check every active answer field
             for (TextField t : mcAnswers) {
-                if ( !t.isDisabled() && t.getText().trim().equals("") )
+                if ( !t.isDisabled() && (t.getText()==null || t.getText().trim().equals("")) )
                     return false;
             }
 
