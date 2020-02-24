@@ -4,7 +4,6 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import quiz.Profile;
-
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -12,42 +11,44 @@ public class ProfileManagmentController {
 
     private ArrayList<Profile> profiles;
     private Profile selectedProfile;
-
-    @FXML
-    private Label profileInfoL;
-
     @FXML
     private Label enterPnL;
-
     @FXML
     private Button changeNameBTN;
-
     @FXML
     private TextField editName;
-
     @FXML
     private ListView loadProfileLV;
-
     @FXML
     private Label profilInfo;
-
     @FXML
     private Button addProfileWithNameBTN;
+    @FXML
+    private Button editProfileBTN;
+    @FXML
+    private Button addProfileBTN;
+    @FXML
+    private ListView  topicName;
+    @FXML
+    private Button deleteProfileBTN;
+    @FXML
+    private ListView  total;
+    @FXML
+    private ListView positives;
 
     public void initialize() {
         loadProfiles();
-        editName.setVisible(false);
-        changeNameBTN.setVisible(false);
-        enterPnL.setVisible(false);
-        addProfileWithNameBTN.setVisible(false);
-        profileInfoL.setVisible(false);
-        profilInfo.setVisible(false);
-
+        changeNameBTN.setDisable(true);
+        addProfileWithNameBTN.setDisable(true);
     }
 
     @FXML
     void deleteProfile(ActionEvent event) {
         int selectedItem = loadProfileLV.getSelectionModel().getSelectedIndex();
+        if (selectedItem < 0) {
+            showAlert("Missing Information", "Please choose Profile");
+            return;
+        }
 
         Profile selectedProfile = profiles.get(selectedItem);
         selectedProfile.delete();
@@ -57,10 +58,19 @@ public class ProfileManagmentController {
 
     @FXML
     void editProfile(ActionEvent event) {
-        editName.setVisible(true);
-        changeNameBTN.setVisible(true);
-        enterPnL.setVisible(true);
+        addProfileBTN.setDisable(true);
+        deleteProfileBTN.setDisable(true);
+        changeNameBTN.setDisable(false);
 
+        int selectedItem = loadProfileLV.getSelectionModel().getSelectedIndex();
+        if (selectedItem < 0) {
+            showAlert("Missing Information", "Please choose Profile");
+            addProfileBTN.setVisible(true);
+            addProfileWithNameBTN.setVisible(true);
+            deleteProfileBTN.setVisible(true);
+            return;
+        }
+        selectedProfile = profiles.get(selectedItem);
     }
 
     @FXML
@@ -76,29 +86,35 @@ public class ProfileManagmentController {
 
     @FXML
     void changeName(ActionEvent event) {
+        changeNameBTN.setDisable(false);
         enterPnL.setText("Enter your Profilename:");
         int selectedItem = loadProfileLV.getSelectionModel().getSelectedIndex();
         selectedProfile = profiles.get(selectedItem);
 
         while (Profile.exists(editName.getText())){
-            enterPnL.setText("Name is not availible!");
+            showAlert("Missing Information", "Name is not availible!");
             return;
         }
-
+        if (event.getSource() == changeNameBTN && editName.getText().isEmpty()){
+            showAlert("Missing Information", "Please Enter a Name!");
+            return;
+        }
         Profile.findProfile(selectedProfile.getName()).changeName(editName.getText());
+
+        editName.clear();
 
         loadProfiles();
 
-        editName.setVisible(false);
-        changeNameBTN.setVisible(false);
-        enterPnL.setVisible(false);
+        addProfileBTN.setDisable(false);
+        deleteProfileBTN.setDisable(false);
+        changeNameBTN.setDisable(true);
     }
 
     @FXML
     void addProfile(ActionEvent event) {
-        editName.setVisible(true);
-        enterPnL.setVisible(true);
-        addProfileWithNameBTN.setVisible(true);
+        deleteProfileBTN.setDisable(true);
+        editProfileBTN.setDisable(true);
+        addProfileWithNameBTN.setDisable(false);
     }
 
     @FXML
@@ -106,38 +122,64 @@ public class ProfileManagmentController {
         enterPnL.setText("Enter your Profilename:");
 
         while (Profile.exists(editName.getText())){
-            enterPnL.setText("Name is not availible!");
+            showAlert("Missing Information", "Name is not availible!");
             return;
         }
 
+        if (event.getSource() == addProfileWithNameBTN && editName.getText().isEmpty()){
+            showAlert("Missing Information", "Please Enter a Name!");
+            return;
+        }
         Profile p = new Profile(editName.getText());
         p.create();
 
         editName.setText("");
         loadProfiles();
 
-        editName.setVisible(false);
-        enterPnL.setVisible(false);
-        addProfileWithNameBTN.setVisible(false);
+        deleteProfileBTN.setDisable(false);
+        editProfileBTN.setDisable(false);
+        addProfileWithNameBTN.setDisable(true);
     }
 
     @FXML
     void loadProfiles(ActionEvent event) {
-        profileInfoL.setVisible(true);
-        profilInfo.setVisible(true);
-
         int selectedItem = loadProfileLV.getSelectionModel().getSelectedIndex();
+        if (selectedItem < 0) {
+            showAlert("Missing Information", "Please choose Profile");
+            return;
+        }
+        profilInfo.setVisible(true);
+        topicName.getItems().clear();
+        total.getItems().clear();
+        positives.getItems().clear();
+
         selectedProfile = profiles.get(selectedItem);
 
         HashMap<String, float[]> statistics = selectedProfile.getHistory();
 
+        if (statistics.isEmpty()){
 
-        for (String topic : statistics.keySet()) {
-            float[] result = statistics.get(topic);
-
-            profileInfoL.setText(String.format(topic, result[0], result[1]));
+        }else {
+            for (String topic : statistics.keySet()) {
+                float[] result = statistics.get(topic);
+                topicName.getItems().add(topic);
+                total.getItems().add(String.valueOf(result[0]));
+                positives.getItems().add(String.valueOf(result[1]));
+            }
         }
-
     }
 
+    @FXML
+    void close(ActionEvent event) { Main.changeScene("startScreen.fxml"); }
+
+    private void showAlert(String title, String text) {
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle(title);
+
+        // Header Text: null
+        alert.setHeaderText(null);
+        alert.setContentText(text);
+
+        alert.showAndWait();
+    }
 }
