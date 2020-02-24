@@ -6,6 +6,7 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.Spinner;
 import javafx.scene.control.SpinnerValueFactory;
 import quiz.Profile;
+import quiz.Question;
 import quiz.Topic;
 
 public class TopicSelectionController {
@@ -38,8 +39,28 @@ public class TopicSelectionController {
     }
 
     public void onAllTopicChkBox() {
-        // disable topic select box
-        topicCB.setDisable(allTopicChkBox.isSelected());
+
+        if (allTopicChkBox.isSelected()) {
+            //disable topic selection box
+            topicCB.setDisable(true);
+
+            // get amount of questions and set spinner
+            int maxQuestions = 0;
+            for (Topic t : Topic.getAllTopics()) {
+                maxQuestions += t.getAllQuestions().size();
+            }
+
+            SpinnerValueFactory<Integer> valueFactory = new SpinnerValueFactory.IntegerSpinnerValueFactory(1, maxQuestions, maxQuestions);
+            questionSpinner.setValueFactory(valueFactory);
+        }
+        else {
+            //re-enable topic selection box
+            topicCB.setDisable(false);
+            //reset spinner value
+            SpinnerValueFactory<Integer> valueFactory = new SpinnerValueFactory.IntegerSpinnerValueFactory(1, 1, 1);
+            questionSpinner.setValueFactory(valueFactory);
+        }
+
     }
 
     public void onTopicCB() {
@@ -48,6 +69,7 @@ public class TopicSelectionController {
         chosenTopic = topicCB.getValue();
         int maxQuestions = chosenTopic.getAllQuestions().size();
 
+        // set spinner amount
         SpinnerValueFactory<Integer> valueFactory = new SpinnerValueFactory.IntegerSpinnerValueFactory(1, maxQuestions, maxQuestions);
         questionSpinner.setValueFactory(valueFactory);
     }
@@ -59,6 +81,7 @@ public class TopicSelectionController {
         Helper.gameProfile = chosenProfile;
         Helper.questionAmount = questionSpinner.getValue();
         Helper.randomized = randomChkBox.isSelected();
+        Helper.playAllTopics = allTopicChkBox.isSelected();
 
         Main.changeScene("gameScreen.fxml");
 
