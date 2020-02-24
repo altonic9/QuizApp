@@ -57,6 +57,7 @@ public class ProfileSelectionController {
             vbox.setAlignment(Pos.CENTER);
             vbox.setSpacing(10);
 
+            lv.setId("profileLV");
             lv.getItems().addAll(Profile.getAllProfiles());
             lv.setPrefHeight(300);
 
@@ -75,12 +76,16 @@ public class ProfileSelectionController {
 
     private void onLoadButton() {
         // get selected profile and go to game scene
-
-        //startGame(p);
+        ListView<Profile> lv = (ListView<Profile>) menuHbox.lookup("#profileLV");
+        Profile p = lv.getSelectionModel().getSelectedItem();
+        startGame(p);
     }
 
     private void startGame(Profile p) {
-        //wechsle zur game scene
+
+        Helper.gameProfile = p;
+
+        Main.changeScene("topicSelection.fxml");
     }
 
     public void openProfileManagment() {

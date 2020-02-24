@@ -3,12 +3,9 @@
  
 ##### Programmieren I: Projekt
  \
- Diese QuizApp hat sowohl eine Ausgabe in der Konsole als auch eine GUI.
- 
- Um die GUI zu benutzen, starte die `src/gui/Main.java` .\
- Für die Konsole, starte `src/quiz/Main.java` . 
- 
- 
+
+ Diese App besaß eine Ausgabe in der Konsole, die allerdings in Laufe der Entwicklung durch eine GUI ersetzt wurde.\
+ Um die GUI zu benutzen, starte die `src/gui/Main.java` .
  
  \
  by\
