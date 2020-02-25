@@ -11,6 +11,7 @@ import quiz.Topic;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashMap;
 
 
 public class GameScreenController {
@@ -36,10 +37,13 @@ public class GameScreenController {
     private Topic chosenTopic;
     private int questionAmount;
     private boolean randomized;
+    private boolean playAllTopics;
 
     private Button[] answerBtns;
     private int questionCounter;
     private ArrayList<Question> questions;
+    private HashMap<String, String> questionsIdToTopicId;  // used if playAlltopics is checked
+
     private Question currentQuestion;
 
     
@@ -49,11 +53,13 @@ public class GameScreenController {
         chosenTopic = Helper.gameTopic;
         questionAmount = Helper.questionAmount;
         randomized = Helper.randomized;
+        playAllTopics = Helper.playAllTopics;
 
         Helper.gameTopic = null;
         Helper.gameProfile = null;
         Helper.questionAmount = -1;
         Helper.randomized = null;
+        Helper.playAllTopics = null;
 
         answerBtns = new Button[] {answerBtn1, answerBtn2, answerBtn3, answerBtn4};
 
@@ -67,14 +73,29 @@ public class GameScreenController {
     private void prepareQuestions() {
         // prepares questions
 
-        questions = chosenTopic.getAllQuestions();
+        if (playAllTopics) {
+            questions = new ArrayList<>();
+
+            // remember topic Id
+            questionsIdToTopicId = new HashMap<>();
+            for (Topic t : Topic.getAllTopics()) {
+                for (Question q : t.getAllQuestions()) {
+                    questions.add(q);
+                    questionsIdToTopicId.put(q.getId(), t.getId());
+                }
+            }
+        }
+        else {
+            questions = chosenTopic.getAllQuestions();
+        }
+
         //shuffle
         if (randomized)
             Collections.shuffle(questions);
         //get specified amount
         questions = new ArrayList<Question>(questions.subList(0, questionAmount));
 
-        // currentQuestion globally available
+        // currentQuestion is globally available
         currentQuestion = questions.get(0);
         questionCounter = 0;
     }
@@ -106,6 +127,8 @@ public class GameScreenController {
             txtAnswerInput.setVisible(true);
             // disable button array field
             mcInput.setVisible(false);
+            // clear last answer
+            answerTF.setText(null);
         }
 
     }
@@ -121,12 +144,25 @@ public class GameScreenController {
             int chosenAnswer = Character.getNumericValue(id.charAt(id.length() - 1));
             crr = currentQuestion.isCrrAnswer(chosenAnswer);
         }
-        else {
+        else { // it's a text question
+            // check if answer text box contains something
+            if (answerTF.getText()==null || answerTF.getText().trim().equals("")) {
+                showAlert("Missing Information", "Please enter an Answer!");
+                return;
+            }
+
             crr = currentQuestion.isCrrAnswer(answerTF.getText());
         }
 
         // update profile statistics
-        chosenProfile.addToHistory(chosenTopic.getId(), currentQuestion.getId(), crr);
+        if (playAllTopics) {
+            // get topic ID first
+            String topicId = questionsIdToTopicId.get(currentQuestion.getId());
+            chosenProfile.addToHistory(topicId, currentQuestion.getId(), crr);
+        }
+        else {
+            chosenProfile.addToHistory(chosenTopic.getId(), currentQuestion.getId(), crr);
+        }
 
         //show result
         showAlert("Result", crr.toString());

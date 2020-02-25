@@ -2,10 +2,7 @@ package gui;
 
 import javafx.fxml.FXML;
 import javafx.geometry.Pos;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Button;
-import javafx.scene.control.ListView;
-import javafx.scene.control.TextInputDialog;
+import javafx.scene.control.*;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import quiz.Profile;
@@ -49,7 +46,7 @@ public class ProfileSelectionController {
         else {
             // create needed scene objects
             VBox vbox = new VBox();
-            ListView<Profile> lv = new ListView<>();
+            ComboBox<Profile> cb = new ComboBox<>();
             Button loadBtn = new Button();
 
             // prepare objects
@@ -57,16 +54,16 @@ public class ProfileSelectionController {
             vbox.setAlignment(Pos.CENTER);
             vbox.setSpacing(10);
 
-            lv.setId("profileLV");
-            lv.getItems().addAll(Profile.getAllProfiles());
-            lv.setPrefHeight(300);
+            cb.setId("profileCB");
+            cb.getItems().addAll(Profile.getAllProfiles());
+            cb.setPrefWidth(150);
 
             loadBtn.setText("load");
             loadBtn.setPrefWidth(60);
             loadBtn.setOnAction((event) -> { onLoadButton(); });
 
             // add objects to scene
-            vbox.getChildren().addAll(lv, loadBtn);
+            vbox.getChildren().addAll(cb, loadBtn);
             menuHbox.getChildren().add(vbox);
 
             profilesShown = true;
@@ -76,8 +73,12 @@ public class ProfileSelectionController {
 
     private void onLoadButton() {
         // get selected profile and go to game scene
-        ListView<Profile> lv = (ListView<Profile>) menuHbox.lookup("#profileLV");
-        Profile p = lv.getSelectionModel().getSelectedItem();
+        ComboBox<Profile> cb = (ComboBox<Profile>) menuHbox.lookup("#profileCB");
+        Profile p = cb.getSelectionModel().getSelectedItem();
+        if (p == null) {
+            showAlert("Input Error", "Please select Profile");
+            return;
+        }
         startGame(p);
     }
 

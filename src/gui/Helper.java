@@ -19,5 +19,6 @@ public class Helper {
     public static Topic gameTopic;
     public static int questionAmount;
     public static Boolean randomized;
+    public static Boolean playAllTopics;
 
 }
