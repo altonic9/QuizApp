@@ -129,7 +129,7 @@ public class questionCreationController {
 
     public void saveButton() {
         if (!isfilledOut()) {
-            showAlert("Missing Information", "Please fill out all Input Fields");
+            GuiUtility.showAlert("Missing Information", "Please fill out all Input Fields");
             return;
         }
 
@@ -208,7 +208,7 @@ public class questionCreationController {
         }
         else {
             // get poss. answers, set amound combobox
-            String[] possAnswers = currentQuestion.getAnswers();
+            String[] possAnswers = currentQuestion.getPossibleAnswers();
             amountAnswersCB.setValue(String.valueOf(possAnswers.length));
             onChangeAmountAnswers();
 
@@ -220,17 +220,6 @@ public class questionCreationController {
             // display correct answer
             crrAnswerCB.setValue(String.valueOf(currentQuestion.getMcCrrAnswer()));
         }
-    }
-
-    private void showAlert(String title, String text) {
-        Alert alert = new Alert(Alert.AlertType.INFORMATION);
-        alert.setTitle(title);
-
-        // Header Text: null
-        alert.setHeaderText(null);
-        alert.setContentText(text);
-
-        alert.showAndWait();
     }
 
 }

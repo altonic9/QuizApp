@@ -111,7 +111,7 @@ public class GameScreenController {
             txtAnswerInput.setVisible(false);
 
             //label and dis/enable needed answer buttons
-            String[] possAnswers = q.getAnswers();
+            String[] possAnswers = q.getPossibleAnswers();
             for ( int i=0; i<4; i++) {
                 try {
                     answerBtns[i].setVisible(true);
@@ -147,7 +147,7 @@ public class GameScreenController {
         else { // it's a text question
             // check if answer text box contains something
             if (answerTF.getText()==null || answerTF.getText().trim().equals("")) {
-                showAlert("Missing Information", "Please enter an Answer!");
+                GuiUtility.showAlert("Missing Information", "Please enter an Answer!");
                 return;
             }
 
@@ -165,7 +165,12 @@ public class GameScreenController {
         }
 
         //show result
-        showAlert("Result", crr.toString());
+        if (crr) {
+            GuiUtility.showAlert("Result", "RICHTIG");
+        }
+        else {
+            GuiUtility.showAlert("Result", "FALSCH! \nRichtige Antwort ist: " + currentQuestion.getCrrAnswerString());
+        }
 
         nextQuestion();
 
@@ -178,7 +183,7 @@ public class GameScreenController {
             setScreen(currentQuestion);
         }
         else {
-            showAlert("End", "You finished the game. \nA game summary is planned \nYou can go to \"Profiles\" to see your overall statistics");
+            GuiUtility.showAlert("End", "You finished the game. \nA game summary is planned \nYou can go to \"Profiles\" to see your overall statistics");
             Main.changeScene("startScreen.fxml");
         }
 
@@ -186,16 +191,5 @@ public class GameScreenController {
 
     public void cancel() {
         Main.changeScene("startScreen.fxml");
-    }
-
-    private void showAlert(String title, String text) {
-        Alert alert = new Alert(Alert.AlertType.INFORMATION);
-        alert.setTitle(title);
-
-        // Header Text: null
-        alert.setHeaderText(null);
-        alert.setContentText(text);
-
-        alert.showAndWait();
     }
 }
