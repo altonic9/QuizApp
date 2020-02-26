@@ -169,7 +169,7 @@ public class GameScreenController {
             GuiUtil.showAlert("Result", "RICHTIG");
         }
         else {
-            GuiUtil.showAlert("Result", "FALSCH! \nRichtige Antwort ist: " + currentQuestion.getCrrAnswerString());
+            GuiUtil.showAlert("Result", "FALSCH!\n\nRichtige Antwort ist:\n" + currentQuestion.getCrrAnswerString());
         }
 
         nextQuestion();
