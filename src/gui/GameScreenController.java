@@ -147,7 +147,7 @@ public class GameScreenController {
         else { // it's a text question
             // check if answer text box contains something
             if (answerTF.getText()==null || answerTF.getText().trim().equals("")) {
-                GuiUtility.showAlert("Missing Information", "Please enter an Answer!");
+                GuiUtil.showAlert("Missing Information", "Please enter an Answer!");
                 return;
             }
 
@@ -166,10 +166,10 @@ public class GameScreenController {
 
         //show result
         if (crr) {
-            GuiUtility.showAlert("Result", "RICHTIG");
+            GuiUtil.showAlert("Result", "RICHTIG");
         }
         else {
-            GuiUtility.showAlert("Result", "FALSCH! \nRichtige Antwort ist: " + currentQuestion.getCrrAnswerString());
+            GuiUtil.showAlert("Result", "FALSCH! \nRichtige Antwort ist: " + currentQuestion.getCrrAnswerString());
         }
 
         nextQuestion();
@@ -183,7 +183,7 @@ public class GameScreenController {
             setScreen(currentQuestion);
         }
         else {
-            GuiUtility.showAlert("End", "You finished the game. \nA game summary is planned \nYou can go to \"Profiles\" to see your overall statistics");
+            GuiUtil.showAlert("End", "You finished the game. \nA game summary is planned \nYou can go to \"Profiles\" to see your overall statistics");
             Main.changeScene("startScreen.fxml");
         }
 

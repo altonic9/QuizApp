@@ -6,7 +6,7 @@ import javafx.scene.control.TextInputDialog;
 
 import java.util.Optional;
 
-public class GuiUtility {
+public class GuiUtil {
 
     public static String showInputTextDialog(String title, String text) {
 

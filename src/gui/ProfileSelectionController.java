@@ -7,8 +7,6 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import quiz.Profile;
 
-import java.util.Optional;
-
 
 public class ProfileSelectionController {
 
@@ -21,12 +19,12 @@ public class ProfileSelectionController {
 
             // get user input
             while ( true ){
-                name = GuiUtility.showInputTextDialog("New Profile", "Please enter your Name:");
+                name = GuiUtil.showInputTextDialog("New Profile", "Please enter your Name:");
                 if (name == null ) {  //user canceled
                     break;
                 }
                 else if (Profile.exists(name)) { // name alredy exists
-                    GuiUtility.showAlert("Error", "Name's already taken, please try again: ");
+                    GuiUtil.showAlert("Error", "Name's already taken, please try again: ");
                 }
                 else { // all fine, create profile, start game
                     Profile p = new Profile(name);
@@ -76,7 +74,7 @@ public class ProfileSelectionController {
         ComboBox<Profile> cb = (ComboBox<Profile>) menuHbox.lookup("#profileCB");
         Profile p = cb.getSelectionModel().getSelectedItem();
         if (p == null) {
-            GuiUtility.showAlert("Input Error", "Please select Profile");
+            GuiUtil.showAlert("Input Error", "Please select Profile");
             return;
         }
         startGame(p);

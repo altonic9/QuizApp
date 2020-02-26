@@ -129,7 +129,7 @@ public class questionCreationController {
 
     public void saveButton() {
         if (!isfilledOut()) {
-            GuiUtility.showAlert("Missing Information", "Please fill out all Input Fields");
+            GuiUtil.showAlert("Missing Information", "Please fill out all Input Fields");
             return;
         }
 
