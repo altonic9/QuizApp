@@ -41,6 +41,7 @@ public class Question {
 
     @Override
     public String toString() {
+        // needed for GUI Listviews, ComboBoxes etc...
         return this.text;
     }
 
@@ -53,7 +54,7 @@ public class Question {
 
     public String getText() {return this.text;}
     public String getType() {return this.type;}
-    public String[] getAnswers() {return this.answers;}
+    public String[] getPossibleAnswers() {return this.answers;}
     public String getTextCrrAnswer() {return this.textCrrAnswer;}
     public int getMcCrrAnswer() {return this.mcCrrAnswer;}
     // overloaded:
@@ -62,6 +63,15 @@ public class Question {
     }
     public Boolean isCrrAnswer(String answer) {
         return answer.toLowerCase().equals(textCrrAnswer.toLowerCase());
+    }
+    public String getCrrAnswerString() {
+        //returns correct answer in String type
+        if (type.equals("txt")) {
+            return getTextCrrAnswer();
+        }
+        else {
+            return answers[mcCrrAnswer - 1];
+        }
     }
     public String getId() {return this.id;}
     public void setId(String uuid) {

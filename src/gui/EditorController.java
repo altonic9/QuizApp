@@ -1,7 +1,6 @@
 package gui;
 
 import java.util.ArrayList;
-import java.util.Optional;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
@@ -44,7 +43,7 @@ public class EditorController {
     }
 
     public void addTopicButton() {
-        String name = showInputTextDialog("New Topic", "Enter topic's title");
+        String name = GuiUtil.showInputTextDialog("New Topic", "Enter topic's title");
         if (name != null) {
             Topic newTopic = new Topic(name);
             newTopic.saveToFile();
@@ -58,11 +57,11 @@ public class EditorController {
         Topic selectedTopic = topicsListView.getSelectionModel().getSelectedItem();
 
         if (selectedTopic == null) {
-            showAlert("Info", "No Topic selected");
+            GuiUtil.showAlert("Info", "No Topic selected");
             return;
         }
 
-        if (showConfirmationDialog("Confirmation", "Do you really want to delete \"" + selectedTopic.getName() + "\"-Topic?"))
+        if (GuiUtil.showConfirmationDialog("Confirmation", "Do you really want to delete \"" + selectedTopic.getName() + "\"-Topic?"))
             selectedTopic.delete();
 
         // update topics list
@@ -84,7 +83,7 @@ public class EditorController {
     public void addQuestionButton() {
 
         if (loadedTopic == null) {
-            showAlert("Info", "First, Select and Load Topic");
+            GuiUtil.showAlert("Info", "First, Select and Load Topic");
             return;
         }
 
@@ -97,7 +96,7 @@ public class EditorController {
         Question q = questionsListView.getSelectionModel().getSelectedItem();
 
         if (q == null) {
-            showAlert("Info", "No Question selected!");
+            GuiUtil.showAlert("Info", "No Question selected!");
             return;
         }
 
@@ -111,11 +110,11 @@ public class EditorController {
         Question q = questionsListView.getSelectionModel().getSelectedItem();
 
         if (q == null) {
-            showAlert("Info", "No Question selected!");
+            GuiUtil.showAlert("Info", "No Question selected!");
             return;
         }
 
-        if (showConfirmationDialog("Confirmation", "Do you really want to delete \n \"" + q.getText() + "\"-Question?")) {
+        if (GuiUtil.showConfirmationDialog("Confirmation", "Do you really want to delete \n \"" + q.getText() + "\"-Question?")) {
             loadedTopic.deleteQuestion(q);
             loadedTopic.saveToFile();
         }
@@ -128,43 +127,6 @@ public class EditorController {
 
     public void closeButton() {
         Main.changeScene("startScreen.fxml");
-    }
-
-    private static String showInputTextDialog(String title, String text) {
-
-        TextInputDialog dialog = new TextInputDialog();
-
-        dialog.setTitle(title);
-        dialog.setHeaderText(text);
-        dialog.setContentText("Name:");
-
-        Optional<String> result = dialog.showAndWait();
-        if (result.isPresent())
-            return result.get();
-        else // cancel button
-            return null;
-    }
-
-    private void showAlert(String title, String text) {
-        Alert alert = new Alert(Alert.AlertType.INFORMATION);
-        alert.setTitle(title);
-
-        // Header Text: null
-        alert.setHeaderText(null);
-        alert.setContentText(text);
-
-        alert.showAndWait();
-    }
-
-    private Boolean showConfirmationDialog(String title, String text) {
-        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-        alert.setTitle(title);
-        alert.setHeaderText(null);
-        alert.setContentText(text);
-
-        Optional<ButtonType> result = alert.showAndWait();
-
-        return result.get() == ButtonType.OK;
     }
 
 }

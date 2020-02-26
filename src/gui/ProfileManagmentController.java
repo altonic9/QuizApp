@@ -46,7 +46,7 @@ public class ProfileManagmentController {
     void deleteProfile(ActionEvent event) {
         int selectedItem = loadProfileLV.getSelectionModel().getSelectedIndex();
         if (selectedItem < 0) {
-            showAlert("Missing Information", "Please choose Profile");
+            GuiUtil.showAlert("Missing Information", "Please choose Profile");
             return;
         }
 
@@ -64,7 +64,7 @@ public class ProfileManagmentController {
 
         int selectedItem = loadProfileLV.getSelectionModel().getSelectedIndex();
         if (selectedItem < 0) {
-            showAlert("Missing Information", "Please choose Profile");
+            GuiUtil.showAlert("Missing Information", "Please choose Profile");
             addProfileBTN.setVisible(true);
             addProfileWithNameBTN.setVisible(true);
             deleteProfileBTN.setVisible(true);
@@ -92,11 +92,11 @@ public class ProfileManagmentController {
         selectedProfile = profiles.get(selectedItem);
 
         while (Profile.exists(editName.getText())){
-            showAlert("Missing Information", "Name is not availible!");
+            GuiUtil.showAlert("Missing Information", "Name is not availible!");
             return;
         }
         if (event.getSource() == changeNameBTN && editName.getText().isEmpty()){
-            showAlert("Missing Information", "Please Enter a Name!");
+            GuiUtil.showAlert("Missing Information", "Please Enter a Name!");
             return;
         }
         Profile.findProfile(selectedProfile.getName()).changeName(editName.getText());
@@ -122,12 +122,12 @@ public class ProfileManagmentController {
         enterPnL.setText("Enter your Profilename:");
 
         while (Profile.exists(editName.getText())){
-            showAlert("Missing Information", "Name is not availible!");
+            GuiUtil.showAlert("Missing Information", "Name is not availible!");
             return;
         }
 
         if (event.getSource() == addProfileWithNameBTN && editName.getText().isEmpty()){
-            showAlert("Missing Information", "Please Enter a Name!");
+            GuiUtil.showAlert("Missing Information", "Please Enter a Name!");
             return;
         }
         Profile p = new Profile(editName.getText());
@@ -145,7 +145,7 @@ public class ProfileManagmentController {
     void loadProfiles(ActionEvent event) {
         int selectedItem = loadProfileLV.getSelectionModel().getSelectedIndex();
         if (selectedItem < 0) {
-            showAlert("Missing Information", "Please choose Profile");
+            GuiUtil.showAlert("Missing Information", "Please choose Profile");
             return;
         }
         profilInfo.setVisible(true);
@@ -172,14 +172,4 @@ public class ProfileManagmentController {
     @FXML
     void close(ActionEvent event) { Main.changeScene("startScreen.fxml"); }
 
-    private void showAlert(String title, String text) {
-        Alert alert = new Alert(Alert.AlertType.INFORMATION);
-        alert.setTitle(title);
-
-        // Header Text: null
-        alert.setHeaderText(null);
-        alert.setContentText(text);
-
-        alert.showAndWait();
-    }
 }

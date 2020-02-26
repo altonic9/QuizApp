@@ -7,8 +7,6 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import quiz.Profile;
 
-import java.util.Optional;
-
 
 public class ProfileSelectionController {
 
@@ -21,12 +19,12 @@ public class ProfileSelectionController {
 
             // get user input
             while ( true ){
-                name = showInputTextDialog("New User", "Please enter your Name");
+                name = GuiUtil.showInputTextDialog("New Profile", "Please enter your Name:");
                 if (name == null ) {  //user canceled
                     break;
                 }
                 else if (Profile.exists(name)) { // name alredy exists
-                    showAlert("Error", "Name's already taken, please try again: ");
+                    GuiUtil.showAlert("Error", "Name's already taken, please try again: ");
                 }
                 else { // all fine, create profile, start game
                     Profile p = new Profile(name);
@@ -76,7 +74,7 @@ public class ProfileSelectionController {
         ComboBox<Profile> cb = (ComboBox<Profile>) menuHbox.lookup("#profileCB");
         Profile p = cb.getSelectionModel().getSelectedItem();
         if (p == null) {
-            showAlert("Input Error", "Please select Profile");
+            GuiUtil.showAlert("Input Error", "Please select Profile");
             return;
         }
         startGame(p);
@@ -89,42 +87,8 @@ public class ProfileSelectionController {
         Main.changeScene("topicSelection.fxml");
     }
 
-    public void openProfileManagment() {
-        Main.changeScene("profileManagment.fxml");
-    }
-
-    public void openEditor() {
-        Main.changeScene("editor.fxml");
-    }
-
     public void exit() {
         Main.changeScene("startScreen.fxml");
-    }
-
-    private static String showInputTextDialog(String title, String text) {
-
-        TextInputDialog dialog = new TextInputDialog();
-
-        dialog.setTitle(title);
-        dialog.setHeaderText(text);
-        dialog.setContentText("Name:");
-
-        Optional<String> result = dialog.showAndWait();
-        if (result.isPresent())
-            return result.get();
-        else // cancel button
-            return null;
-    }
-
-    private void showAlert(String title, String text) {
-        Alert alert = new Alert(Alert.AlertType.INFORMATION);
-        alert.setTitle(title);
-
-        // Header Text: null
-        alert.setHeaderText(null);
-        alert.setContentText(text);
-
-        alert.showAndWait();
     }
 
 }

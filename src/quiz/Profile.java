@@ -39,7 +39,6 @@ public class Profile {
             FileWriter myWriter = new FileWriter("resources/profiles/" + this.name + ".p");
             myWriter.write(jsonString);
             myWriter.close();
-            System.out.println("Successfully wrote to file.");
         } catch (IOException e) {
             System.out.println("An error occurred.");
             e.printStackTrace();
