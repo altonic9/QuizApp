@@ -38,7 +38,6 @@ public class Topic {
     public void addQuestion(Question q) {
 
         questions.add(q);
-        System.out.println("\n\tQuestion added to " + this.name + "-Topic\n");
     }
 
     public void deleteQuestion(Question q) {
@@ -110,7 +109,6 @@ public class Topic {
             FileWriter myWriter = new FileWriter("resources/topics/" + this.name + ".top");
             myWriter.write(jsonString);
             myWriter.close();
-            System.out.println("Successfully wrote to file.");
         } catch (IOException e) {
             System.out.println("An error occurred.");
             e.printStackTrace();
