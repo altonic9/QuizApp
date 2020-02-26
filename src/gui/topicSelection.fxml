@@ -13,20 +13,6 @@
 <?import javafx.scene.text.Font?>
 
 <BorderPane prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.TopicSelectionController">
-   <top>
-      <VBox alignment="CENTER" BorderPane.alignment="CENTER">
-         <children>
-            <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="80.0" prefWidth="600.0" text="Topic Selection" textAlignment="CENTER">
-               <font>
-                  <Font size="36.0" />
-               </font>
-               <VBox.margin>
-                  <Insets top="50.0" />
-               </VBox.margin>
-            </Label>
-         </children>
-      </VBox>
-   </top>
    <center>
       <VBox alignment="CENTER" BorderPane.alignment="CENTER">
          <children>
@@ -35,10 +21,10 @@
                   <Pane prefHeight="455.0" prefWidth="131.0" />
                   <VBox alignment="CENTER_LEFT" prefWidth="150.0" spacing="15.0">
                      <children>
-                        <Label text="All Topics" />
+                        <Label text="Play All Topics" />
                         <Label text="Select Topic" />
                         <Label text="How many Questions?" />
-                        <Label text="Randomized?" />
+                        <Label text="Shuffle Questions?" />
                      </children>
                   </VBox>
                   <VBox alignment="CENTER_LEFT" prefWidth="260.0" spacing="9.0">
@@ -70,4 +56,14 @@
          </children>
       </HBox>
    </bottom>
+   <top>
+      <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="80.0" prefWidth="600.0" text="Topic Selection" textAlignment="CENTER" BorderPane.alignment="CENTER">
+         <font>
+            <Font size="36.0" />
+         </font>
+         <BorderPane.margin>
+            <Insets top="50.0" />
+         </BorderPane.margin>
+      </Label>
+   </top>
 </BorderPane>

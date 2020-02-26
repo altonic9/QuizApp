@@ -87,14 +87,6 @@ public class ProfileSelectionController {
         Main.changeScene("topicSelection.fxml");
     }
 
-    public void openProfileManagment() {
-        Main.changeScene("profileManagment.fxml");
-    }
-
-    public void openEditor() {
-        Main.changeScene("editor.fxml");
-    }
-
     public void exit() {
         Main.changeScene("startScreen.fxml");
     }
