@@ -35,11 +35,14 @@ public class ProfileManagmentController {
     private ListView  total;
     @FXML
     private ListView positives;
+    @FXML
+    private TextField profileNameTF;
 
     public void initialize() {
         loadProfiles();
         changeNameBTN.setDisable(true);
         addProfileWithNameBTN.setDisable(true);
+        profileNameTF.setVisible(false);
     }
 
     @FXML
@@ -58,6 +61,8 @@ public class ProfileManagmentController {
 
     @FXML
     void editProfile(ActionEvent event) {
+        loadProfileLV.setVisible(false);
+        profileNameTF.setVisible(true);
         addProfileBTN.setDisable(true);
         deleteProfileBTN.setDisable(true);
         changeNameBTN.setDisable(false);
@@ -71,6 +76,7 @@ public class ProfileManagmentController {
             return;
         }
         selectedProfile = profiles.get(selectedItem);
+        profileNameTF.setText("Change Name from: " + selectedProfile.getName());
     }
 
     @FXML
@@ -108,6 +114,8 @@ public class ProfileManagmentController {
         addProfileBTN.setDisable(false);
         deleteProfileBTN.setDisable(false);
         changeNameBTN.setDisable(true);
+        loadProfileLV.setVisible(true);
+        profileNameTF.setVisible(false);
     }
 
     @FXML
@@ -139,6 +147,7 @@ public class ProfileManagmentController {
         deleteProfileBTN.setDisable(false);
         editProfileBTN.setDisable(false);
         addProfileWithNameBTN.setDisable(true);
+        loadProfileLV.setVisible(true);
     }
 
     @FXML
