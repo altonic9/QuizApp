@@ -106,7 +106,7 @@ public class EditorController {
     }
 
     public void deleteQuestionButton() {
-        // get index of selected item, returns -1 if none is selected
+        // get selected item, returns null if none is selected
         Question q = questionsListView.getSelectionModel().getSelectedItem();
 
         if (q == null) {

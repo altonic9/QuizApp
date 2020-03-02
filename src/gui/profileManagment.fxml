@@ -6,6 +6,7 @@
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
 <AnchorPane prefHeight="611.0" prefWidth="780.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.ProfileManagmentController">
@@ -15,21 +16,23 @@
             <Font size="48.0" />
          </font>
       </Label>
-      <ListView fx:id="loadProfileLV" layoutX="46.0" layoutY="86.0" prefHeight="386.0" prefWidth="152.0" />
-      <Button fx:id="loadBTN" layoutX="227.0" layoutY="279.0" mnemonicParsing="false" onAction="#loadProfiles" text="Load" />
-      <Button fx:id="deleteProfileBTN" layoutX="74.0" layoutY="481.0" mnemonicParsing="false" onAction="#deleteProfile" prefHeight="27.0" prefWidth="97.0" text="Delete" />
-      <Button fx:id="editProfileBTN" layoutX="74.0" layoutY="518.0" mnemonicParsing="false" onAction="#editProfile" prefHeight="27.0" prefWidth="97.0" text="Edit" />
-      <Button fx:id="addProfileBTN" layoutX="74.0" layoutY="552.0" mnemonicParsing="false" onAction="#addProfile" prefHeight="27.0" prefWidth="97.0" text="Add Profile" />
-      <Label fx:id="profilInfo" layoutX="313.0" layoutY="86.0" prefHeight="17.0" prefWidth="270.0" text="Profile Info" />
-      <Button layoutX="630.0" layoutY="552.0" mnemonicParsing="false" onAction="#close" prefHeight="27.0" prefWidth="116.0" text="Close" />
-      <Label layoutX="313.0" layoutY="102.0" prefHeight="17.0" prefWidth="78.0" text="Topic" />
-      <Label layoutX="441.0" layoutY="103.0" prefHeight="17.0" prefWidth="78.0" text="Total in %" />
-      <Label layoutX="572.0" layoutY="102.0" prefHeight="17.0" prefWidth="78.0" text="Positives in %" />
-      <TableView layoutX="300.0" layoutY="123.0" prefHeight="400.0" prefWidth="400.0">
+      <Label fx:id="profilInfo1" layoutX="346.0" layoutY="122.0" prefHeight="30.0" prefWidth="238.0" text="Statistics" />
+      <ListView fx:id="loadProfileLV" layoutX="46.0" layoutY="153.0" prefHeight="319.0" prefWidth="186.0" />
+      <Button layoutX="261.0" layoutY="280.0" mnemonicParsing="false" onAction="#onLoadBtn" prefWidth="60.0" text="Load" />
+      <VBox layoutX="74.0" layoutY="481.0" spacing="10.0">
+         <children>
+            <Button mnemonicParsing="false" onAction="#editProfile" prefHeight="27.0" prefWidth="97.0" text="Edit Name" />
+            <Button mnemonicParsing="false" onAction="#deleteProfile" prefHeight="27.0" prefWidth="97.0" text="Delete" />
+            <Button mnemonicParsing="false" onAction="#addProfile" prefHeight="27.0" prefWidth="97.0" text="New" />
+         </children>
+      </VBox>
+      <Label fx:id="profilInfo" layoutX="46.0" layoutY="122.0" prefHeight="30.0" prefWidth="238.0" text="Available Profiles" />
+      <Button layoutX="600.0" layoutY="555.0" mnemonicParsing="false" onAction="#close" prefHeight="27.0" prefWidth="116.0" text="Close" />
+      <TableView fx:id="historyTable" layoutX="346.0" layoutY="155.0" prefHeight="319.0" prefWidth="370.0">
         <columns>
-          <TableColumn fx:id="topicCol" prefWidth="75.0" text="Topic" />
-          <TableColumn fx:id="playedCol" prefWidth="75.0" text="Played %" />
-            <TableColumn fx:id="posCol" prefWidth="75.0" text="Positive %" />
+          <TableColumn fx:id="topicCol" prefWidth="211.99996948242188" text="Topic" />
+          <TableColumn fx:id="playedCol" minWidth="0.0" prefWidth="75.20001220703125" text="Played %" />
+            <TableColumn fx:id="posCol" minWidth="0.0" prefWidth="79.99993896484375" text="Positive %" />
         </columns>
       </TableView>
    </children>
