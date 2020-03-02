@@ -1,37 +1,43 @@
 package gui;
 
-import javafx.event.ActionEvent;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
+import javafx.scene.control.cell.PropertyValueFactory;
 import quiz.Profile;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 
 public class ProfileManagmentController {
 
+    @FXML
+    private ListView<Profile> loadProfileLV;
+
+    @FXML
+    private TableView<HistoryEntry> historyTable;
+    @FXML
+    private TableColumn<HistoryEntry, String> topicCol;
+    @FXML
+    private TableColumn<HistoryEntry, String> playedCol;
+    @FXML
+    private TableColumn<HistoryEntry, String> posCol;
+
     private ArrayList<Profile> profiles;
-    private Profile selectedProfile;
-    @FXML
-    private ListView loadProfileLV;
-    @FXML
-    private Label profilInfo;
-    @FXML
-    private Button addProfileBTN;
-    @FXML
-    private ListView  topicName;
-    @FXML
-    private Button deleteProfileBTN;
-    @FXML
-    private ListView  total;
-    @FXML
-    private ListView positives;
+
 
     public void initialize() {
+        // populate profile listview
         loadProfiles();
+
+        // set up table
+        topicCol.setCellValueFactory(new PropertyValueFactory<>("topic"));
+        playedCol.setCellValueFactory(new PropertyValueFactory<>("completed"));
+        posCol.setCellValueFactory(new PropertyValueFactory<>("correct"));
     }
 
-    @FXML
-    void deleteProfile(ActionEvent event) {
+    public void deleteProfile() {
         int selectedItem = loadProfileLV.getSelectionModel().getSelectedIndex();
         if (selectedItem < 0) {
             GuiUtil.showAlert("Missing Information", "Please choose Profile");
@@ -44,21 +50,18 @@ public class ProfileManagmentController {
         loadProfiles();
     }
 
-    @FXML
-    void editProfile(ActionEvent event) {
-        int selectedItem = loadProfileLV.getSelectionModel().getSelectedIndex();
-        if (selectedItem < 0) {
-            GuiUtil.showAlert("Missing Information", "Please choose Profile");
-            addProfileBTN.setVisible(true);
-            deleteProfileBTN.setVisible(true);
+    public void editProfile() {
+
+        Profile selectedProfile = loadProfileLV.getSelectionModel().getSelectedItem();
+        if (selectedProfile == null) {
+            GuiUtil.showAlert("Info", "No Profile selected");
             return;
         }
-        selectedProfile = profiles.get(selectedItem);
-        String name;
 
+        String name;
         // get user input
         while ( true ){
-            name = GuiUtil.showInputTextDialog("Edit Profile", "Please enter your Name:");
+            name = GuiUtil.showInputTextDialog("Change Name", "Please enter new Name:");
             if (name == null ) {  //user canceled
                 break;
             }
@@ -73,20 +76,15 @@ public class ProfileManagmentController {
         }
     }
 
-    @FXML
-    void loadProfiles() {
+    public void loadProfiles() {
         loadProfileLV.getItems().clear();
 
         profiles = Profile.getAllProfiles();
 
-        for (Profile p : profiles) {
-            loadProfileLV.getItems().add(p.getName());
-        }
+        loadProfileLV.getItems().addAll(profiles);
     }
 
-
-    @FXML
-    void addProfile(ActionEvent event) {
+    public void addProfile() {
         String name;
 
         // get user input
@@ -107,38 +105,48 @@ public class ProfileManagmentController {
         }
     }
 
+    public void onLoadBtn() {
+        ObservableList<HistoryEntry> historyList = FXCollections.observableArrayList();
 
-    @FXML
-    void loadProfiles(ActionEvent event) {
-        int selectedItem = loadProfileLV.getSelectionModel().getSelectedIndex();
-        if (selectedItem < 0) {
-            GuiUtil.showAlert("Missing Information", "Please choose Profile");
-            return;
+        Profile selectedProfile = loadProfileLV.getSelectionModel().getSelectedItem();
+        var history = selectedProfile.getHistory();
+
+        for (String topicName : history.keySet()) {
+            historyList.add( new HistoryEntry(topicName, history.get(topicName)[0], history.get(topicName)[1]) );
         }
-        profilInfo.setVisible(true);
-        topicName.getItems().clear();
-        total.getItems().clear();
-        positives.getItems().clear();
 
-        selectedProfile = profiles.get(selectedItem);
+        historyTable.setItems(historyList);
 
-        HashMap<String, float[]> statistics = selectedProfile.getHistory();
-
-        if (statistics.isEmpty()){
-            topicName.getItems().add("No Statistic");
-            total.getItems().add("No Statistic");
-            positives.getItems().add("No Statistics");
-        }else {
-            for (String topic : statistics.keySet()) {
-                float[] result = statistics.get(topic);
-                topicName.getItems().add(topic);
-                total.getItems().add(String.valueOf(result[0]));
-                positives.getItems().add(String.valueOf(result[1]));
-            }
-        }
     }
 
-    @FXML
-    void close(ActionEvent event) { Main.changeScene("startScreen.fxml"); }
+    public void close() {
+        Main.changeScene("startScreen.fxml");
+    }
+
+
+    // helper class in order to populate tableview (tableview needs objects)
+    public static class HistoryEntry {
+        private String topic;
+        private float completed;
+        private float correct;
+
+        public HistoryEntry(String topic, float completed, float correct) {
+            this.topic = topic;
+            this.completed = completed;
+            this.correct = correct;
+        }
+
+        // getter used by tableview, dont let the IDE fool you ;)
+        public String getTopic() {
+            return this.topic;
+        }
+        public String getCompleted() {
+            return String.valueOf(this.completed);
+        }
+        public String getCorrect() {
+            return String.valueOf(this.correct);
+        }
+
+    }
 
 }
