@@ -12,19 +12,9 @@ public class ProfileManagmentController {
     private ArrayList<Profile> profiles;
     private Profile selectedProfile;
     @FXML
-    private Label enterPnL;
-    @FXML
-    private Button changeNameBTN;
-    @FXML
-    private TextField editName;
-    @FXML
     private ListView loadProfileLV;
     @FXML
     private Label profilInfo;
-    @FXML
-    private Button addProfileWithNameBTN;
-    @FXML
-    private Button editProfileBTN;
     @FXML
     private Button addProfileBTN;
     @FXML
@@ -38,8 +28,6 @@ public class ProfileManagmentController {
 
     public void initialize() {
         loadProfiles();
-        changeNameBTN.setDisable(true);
-        addProfileWithNameBTN.setDisable(true);
     }
 
     @FXML
@@ -58,19 +46,31 @@ public class ProfileManagmentController {
 
     @FXML
     void editProfile(ActionEvent event) {
-        addProfileBTN.setDisable(true);
-        deleteProfileBTN.setDisable(true);
-        changeNameBTN.setDisable(false);
-
         int selectedItem = loadProfileLV.getSelectionModel().getSelectedIndex();
         if (selectedItem < 0) {
             GuiUtil.showAlert("Missing Information", "Please choose Profile");
             addProfileBTN.setVisible(true);
-            addProfileWithNameBTN.setVisible(true);
             deleteProfileBTN.setVisible(true);
             return;
         }
         selectedProfile = profiles.get(selectedItem);
+        String name;
+
+        // get user input
+        while ( true ){
+            name = GuiUtil.showInputTextDialog("Edit Profile", "Please enter your Name:");
+            if (name == null ) {  //user canceled
+                break;
+            }
+            else if (Profile.exists(name)) { // name alredy exists
+                GuiUtil.showAlert("Error", "Name's already taken, please try again: ");
+            }
+            else { // all fine, create profile, start game
+                Profile.findProfile(selectedProfile.getName()).changeName(name);
+                loadProfiles();
+                break;
+            }
+        }
     }
 
     @FXML
@@ -84,62 +84,29 @@ public class ProfileManagmentController {
         }
     }
 
-    @FXML
-    void changeName(ActionEvent event) {
-        changeNameBTN.setDisable(false);
-        enterPnL.setText("Enter your Profilename:");
-        int selectedItem = loadProfileLV.getSelectionModel().getSelectedIndex();
-        selectedProfile = profiles.get(selectedItem);
-
-        while (Profile.exists(editName.getText())){
-            GuiUtil.showAlert("Missing Information", "Name is not availible!");
-            return;
-        }
-        if (event.getSource() == changeNameBTN && editName.getText().isEmpty()){
-            GuiUtil.showAlert("Missing Information", "Please Enter a Name!");
-            return;
-        }
-        Profile.findProfile(selectedProfile.getName()).changeName(editName.getText());
-
-        editName.clear();
-
-        loadProfiles();
-
-        addProfileBTN.setDisable(false);
-        deleteProfileBTN.setDisable(false);
-        changeNameBTN.setDisable(true);
-    }
 
     @FXML
     void addProfile(ActionEvent event) {
-        deleteProfileBTN.setDisable(true);
-        editProfileBTN.setDisable(true);
-        addProfileWithNameBTN.setDisable(false);
+        String name;
+
+        // get user input
+        while ( true ){
+            name = GuiUtil.showInputTextDialog("New Profile", "Please enter your Name:");
+            if (name == null ) {  //user canceled
+                break;
+            }
+            else if (Profile.exists(name)) { // name alredy exists
+                GuiUtil.showAlert("Error", "Name's already taken, please try again: ");
+            }
+            else { // all fine, create profile, start game
+                Profile p = new Profile(name);
+                p.create();
+                loadProfiles();
+                break;
+            }
+        }
     }
 
-    @FXML
-    void addProfileWithName(ActionEvent event) {
-        enterPnL.setText("Enter your Profilename:");
-
-        while (Profile.exists(editName.getText())){
-            GuiUtil.showAlert("Missing Information", "Name is not availible!");
-            return;
-        }
-
-        if (event.getSource() == addProfileWithNameBTN && editName.getText().isEmpty()){
-            GuiUtil.showAlert("Missing Information", "Please Enter a Name!");
-            return;
-        }
-        Profile p = new Profile(editName.getText());
-        p.create();
-
-        editName.setText("");
-        loadProfiles();
-
-        deleteProfileBTN.setDisable(false);
-        editProfileBTN.setDisable(false);
-        addProfileWithNameBTN.setDisable(true);
-    }
 
     @FXML
     void loadProfiles(ActionEvent event) {
@@ -158,7 +125,9 @@ public class ProfileManagmentController {
         HashMap<String, float[]> statistics = selectedProfile.getHistory();
 
         if (statistics.isEmpty()){
-
+            topicName.getItems().add("No Statistic");
+            total.getItems().add("No Statistic");
+            positives.getItems().add("No Statistics");
         }else {
             for (String topic : statistics.keySet()) {
                 float[] result = statistics.get(topic);
