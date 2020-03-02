@@ -3,10 +3,12 @@
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ListView?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="611.0" prefWidth="780.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.ProfileManagmentController">
+<AnchorPane prefHeight="611.0" prefWidth="780.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.ProfileManagmentController">
    <children>
       <Label alignment="CENTER" layoutX="46.0" layoutY="23.0" prefHeight="53.0" prefWidth="681.0" text="Profile Editor">
          <font>
@@ -23,8 +25,12 @@
       <Label layoutX="313.0" layoutY="102.0" prefHeight="17.0" prefWidth="78.0" text="Topic" />
       <Label layoutX="441.0" layoutY="103.0" prefHeight="17.0" prefWidth="78.0" text="Total in %" />
       <Label layoutX="572.0" layoutY="102.0" prefHeight="17.0" prefWidth="78.0" text="Positives in %" />
-      <ListView fx:id="topicName" layoutX="313.0" layoutY="123.0" prefHeight="350.0" prefWidth="116.0" />
-      <ListView fx:id="total" layoutX="441.0" layoutY="123.0" prefHeight="350.0" prefWidth="116.0" />
-      <ListView fx:id="positives" layoutX="572.0" layoutY="123.0" prefHeight="350.0" prefWidth="116.0" />
+      <TableView layoutX="300.0" layoutY="123.0" prefHeight="400.0" prefWidth="400.0">
+        <columns>
+          <TableColumn fx:id="topicCol" prefWidth="75.0" text="Topic" />
+          <TableColumn fx:id="playedCol" prefWidth="75.0" text="Played %" />
+            <TableColumn fx:id="posCol" prefWidth="75.0" text="Positive %" />
+        </columns>
+      </TableView>
    </children>
 </AnchorPane>

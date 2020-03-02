@@ -14,17 +14,18 @@ public class ProfileManagmentController {
     @FXML
     private ListView loadProfileLV;
     @FXML
-    private Label profilInfo;
-    @FXML
     private Button addProfileBTN;
-    @FXML
-    private ListView  topicName;
     @FXML
     private Button deleteProfileBTN;
     @FXML
-    private ListView  total;
+    private TableView<HistoryEntry> historyTable;
     @FXML
-    private ListView positives;
+    private TableColumn<HistoryEntry, String> topicCol;
+    @FXML
+    private TableColumn<HistoryEntry, String> playedCol;
+    @FXML
+    private TableColumn<HistoryEntry, String> posCol;
+
 
     public void initialize() {
         loadProfiles();
@@ -84,9 +85,8 @@ public class ProfileManagmentController {
         }
     }
 
-
     @FXML
-    void addProfile(ActionEvent event) {
+    void addProfile() {
         String name;
 
         // get user input
@@ -107,38 +107,24 @@ public class ProfileManagmentController {
         }
     }
 
-
     @FXML
-    void loadProfiles(ActionEvent event) {
-        int selectedItem = loadProfileLV.getSelectionModel().getSelectedIndex();
-        if (selectedItem < 0) {
-            GuiUtil.showAlert("Missing Information", "Please choose Profile");
-            return;
-        }
-        profilInfo.setVisible(true);
-        topicName.getItems().clear();
-        total.getItems().clear();
-        positives.getItems().clear();
-
-        selectedProfile = profiles.get(selectedItem);
-
-        HashMap<String, float[]> statistics = selectedProfile.getHistory();
-
-        if (statistics.isEmpty()){
-            topicName.getItems().add("No Statistic");
-            total.getItems().add("No Statistic");
-            positives.getItems().add("No Statistics");
-        }else {
-            for (String topic : statistics.keySet()) {
-                float[] result = statistics.get(topic);
-                topicName.getItems().add(topic);
-                total.getItems().add(String.valueOf(result[0]));
-                positives.getItems().add(String.valueOf(result[1]));
-            }
-        }
+    void close() {
+        Main.changeScene("startScreen.fxml");
     }
 
-    @FXML
-    void close(ActionEvent event) { Main.changeScene("startScreen.fxml"); }
+
+    // helper class in order to populate tableview
+    public static class HistoryEntry {
+        public String  topic;
+        public float completed;
+        public float correct;
+
+        public HistoryEntry(String topic, float completed, float correct) {
+            this.topic = topic;
+            this.completed = completed;
+            this.correct = correct;
+        }
+
+    }
 
 }
