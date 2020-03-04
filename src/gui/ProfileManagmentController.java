@@ -112,7 +112,7 @@ public class ProfileManagmentController {
         var history = selectedProfile.getHistory();
 
         for (String topicName : history.keySet()) {
-            historyList.add( new HistoryEntry(topicName, history.get(topicName)[0], history.get(topicName)[1]) );
+            historyList.add( new HistoryEntry(topicName, round(history.get(topicName)[0]), round(history.get(topicName)[1])) );
         }
 
         historyTable.setItems(historyList);
@@ -121,6 +121,10 @@ public class ProfileManagmentController {
 
     public void close() {
         Main.changeScene("startScreen.fxml");
+    }
+
+    private float round(float value) {
+        return ((int) ((value + 0.05f) * 10)) / 10f;
     }
 
 
