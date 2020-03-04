@@ -106,10 +106,9 @@ public class ProfileManagmentController {
 
     public void onLoadBtn() {
         ObservableList<HistoryEntry> historyList = FXCollections.observableArrayList();
-        int selectedItem = loadProfileLV.getSelectionModel().getSelectedIndex();
         Profile selectedProfile = loadProfileLV.getSelectionModel().getSelectedItem();
 
-        if (selectedItem < 0) {
+        if (selectedProfile == null) {
             GuiUtil.showAlert("Missing Information", "Please choose Profile");
             return;
         }
