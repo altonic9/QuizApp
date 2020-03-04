@@ -75,7 +75,6 @@ public class EditorController {
 
         // get selected item (loadedTopic global var)
         loadedTopic = topicsListView.getSelectionModel().getSelectedItem();
-
         if (loadedTopic == null){
             GuiUtil.showAlert("Info", "No Topic selcted!");
             return;
