@@ -11,7 +11,6 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-
 <BorderPane prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.ProfileManagmentController">
    <bottom>
       <HBox alignment="BOTTOM_RIGHT" prefHeight="60.0" BorderPane.alignment="CENTER">
@@ -55,14 +54,14 @@
                   <Button mnemonicParsing="false" onAction="#onLoadBtn" prefWidth="60.0" text="Load" />
                </children>
             </VBox>
-            <VBox spacing="10.0">
+            <VBox prefWidth="370.0" spacing="10.0">
                <children>
                   <Label fx:id="profilInfo1" prefHeight="25.0" text="Statistics" />
-                  <TableView fx:id="historyTable" prefWidth="370.0">
+                  <TableView fx:id="historyTable">
                     <columns>
-                      <TableColumn fx:id="topicCol" prefWidth="211.99996948242188" text="Topic" />
-                      <TableColumn fx:id="playedCol" minWidth="0.0" prefWidth="75.20001220703125" text="Played %" />
-                        <TableColumn fx:id="posCol" minWidth="0.0" prefWidth="79.99993896484375" text="Positive %" />
+                      <TableColumn fx:id="topicCol" prefWidth="217.0" text="Topic" />
+                      <TableColumn fx:id="playedCol" maxWidth="75.0" minWidth="-1.0" prefWidth="75.0" resizable="false" text="Played %" />
+                        <TableColumn fx:id="posCol" maxWidth="75.0" minWidth="-1.0" prefWidth="75.0" resizable="false" text="Positive %" />
                     </columns>
                      <VBox.margin>
                         <Insets bottom="35.0" />

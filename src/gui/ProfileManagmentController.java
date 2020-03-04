@@ -14,7 +14,6 @@ public class ProfileManagmentController {
 
     @FXML
     private ListView<Profile> loadProfileLV;
-
     @FXML
     private TableView<HistoryEntry> historyTable;
     @FXML
@@ -109,8 +108,12 @@ public class ProfileManagmentController {
         ObservableList<HistoryEntry> historyList = FXCollections.observableArrayList();
 
         Profile selectedProfile = loadProfileLV.getSelectionModel().getSelectedItem();
-        var history = selectedProfile.getHistory();
+        if (selectedProfile == null) {
+            GuiUtil.showAlert("Missing Information", "Please choose Profile");
+            return;
+        }
 
+        var history = selectedProfile.getHistory();
         for (String topicName : history.keySet()) {
             historyList.add( new HistoryEntry(topicName, round(history.get(topicName)[0]), round(history.get(topicName)[1])) );
         }
