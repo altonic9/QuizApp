@@ -16,7 +16,7 @@
    <center>
       <VBox alignment="CENTER" BorderPane.alignment="CENTER">
          <children>
-            <HBox alignment="CENTER" prefHeight="280.0" prefWidth="800.0">
+            <HBox alignment="CENTER" prefHeight="220.0" prefWidth="800.0">
                <children>
                   <Pane prefHeight="455.0" prefWidth="131.0" />
                   <VBox alignment="CENTER_LEFT" prefWidth="150.0" spacing="15.0">

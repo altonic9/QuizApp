@@ -11,21 +11,19 @@
 
 <BorderPane prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.ProfileSelectionController">
    <center>
-      <HBox fx:id="menuHbox" alignment="CENTER" spacing="30.0" BorderPane.alignment="CENTER">
+      <HBox fx:id="menuHbox" alignment="CENTER" spacing="40.0" BorderPane.alignment="CENTER">
          <children>
-            <VBox alignment="CENTER" prefHeight="434.0" prefWidth="180.0" spacing="30.0">
-               <Label text="Hallo!" />
-               <Button mnemonicParsing="false" onAction="#onCreateUser" prefHeight="70.0" prefWidth="150.0" text="Create New User">
+            <VBox alignment="CENTER" prefHeight="395.0" prefWidth="180.0" spacing="30.0">
+               <Button mnemonicParsing="false" onAction="#onCreateUser" prefHeight="70.0" prefWidth="170.0" text="Create New Profile">
                   <font>
                      <Font size="14.0" />
                   </font>
                </Button>
-               <Button mnemonicParsing="false" onAction="#onLoadProfile" prefHeight="70.0" prefWidth="150.0" text="Load User">
+               <Button mnemonicParsing="false" onAction="#onLoadProfile" prefHeight="70.0" prefWidth="170.0" text="Select existing Profile">
                   <font>
                      <Font size="14.0" />
                   </font>
                </Button>
-               <Button mnemonicParsing="false" onAction="#exit" prefWidth="60.0" text="back" />
             </VBox>
          </children>
       </HBox>
@@ -36,9 +34,6 @@
    <right>
       <Pane prefHeight="574.0" prefWidth="160.0" BorderPane.alignment="CENTER" />
    </right>
-   <bottom>
-      <Pane prefHeight="30.0" prefWidth="800.0" BorderPane.alignment="CENTER" />
-   </bottom>
    <top>
       <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="80.0" prefWidth="600.0" text="Profile Selection" textAlignment="CENTER" BorderPane.alignment="CENTER">
          <font>
@@ -49,4 +44,15 @@
          </BorderPane.margin>
       </Label>
    </top>
+   <bottom>
+      <HBox alignment="BOTTOM_RIGHT" prefHeight="60.0" prefWidth="800.0" BorderPane.alignment="CENTER">
+         <children>
+            <Button mnemonicParsing="false" onAction="#exit" prefWidth="60.0" text="back">
+               <HBox.margin>
+                  <Insets bottom="20.0" right="40.0" />
+               </HBox.margin>
+            </Button>
+         </children>
+      </HBox>
+   </bottom>
 </BorderPane>
