@@ -112,15 +112,22 @@ public class GameScreenController {
 
             //label and dis/enable needed answer buttons
             String[] possAnswers = q.getPossibleAnswers();
+            int max_length = 0;
             for ( int i=0; i<4; i++) {
                 try {
                     answerBtns[i].setVisible(true);
                     answerBtns[i].setText(possAnswers[i]);
+                    if (max_length < possAnswers[i].length()) // get longest answertext to set all buttons to same size
+                        max_length = possAnswers[i].length();
                 }
-                catch (Exception ex) {
+                catch (Exception ex) { //possAnswers[i] out of bounds
                     answerBtns[i].setVisible(false);
                 }
             }
+
+            // same size for all answer buttons
+            for (Button b : answerBtns)
+                b.setPrefWidth(max_length * 7 + 22);
         }
         else {
             // enable textfield
