@@ -70,6 +70,10 @@ public class EditorController {
     }
 
     public void loadButton() {
+        if (loadedTopic == null){
+            GuiUtil.showAlert("Info", "No Topic selcted!");
+            return;
+        }
         // empty list
         questionsListView.getItems().clear();
 
