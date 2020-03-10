@@ -1,11 +1,9 @@
 package gui;
 
-import javafx.fxml.FXML;
 import quiz.Topic;
 
 
 public class StartScreenController {
-
 
     public void startQuiz() {
         if (Topic.getAllTopics().size() == 0) {
