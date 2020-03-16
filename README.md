@@ -2,9 +2,9 @@
 ###### DHBW Lörrach
  
 ##### Programmieren I: Projekt
- \
 
- Diese App besaß eine Ausgabe in der Konsole, die allerdings in Laufe der Entwicklung durch eine GUI ersetzt wurde.\
+\
+ Diese App besaß eine Ausgabe in der Konsole, die allerdings im Laufe der Entwicklung durch eine GUI ersetzt wurde.\
  Um die GUI zu benutzen, starte die `src/gui/Main.java` .
  
  \

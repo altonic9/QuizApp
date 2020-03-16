@@ -59,10 +59,22 @@ public class Question {
     public int getMcCrrAnswer() {return this.mcCrrAnswer;}
     // overloaded:
     public Boolean isCrrAnswer(int answer) {
+        // for multiple choice questions
         return answer == mcCrrAnswer;
     }
     public Boolean isCrrAnswer(String answer) {
-        return answer.toLowerCase().equals(textCrrAnswer.toLowerCase());
+        // for text questions
+
+        if (Utility.isNumeric(answer)) {
+            // if text answer is meant to be a number, do exact-compare
+            return answer.equals(textCrrAnswer);
+        }
+        else {
+            // if text answer is meant to be text, use levensthein distance to do a fuzzy-compare
+            // levensthein method lowercases input strings
+            int LD = Utility.levenstheinDistance(answer, textCrrAnswer);
+            return LD < 3;
+        }
     }
     public String getCrrAnswerString() {
         //returns correct answer in String type

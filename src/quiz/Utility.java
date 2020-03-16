@@ -1,9 +1,17 @@
 package quiz;
 
+import java.util.Arrays;
+import java.util.List;
 import java.util.UUID;
 
 
 public class Utility {
+
+    private static List<Character> allowedChars;
+
+    static {
+        allowedChars = Arrays.asList('0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '.', ',', '-', '+');
+    }
 
     public static String generateUUID() {
 
@@ -12,7 +20,24 @@ public class Utility {
         return uuid.toString();
     }
 
-    public static int levensthein(String str1, String str2) {
+    public static boolean isNumeric(String s) {
+        // convert String to char[] array
+        char[] chars = s.toCharArray();
+
+        // iterate through char array and check if char is part of allowed chars
+        for (char ch : chars) {
+            if ( !allowedChars.contains(ch) ) {
+                return false;
+            }
+        }
+
+        return true;
+    }
+
+    public static int levenstheinDistance(String str1, String str2) {
+        str1 = str1.toLowerCase();
+        str2 = str2.toLowerCase();
+
         // prepares an array for the levensthein algorithm
         int[][] distance = new int[str1.length()+1][str2.length()+1];
 
