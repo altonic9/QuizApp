@@ -46,9 +46,4 @@ public class Main extends Application {
         }
     }
 
-    public static void changeScene(Scene scene) {
-        //change scene by setting new scene
-        primaryStage.setScene(scene);
-    }
-
 }
